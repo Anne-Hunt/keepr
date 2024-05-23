@@ -16,10 +16,9 @@ CREATE TABLE IF NOT EXISTS keeps(
   name VARCHAR(255) NOT NULL,
   description VARCHAR(1000) NOT NULL,
   img VARCHAR(1000) NOT NULL,
-  views INT NOT NULL,
+  views INT NOT NULL DEFAULT 0,
   creatorId VARCHAR(255) NOT NULL,
-  FOREIGN KEY (creatorId) REFERENCES accounts (id) ON DELETE CASCADE,
-  
+  FOREIGN KEY (creatorId) REFERENCES accounts (id) ON DELETE CASCADE
 )
 
 CREATE TABLE IF NOT EXISTS vaultkeeps(
@@ -46,3 +45,13 @@ CREATE TABLE IF NOT EXISTS vaults(
   creatorId VARCHAR(255) NOT NULL,
   FOREIGN KEY (creatorId) REFERENCES accounts (id) ON DELETE CASCADE
 )
+
+SELECT
+keeps.*,
+COUNT(vaultkeeps.keepId) AS kept
+from
+keeps
+LEFT JOIN vaultkeeps on vaultkeeps.keepId = keeps.id
+GROUP BY
+(keeps.id)
+
