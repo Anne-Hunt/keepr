@@ -9,4 +9,6 @@ public class Keep
     public int Views { get; set; }
     public int Kept { get; set; }
     public Profile Creator { get; set; }
+    public DateTime CreatedAt { get; set; }
+    public DateTime UpdatedAt { get; set; }
 }

@@ -8,5 +8,7 @@ export class Vault{
         this.img = data.img
         this.isPrivate = data.isPrivate
         this.creator = data.creator
+        this.createdAt = data.createdAt
+        this.updatedAt = data.updatedAt
     }
 }

@@ -8,4 +8,6 @@ public class Vault
     public string Img { get; set; }
     public bool IsPrivate { get; set; }
     public Profile Creator { get; set; }
+    public DateTime CreatedAt { get; set; }
+    public DateTime UpdatedAt { get; set; }
 }

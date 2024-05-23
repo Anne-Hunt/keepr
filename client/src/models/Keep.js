@@ -10,5 +10,7 @@ export class Keep{
         this.views = data.views
         this.kept = data.kept
         this.creator = data.creator
+        this.createdAt = data.createdAt
+        this.updatedAt = data.updatedAt
     }
 }
