@@ -1,3 +1,4 @@
+
 namespace keepr.Repositories;
 
 public class KeepRepository
@@ -6,5 +7,10 @@ public class KeepRepository
     public KeepRepository(IDbConnection _db)
     {
         _db = db;
+    }
+
+    internal void TrashKeep(int keepId)
+    {
+        throw new NotImplementedException();
     }
 }

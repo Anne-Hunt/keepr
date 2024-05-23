@@ -1,6 +1,9 @@
-namespace keepr.Controllers;
+using Microsoft.AspNetCore.Http.HttpResults;
 
-public class KeepController
+namespace keepr.Controllers;
+[ApiController]
+[Route("api/[controller]")]
+public class KeepController : ControllerBase
 {
     private readonly KeepService _keepService;
     private readonly Auth0Provider _auth0Provider;
@@ -10,4 +13,65 @@ public class KeepController
         _keepService = keepService;
         _auth0Provider = auth0Provider;
     }
+
+    [HttpGet]
+    public ActionResult<List<Keep>> GetKeeps()
+    {
+        try
+        {
+            List<Keep> keeps = _keepService.GetKeeps();
+            return Ok(keeps);
+        }
+        catch (Exception exception)
+        {
+            return BadRequest(exception.Message);
+        }
+    }
+
+    [HttpGet("{keepId}")]
+    public ActionResult<Keep> GetKeepById(int keepId)
+    {
+        try
+        {
+            Keep keep = _keepService.GetKeepById(keepId);
+            return Ok(keep);
+        }
+        catch (Exception exception)
+        {
+            return BadRequest(exception.Message);
+        }
+    }
+
+    [Authorize]
+    [HttpPut("{keepId}")]
+    public async Task<ActionResult<Keep>> UpdateKeep(int keepId)
+    {
+        try
+        {
+            Account user = await _auth0Provider.GetUserInfoAsync<Account>(HttpContext);
+            Keep keep = _keepService.UpdateKeep(keepId, user.Id);
+            return Ok(keep);
+        }
+        catch (Exception exception)
+        {
+            return BadRequest(exception.Message);
+        }
+    }
+
+    [Authorize]
+    [HttpDelete("{keepId}")]
+    public async Task<ActionResult<string>> TrashKeep(int keepId)
+    {
+        try
+        {
+            Account user = await _auth0Provider.GetUserInfoAsync<Account>(HttpContext);
+            string message = _keepService.TrashKeep(keepId, user.Id);
+            return Ok(message);
+        }
+        catch (Exception exception)
+        {
+            return BadRequest(exception.Message);
+        }
+    }
+
 }
