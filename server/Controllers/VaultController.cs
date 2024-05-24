@@ -57,12 +57,12 @@ public class VaultController : ControllerBase
     }
 
     [HttpGet("{vaultId}/keeps")]
-    public async Task<ActionResult<List<Keep>>> GetKeepsByVault(int vaultId)
+    public async Task<ActionResult<List<KeptVaultKeep>>> GetKeepsByVault(int vaultId)
     {
         try
         {
             Account user = await _auth0Provider.GetUserInfoAsync<Account>(HttpContext);
-            List<Keep> keeps = new List<Keep>();
+            List<KeptVaultKeep> keeps = new List<KeptVaultKeep>();
             List<VaultKeep> vaultkeeps = new List<VaultKeep>();
             if (user != null)
             {
@@ -79,7 +79,7 @@ public class VaultController : ControllerBase
             foreach (VaultKeep vaultkeep in vaultkeeps)
             {
                 int keepId = vaultkeep.KeepId;
-                Keep keep = _keepService.GetKeepById(keepId);
+                KeptVaultKeep keep = _keepService.GetKeepsByVaultId(keepId);
                 keeps.Add(keep);
             }
             return Ok(keeps);

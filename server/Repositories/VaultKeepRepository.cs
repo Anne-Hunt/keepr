@@ -59,7 +59,7 @@ public class VaultKeepRepository
 
     internal void TrashVaultKeep(int vaultkeepId)
     {
-        string sql = "DELETE * FROM vaultkeeps WHERE vaultkeep.Id = @vaultkeepId;";
+        string sql = "DELETE FROM vaultkeeps WHERE vaultkeeps.Id = @vaultkeepId;";
         _db.Execute(sql, new { vaultkeepId });
     }
 

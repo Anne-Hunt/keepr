@@ -79,4 +79,10 @@ public class VaultService
         }
         return vaultCheck;
     }
+
+    internal List<Vault> GetMyVaults(string userId)
+    {
+        List<Vault> vaults = _repository.GetMyVaults(userId);
+        return vaults;
+    }
 }

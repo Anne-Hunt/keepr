@@ -110,28 +110,26 @@ public class KeepRepository
         _db.Execute(sql, new { keepId });
     }
 
-    // internal KeptVaultKeep GetKeepsByVaultId(int KeepId)
-    // {
-    //     string sql = @"
-    //     SELECT 
-    //     keeps.*,
-    //     accounts.*,
-    //     vaultkeeps.*
-    //     FROM keeps 
-    //     JOIN accounts ON keeps.CreatorId = accounts.Id
-    //     JOIN vaultkeeps ON keeps.Id = vaultkeeps.KeepId
-    //     WHERE keeps.Id = @keepId;";
+    internal KeptVaultKeep GetKeepsByVaultId(int KeepId)
+    {
+        string sql = @"
+        SELECT
+        keeps.*,
+        accounts.*,
+        vaultkeeps.*
+        FROM keeps
+        JOIN accounts ON keeps.CreatorId = accounts.Id
+        JOIN vaultkeeps ON keeps.Id = vaultkeeps.KeepId
+        WHERE keeps.Id = @KeepId;";
 
-    //     // KeptVaultKeep kept = _db.Query<VaultKeep, Keep, Profile, KeptVaultKeep>(sql, (vaultKeep, keep, profile) =>
-    //     // {
-    //     //     vaultKeep.KeepId = keep.Id;
-    //     //     kept.Creator = profile;
-    //     //     kept.KeepId = vaultkeep.KeepId;
-    //     //     kept.CreatorId = profile.Id;
-    //     //     return kept;
-    //     // }, new { KeepId }).FirstOrDefault();
-    //     // return kept;
-
-
-    // }
+        KeptVaultKeep kept = _db.Query<KeptVaultKeep, Profile, VaultKeep, KeptVaultKeep>(sql, (keptvault, profile, vaultkeep) =>
+        {
+            keptvault.Creator = profile;
+            keptvault.KeepId = vaultkeep.KeepId;
+            keptvault.CreatorId = vaultkeep.CreatorId;
+            keptvault.VaultKeepId = vaultkeep.Id;
+            return keptvault;
+        }, new { KeepId }).FirstOrDefault();
+        return kept;
+    }
 }

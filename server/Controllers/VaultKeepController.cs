@@ -9,11 +9,13 @@ public class VaultKeepController : ControllerBase
 {
     private readonly VaultKeepService _vaultKeepService;
     private readonly Auth0Provider _auth0Provider;
+    private readonly VaultService _vaultService;
 
-    public VaultKeepController(VaultKeepService vaultKeepService, Auth0Provider auth0Provider)
+    public VaultKeepController(VaultKeepService vaultKeepService, Auth0Provider auth0Provider, VaultService vaultService)
     {
         _vaultKeepService = vaultKeepService;
         _auth0Provider = auth0Provider;
+        _vaultService = vaultService;
     }
 
     [HttpGet]
@@ -46,14 +48,23 @@ public class VaultKeepController : ControllerBase
         }
     }
 
-    [Authorize]
     [HttpPost]
+    [Authorize]
 
     public async Task<ActionResult<VaultKeep>> CreateVaultKeep([FromBody] VaultKeep vaultkeepData)
     {
         try
         {
             Account user = await _auth0Provider.GetUserInfoAsync<Account>(HttpContext);
+            if (user == null)
+            {
+                throw new Exception("Unable to keep - please log in!");
+            }
+            Vault vault = _vaultService.GetVaultById(vaultkeepData.VaultId);
+            if (user.Id != vault.CreatorId)
+            {
+                throw new Exception("Not your vault to keep things in!");
+            }
             VaultKeep vaultkeep = _vaultKeepService.CreateVaultKeep(vaultkeepData, user.Id);
             return Ok(vaultkeep);
         }

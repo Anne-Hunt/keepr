@@ -107,7 +107,26 @@ public class VaultRepository
 
     internal void TrashVault(int vaultId)
     {
-        string sql = "DELETE * FROM vaults WHERE vaults.Id = @vaultId;";
+        string sql = "DELETE FROM vaults WHERE vaults.Id = @vaultId;";
         _db.Execute(sql, new { vaultId });
+    }
+
+    internal List<Vault> GetMyVaults(string userId)
+    {
+        string sql = @"
+        SELECT 
+        vaults.*,
+        accounts.*
+        FROM vaults
+        JOIN accounts ON accounts.Id = vaults.CreatorId
+        WHERE vaults.CreatorId = @userId
+        ;";
+
+        List<Vault> vaults = _db.Query<Vault, Profile, Vault>(sql, (vault, profile) =>
+        {
+            vault.Creator = profile;
+            return vault;
+        }, new { userId }).ToList();
+        return vaults;
     }
 }
