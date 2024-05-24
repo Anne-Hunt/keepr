@@ -1,5 +1,6 @@
 
 
+
 namespace keepr.Repositories;
 
 public class VaultKeepRepository
@@ -60,5 +61,16 @@ public class VaultKeepRepository
     {
         string sql = "DELETE * FROM vaultkeeps WHERE vaultkeep.Id = @vaultkeepId;";
         _db.Execute(sql, new { vaultkeepId });
+    }
+
+    internal List<VaultKeep> GetVaultKeepsByVault(int vaultId)
+    {
+        string sql = @"
+        SELECT *
+        FROM vaultkeeps
+        WHERE vaultkeeps.VaultId = @vaultId;";
+
+        List<VaultKeep> vaultkeeps = _db.Query<VaultKeep>(sql, new { vaultId }).ToList();
+        return vaultkeeps;
     }
 }

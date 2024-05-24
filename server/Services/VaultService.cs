@@ -60,4 +60,23 @@ public class VaultService
         return "Vault deleted!";
     }
 
+    internal Vault GetPublicVault(int vaultId)
+    {
+        Vault vaultCheck = GetVaultById(vaultId);
+        if (vaultCheck.IsPrivate == true)
+        {
+            throw new Exception("You don't own this private vault!");
+        }
+        return vaultCheck;
+    }
+
+    internal Vault GetPrivateVault(int vaultId, string userId)
+    {
+        Vault vaultCheck = _repository.GetVaultById(vaultId);
+        if (vaultCheck.CreatorId != userId)
+        {
+            throw new Exception("You don't own this private Vault!");
+        }
+        return vaultCheck;
+    }
 }

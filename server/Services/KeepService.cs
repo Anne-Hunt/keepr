@@ -59,4 +59,14 @@ public class KeepService
         _repository.TrashKeep(keepId);
         return "Deleted Keep";
     }
+
+    internal Keep GetKeepsByVaultId(int keepId)
+    {
+        Keep keep = _repository.GetKeepById(keepId);
+        if (keep == null)
+        {
+            throw new Exception("Unable to find keep!");
+        }
+        return keep;
+    }
 }
