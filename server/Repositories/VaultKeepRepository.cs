@@ -16,7 +16,7 @@ public class VaultKeepRepository
         SELECT
         *
         FROM vaultkeeps
-        WHERE vaultkeeps.Id = @vaulkeepId;";
+        WHERE vaultkeeps.Id = @vaultkeepId;";
 
         VaultKeep vaultkeep = _db.Query<VaultKeep>(sql, new { vaultkeepId }).FirstOrDefault();
         return vaultkeep;
@@ -45,7 +45,7 @@ public class VaultKeepRepository
             )VALUES(
                 @KeepId,
                 @VaultId,
-                @CreatorId,
+                @CreatorId
         );
         SELECT
         *

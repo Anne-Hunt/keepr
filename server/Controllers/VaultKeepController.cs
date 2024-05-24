@@ -4,7 +4,7 @@ using Microsoft.Extensions.Configuration.UserSecrets;
 namespace keepr.Controllers;
 
 [ApiController]
-[Route("api/[controller]")]
+[Route("api/[controller]s")]
 public class VaultKeepController : ControllerBase
 {
     private readonly VaultKeepService _vaultKeepService;

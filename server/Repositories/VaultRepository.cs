@@ -17,7 +17,7 @@ public class VaultRepository
         accounts.*
         FROM vaults
         JOIN accounts ON accounts.Id = vaults.CreatorId
-        WHERE vault.Id = @vaultId;";
+        WHERE vaults.Id = @vaultId;";
 
         Vault vault = _db.Query<Vault, Profile, Vault>(sql, (vault, profile) =>
         {

@@ -41,10 +41,11 @@ CREATE TABLE IF NOT EXISTS vaults(
   description VARCHAR(1000) NOT NULL,
   img VARCHAR(1000) NOT NULL,
   isPrivate BOOLEAN NOT NULL DEFAULT FALSE,
-  views INT NOT NULL,
   creatorId VARCHAR(255) NOT NULL,
   FOREIGN KEY (creatorId) REFERENCES accounts (id) ON DELETE CASCADE
 )
+
+DROP TABLE vaults;
 
 SELECT
 keeps.*,
