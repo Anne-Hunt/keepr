@@ -40,8 +40,12 @@ public class VaultService
         {
             throw new Exception("You can't update what isn't yours!");
         }
-        vaultData.Id = vaultId;
-        Vault vault = _repository.UpdateVault(vaultData);
+        vaultToUpdate.Name = vaultData.Name ?? vaultToUpdate.Name;
+        vaultToUpdate.Description = vaultData.Description ?? vaultToUpdate.Description;
+        vaultToUpdate.Img = vaultData.Img ?? vaultToUpdate.Img;
+        vaultToUpdate.IsPrivate = vaultData.IsPrivate ?? vaultToUpdate.IsPrivate;
+
+        Vault vault = _repository.UpdateVault(vaultToUpdate);
         return vault;
     }
 

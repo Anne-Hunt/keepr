@@ -40,8 +40,11 @@ public class KeepService
         {
             throw new Exception("You cannot update what is not yours!");
         }
-        keepdata.CreatorId = userId;
-        Keep keep = _repository.UpdateKeep(keepdata);
+        keepToUpdate.Name = keepdata.Name ?? keepToUpdate.Name;
+        keepToUpdate.Description = keepdata.Description ?? keepToUpdate.Description;
+        keepToUpdate.Img = keepdata.Img ?? keepToUpdate.Img;
+
+        Keep keep = _repository.UpdateKeep(keepToUpdate);
         return keep;
     }
 

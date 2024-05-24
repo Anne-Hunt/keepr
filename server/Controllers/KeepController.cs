@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Http.HttpResults;
 
 namespace keepr.Controllers;
 [ApiController]
-[Route("api/[controller]")]
+[Route("api/[controller]s")]
 public class KeepController : ControllerBase
 {
     private readonly KeepService _keepService;

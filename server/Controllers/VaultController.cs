@@ -50,7 +50,7 @@ public class VaultController : ControllerBase
         try
         {
             Account user = await _auth0Provider.GetUserInfoAsync<Account>(HttpContext);
-            Vault vault = _vaultService.CreateKeep(vaultData, user.Id);
+            Vault vault = _vaultService.CreateVault(vaultData, user.Id);
             return Ok(vault);
         }
         catch (Exception exception)
