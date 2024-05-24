@@ -43,13 +43,30 @@ public class VaultController : ControllerBase
     }
 
     [Authorize]
-    [HttpPut("{vaultId}")]
-    public async Task<ActionResult<Vault>> UpdateVault(int vaultId)
+    [HttpPost]
+
+    public async Task<ActionResult<Vault>> CreateVault([FromBody] Vault vaultData)
     {
         try
         {
             Account user = await _auth0Provider.GetUserInfoAsync<Account>(HttpContext);
-            Vault vault = _vaultService.UpdateVault(vaultId, user.Id);
+            Vault vault = _vaultService.CreateKeep(vaultData, user.Id);
+            return Ok(vault);
+        }
+        catch (Exception exception)
+        {
+            return BadRequest(exception.Message);
+        }
+    }
+
+    [Authorize]
+    [HttpPut("{vaultId}")]
+    public async Task<ActionResult<Vault>> UpdateVault(Vault vaultData, int vaultId)
+    {
+        try
+        {
+            Account user = await _auth0Provider.GetUserInfoAsync<Account>(HttpContext);
+            Vault vault = _vaultService.UpdateVault(vaultData, vaultId, user.Id);
             return Ok(vault);
         }
         catch (Exception exception)
@@ -73,5 +90,4 @@ public class VaultController : ControllerBase
             return BadRequest(exception.Message);
         }
     }
-
 }

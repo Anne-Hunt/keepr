@@ -30,12 +30,29 @@ public class VaultKeepController : ControllerBase
     }
 
     [HttpGet("{vaultkeepId}")]
-    public ActionResult<Keep> GetKeepById(int vaultkeepId)
+    public ActionResult<VaultKeep> GetKeepById(int vaultkeepId)
     {
         try
         {
-            Keep keep = _vaultKeepService.GetVaultKeepById(vaultkeepId);
-            return Ok(keep);
+            VaultKeep vaultkeep = _vaultKeepService.GetVaultKeepById(vaultkeepId);
+            return Ok(vaultkeep);
+        }
+        catch (Exception exception)
+        {
+            return BadRequest(exception.Message);
+        }
+    }
+
+    [Authorize]
+    [HttpPost]
+
+    public async Task<ActionResult<VaultKeep>> CreateVaultKeep([FromBody] VaultKeep vaultkeepData)
+    {
+        try
+        {
+            Account user = await _auth0Provider.GetUserInfoAsync<Account>(HttpContext);
+            VaultKeep vaultkeep = _vaultKeepService.CreateVaultKeep(vaultkeepData, user.Id);
+            return Ok(vaultkeep);
         }
         catch (Exception exception)
         {

@@ -12,10 +12,21 @@ public class KeepService
 
     internal List<Keep> GetKeeps()
     {
-        throw new NotImplementedException();
+        List<Keep> keeps = _repository.GetKeeps();
+        return keeps;
     }
 
     internal Keep GetKeepById(int keepId)
+    {
+        Keep keep = _repository.GetKeepById(keepId);
+        if (keep == null)
+        {
+            throw new Exception("Unable to find keep!");
+        }
+        return keep;
+    }
+
+    internal Keep CreateKeep(Keep keepData, string id)
     {
         throw new NotImplementedException();
     }

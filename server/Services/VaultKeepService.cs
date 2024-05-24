@@ -10,18 +10,36 @@ public class VaultKeepService
         _repository = repository;
     }
 
-    internal Keep GetVaultKeepById(int vaultkeepId)
+    internal VaultKeep CreateVaultKeep(VaultKeep vaultkeepData, string userId)
     {
-        throw new NotImplementedException();
+        VaultKeep vaultkeep = _repository.CreateVaultKeep(vaultkeepData, userId);
+        return vaultkeep;
+    }
+
+    internal VaultKeep GetVaultKeepById(int vaultkeepId)
+    {
+        VaultKeep vaultkeep = _repository.GetVaultKeepById(vaultkeepId);
+        if (vaultkeep == null)
+        {
+            throw new Exception("Unable to find vaultkeep!");
+        }
+        return vaultkeep;
     }
 
     internal List<VaultKeep> GetVaultKeeps()
     {
-        throw new NotImplementedException();
+        List<VaultKeep> vaultkeeps = _repository.GetVaultKeeps();
+        return vaultkeeps;
     }
 
-    internal string TrashVaultKeep(int vaultkeepId, string id)
+    internal string TrashVaultKeep(int vaultkeepId, string userId)
     {
-        throw new NotImplementedException();
+        VaultKeep foundVK = GetVaultKeepById(vaultkeepId);
+        if (foundVK.CreatorId != userId)
+        {
+            throw new Exception("You cannot delete what isn't yours!");
+        }
+        _repository.TrashVaultKeep(vaultkeepId);
+        return "VaultKeep deleted!";
     }
 }

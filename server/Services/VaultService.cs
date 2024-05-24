@@ -10,23 +10,48 @@ public class VaultService
         _repository = repository;
     }
 
-    internal Vault GetVaultById(int vaultId)
-    {
-        throw new NotImplementedException();
-    }
-
     internal List<Vault> GetVaults()
     {
-        throw new NotImplementedException();
+        List<Vault> vaults = _repository.GetVaults();
+        return vaults;
     }
 
-    internal string TrashVault(int vaultId, string id)
+    internal Vault GetVaultById(int vaultId)
     {
-        throw new NotImplementedException();
+        Vault vault = _repository.GetVaultById(vaultId);
+        if (vault == null)
+        {
+            throw new Exception("Unable to find vault!");
+        }
+        return vault;
     }
 
-    internal Vault UpdateVault(int vaultId, string id)
+    internal Vault CreateKeep(Vault vaultData, string userId)
     {
-        throw new NotImplementedException();
+        Vault vault = _repository.CreateVault(vaultData, userId);
+        return vault;
     }
+
+    internal Vault UpdateVault(Vault vaultData, int vaultId, string userId)
+    {
+        Vault vaultToUpdate = GetVaultById(vaultId);
+        if (vaultToUpdate.CreatorId != userId)
+        {
+            throw new Exception("You can't update what isn't yours!");
+        }
+        Vault vault = _repository.UpdateVault(vaultData, vaultId);
+        return vault;
+    }
+
+    internal string TrashVault(int vaultId, string userId)
+    {
+        Vault vaultTrash = GetVaultById(vaultId);
+        if (vaultTrash.CreatorId != userId)
+        {
+            throw new Exception("You can't delete what isn't yours!");
+        }
+        _repository.TrashVault(vaultId);
+        return "Vault deleted!";
+    }
+
 }
