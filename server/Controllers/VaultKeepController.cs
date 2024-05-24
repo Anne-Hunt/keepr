@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Http.HttpResults;
+using Microsoft.Extensions.Configuration.UserSecrets;
 
 namespace keepr.Controllers;
 
@@ -16,11 +17,13 @@ public class VaultKeepController : ControllerBase
     }
 
     [HttpGet]
-    public ActionResult<List<VaultKeep>> GetVaultKeeps()
+    public async Task<ActionResult<List<VaultKeep>>> GetVaultKeeps()
     {
         try
         {
-            List<VaultKeep> vaultkeeps = _vaultKeepService.GetVaultKeeps();
+            Account user = await _auth0Provider.GetUserInfoAsync<Account>(HttpContext);
+            string userId = user.Id;
+            List<VaultKeep> vaultkeeps = _vaultKeepService.GetVaultKeeps(userId);
             return Ok(vaultkeeps);
         }
         catch (Exception exception)

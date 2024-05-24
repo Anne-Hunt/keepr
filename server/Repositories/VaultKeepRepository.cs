@@ -4,29 +4,61 @@ namespace keepr.Repositories;
 
 public class VaultKeepRepository
 {
-    private readonly IDbConnection db;
-    public VaultKeepRepository(IDbConnection _db)
+    private readonly IDbConnection _db;
+    public VaultKeepRepository(IDbConnection db)
     {
         _db = db;
     }
 
-    internal VaultKeep CreateVaultKeep(VaultKeep vaultkeepData, string userId)
-    {
-        throw new NotImplementedException();
-    }
-
     internal VaultKeep GetVaultKeepById(int vaultkeepId)
     {
-        throw new NotImplementedException();
+        string sql = @"
+        SELECT
+        *
+        FROM vaultkeeps
+        WHERE vaultkeeps.Id = @vaulkeepId;";
+
+        VaultKeep vaultkeep = _db.Query<VaultKeep>(sql, new { vaultkeepId }).FirstOrDefault();
+        return vaultkeep;
     }
 
-    internal List<VaultKeep> GetVaultKeeps()
+    internal List<VaultKeep> GetVaultKeeps(string userId)
     {
-        throw new NotImplementedException();
+        string sql = @"
+        SELECT
+        * 
+        FROM vaultkeeps
+        WHERE vaultkeeps.CreatorId = @userId;";
+
+        List<VaultKeep> vaultkeeps = _db.Query<VaultKeep>(sql, new { userId }).ToList();
+        return vaultkeeps;
+    }
+
+    internal VaultKeep CreateVaultKeep(VaultKeep vaultkeepData, string UserId)
+    {
+        string sql = @"
+        INSERT INTO
+        vaultkeeps(
+            keepId,
+            vaultId,
+            creatorId
+            )VALUES(
+                @KeepId,
+                @VaultId,
+                @UserId,
+        );
+        SELECT
+        *
+        FROM vaultkeeps
+        WHERE vaultkeeps.Id = LAST_INSERT_ID();";
+
+        VaultKeep vaultkeep = _db.Query<VaultKeep>(sql, (vaultkeepData, new { UserId })).FirstOrDefault();
+        return vaultkeep;
     }
 
     internal void TrashVaultKeep(int vaultkeepId)
     {
-        throw new NotImplementedException();
+        string sql = "DELETE * FROM vaultkeeps WHERE vaultkeep.Id = @vaultkeepId;";
+        _db.Execute(sql, new { vaultkeepId });
     }
 }
