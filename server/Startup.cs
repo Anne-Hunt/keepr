@@ -39,6 +39,8 @@ public class Startup
     services.AddScoped<VaultKeepService>();
     services.AddScoped<VaultRepository>();
     services.AddScoped<VaultService>();
+    services.AddScoped<ProfileService>();
+    services.AddScoped<ProfileRepository>();
 
   }
 

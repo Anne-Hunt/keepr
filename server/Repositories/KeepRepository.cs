@@ -1,6 +1,7 @@
 
 
 
+
 namespace keepr.Repositories;
 
 public class KeepRepository
@@ -131,5 +132,23 @@ public class KeepRepository
             return keptvault;
         }, new { KeepId }).FirstOrDefault();
         return kept;
+    }
+
+    internal Keep GetKeepsByVaultKeep(int keepId)
+    {
+        string sql = @"
+        SELECT
+        keeps.*,
+        accounts.*
+        FROM keeps
+        JOIN accounts ON accounts.Id = keeps.CreatorId
+        WHERE keeps.Id = @keepId;";
+
+        Keep keep = _db.Query<Keep, Profile, Keep>(sql, (keep, profile) =>
+        {
+            keep.Creator = profile;
+            return keep;
+        }, new { keepId }).FirstOrDefault();
+        return keep;
     }
 }

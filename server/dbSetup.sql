@@ -45,7 +45,7 @@ CREATE TABLE IF NOT EXISTS vaults(
   FOREIGN KEY (creatorId) REFERENCES accounts (id) ON DELETE CASCADE
 )
 
-DROP TABLE vaults;
+DROP TABLE keeps;
 
 SELECT
 keeps.*,

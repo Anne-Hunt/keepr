@@ -1,4 +1,5 @@
 
+
 namespace keepr.Repositories;
 
 public class VaultRepository
@@ -127,6 +128,24 @@ public class VaultRepository
             vault.Creator = profile;
             return vault;
         }, new { userId }).ToList();
+        return vaults;
+    }
+
+    internal List<Vault> GetPublicVaults(string profileId)
+    {
+        string sql = @"
+        SELECT 
+        vaults.*,
+        accounts.*
+        FROM vaults
+        JOIN accounts ON accounts.Id = vaults.CreatorId
+        WHERE vaults.CreatorId = @profileId AND vaults.isPrivate = false;";
+
+        List<Vault> vaults = _db.Query<Vault, Profile, Vault>(sql, (vault, profile) =>
+        {
+            vault.Creator = profile;
+            return vault;
+        }, new { profileId }).ToList();
         return vaults;
     }
 }
