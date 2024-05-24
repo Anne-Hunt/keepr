@@ -12,7 +12,8 @@ public class VaultKeepService
 
     internal VaultKeep CreateVaultKeep(VaultKeep vaultkeepData, string userId)
     {
-        VaultKeep vaultkeep = _repository.CreateVaultKeep(vaultkeepData, userId);
+        vaultkeepData.CreatorId = userId;
+        VaultKeep vaultkeep = _repository.CreateVaultKeep(vaultkeepData);
         return vaultkeep;
     }
 

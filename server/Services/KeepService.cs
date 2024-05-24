@@ -28,7 +28,8 @@ public class KeepService
 
     internal Keep CreateKeep(Keep keepData, string userId)
     {
-        Keep keep = _repository.CreateKeep(keepData, userId);
+        keepData.CreatorId = userId;
+        Keep keep = _repository.CreateKeep(keepData);
         return keep;
     }
 
@@ -39,12 +40,18 @@ public class KeepService
         {
             throw new Exception("You cannot update what is not yours!");
         }
-        Keep keep = _repository.UpdateKeep(keepdata, keepId);
+        keepdata.CreatorId = userId;
+        Keep keep = _repository.UpdateKeep(keepdata);
         return keep;
     }
 
     internal string TrashKeep(int keepId, string userId)
     {
+        Keep keep = GetKeepById(keepId);
+        if (keep.CreatorId != userId)
+        {
+            throw new Exception("You cannot delete what is not yours!");
+        }
         _repository.TrashKeep(keepId);
         return "Deleted Keep";
     }

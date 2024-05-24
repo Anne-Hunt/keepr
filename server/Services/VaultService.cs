@@ -26,9 +26,10 @@ public class VaultService
         return vault;
     }
 
-    internal Vault CreateKeep(Vault vaultData, string userId)
+    internal Vault CreateVault(Vault vaultData, string userId)
     {
-        Vault vault = _repository.CreateVault(vaultData, userId);
+        vaultData.CreatorId = userId;
+        Vault vault = _repository.CreateVault(vaultData);
         return vault;
     }
 
@@ -39,7 +40,8 @@ public class VaultService
         {
             throw new Exception("You can't update what isn't yours!");
         }
-        Vault vault = _repository.UpdateVault(vaultData, vaultId);
+        vaultData.Id = vaultId;
+        Vault vault = _repository.UpdateVault(vaultData);
         return vault;
     }
 

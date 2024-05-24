@@ -34,7 +34,7 @@ public class VaultKeepRepository
         return vaultkeeps;
     }
 
-    internal VaultKeep CreateVaultKeep(VaultKeep vaultkeepData, string UserId)
+    internal VaultKeep CreateVaultKeep(VaultKeep vaultkeepData)
     {
         string sql = @"
         INSERT INTO
@@ -45,14 +45,14 @@ public class VaultKeepRepository
             )VALUES(
                 @KeepId,
                 @VaultId,
-                @UserId,
+                @CreatorId,
         );
         SELECT
         *
         FROM vaultkeeps
         WHERE vaultkeeps.Id = LAST_INSERT_ID();";
 
-        VaultKeep vaultkeep = _db.Query<VaultKeep>(sql, (vaultkeepData, new { UserId })).FirstOrDefault();
+        VaultKeep vaultkeep = _db.Query<VaultKeep>(sql, (vaultkeepData)).FirstOrDefault();
         return vaultkeep;
     }
 

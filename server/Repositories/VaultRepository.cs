@@ -44,7 +44,7 @@ public class VaultRepository
         return vaults;
     }
 
-    internal Vault CreateVault(Vault vaultData, string userId)
+    internal Vault CreateVault(Vault vaultData)
     {
         string sql = @"
         INSERT INTO
@@ -79,7 +79,7 @@ public class VaultRepository
         return vault;
     }
 
-    internal Vault UpdateVault(Vault vaultData, int vaultId)
+    internal Vault UpdateVault(Vault vaultData)
     {
         string sql = @"
         UPDATE vaults
@@ -87,14 +87,15 @@ public class VaultRepository
         name = @Name,
         description = @Description,
         img = @Img,
-        isPrivate = @IsPrivate;
+        isPrivate = @IsPrivate
+        WHERE id = @Id;
         
         SELECT
         vaults.*,
         accounts.*
         FROM vaults
         JOIN accounts ON accounts.Id = vaults.CreatorId
-        WHERE vaults.Id = vaultId;";
+        WHERE vaults.Id = @Id;";
 
         Vault vault = _db.Query<Vault, Profile, Vault>(sql, (vault, profile) =>
         {
