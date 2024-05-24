@@ -26,14 +26,21 @@ public class KeepService
         return keep;
     }
 
-    internal Keep CreateKeep(Keep keepData, string id)
+    internal Keep CreateKeep(Keep keepData, string userId)
     {
-        throw new NotImplementedException();
+        Keep keep = _repository.CreateKeep(keepData, userId);
+        return keep;
     }
 
-    internal Keep UpdateKeep(int keepId, string userId)
+    internal Keep UpdateKeep(Keep keepdata, int keepId, string userId)
     {
-        throw new NotImplementedException();
+        Keep keepToUpdate = GetKeepById(keepId);
+        if (keepToUpdate.CreatorId != userId)
+        {
+            throw new Exception("You cannot update what is not yours!");
+        }
+        Keep keep = _repository.UpdateKeep(keepdata, keepId);
+        return keep;
     }
 
     internal string TrashKeep(int keepId, string userId)
