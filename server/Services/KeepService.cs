@@ -40,6 +40,7 @@ public class KeepService
         {
             throw new Exception("You cannot update what is not yours!");
         }
+        keepToUpdate.Id = keepId;
         keepToUpdate.Name = keepdata.Name ?? keepToUpdate.Name;
         keepToUpdate.Description = keepdata.Description ?? keepToUpdate.Description;
         keepToUpdate.Img = keepdata.Img ?? keepToUpdate.Img;

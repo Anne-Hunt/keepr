@@ -93,7 +93,7 @@ public class KeepRepository
         accounts.*
         FROM keeps
         JOIN accounts ON accounts.Id = keeps.CreatorId
-        WHERE keeps.Id = @keepId;";
+        WHERE keeps.Id = @Id;";
 
         Keep keep = _db.Query<Keep, Profile, Keep>(sql, (keep, profile) =>
         {
@@ -105,7 +105,7 @@ public class KeepRepository
 
     internal void TrashKeep(int keepId)
     {
-        string sql = "DELETE * FROM keeps WHERE keeps.Id = keepId;";
+        string sql = "DELETE FROM keeps WHERE keeps.Id = @keepId;";
         _db.Execute(sql, new { keepId });
     }
 }
