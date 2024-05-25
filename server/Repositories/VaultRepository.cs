@@ -139,7 +139,7 @@ public class VaultRepository
         accounts.*
         FROM vaults
         JOIN accounts ON accounts.Id = vaults.CreatorId
-        WHERE vaults.CreatorId = @profileId;";
+        WHERE vaults.IsPrivate = 0 AND vaults.CreatorId = @profileId;";
 
         List<Vault> vaults = _db.Query<Vault, Profile, Vault>(sql, (vault, profile) =>
         {
