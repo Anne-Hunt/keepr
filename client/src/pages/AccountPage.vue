@@ -1,20 +1,56 @@
 <script setup>
-import { computed } from 'vue';
+import { computed, onMounted } from 'vue';
 import { AppState } from '../AppState.js';
 import VaultCard from '../components/VaultCard.vue';
 import KeepCard from '../components/KeepCard.vue';
+import Pop from '../utils/Pop.js';
+import { logger } from '../utils/Logger.js';
+import { accountService } from '../services/AccountService.js';
 
 
 
 const account = computed(()=> AppState.account)
 const vaults = computed(()=>AppState.vaults)
 const keeps = computed(()=>AppState.keeps)
+const vaultcount = computed(()=>AppState.vaults.length)
+const keepcount = computed(()=>AppState.keeps.length)
+
+async function getMyContent(){
+  try {
+    const vaults = await accountService.getMyVaults()
+    logger.log(vaults)
+    const keeps = await accountService.getMyKeeps()
+    logger.log(keeps)
+    const vaultkeeps = await accountService.getMyVaultKeeps()
+    logger.log(vaultkeeps)
+  }
+  catch (error){
+    Pop.error("Unable to get your stuff!");
+    logger.log("Unable to get vaults and keeps", error)
+  }
+}
+
+onMounted(()=>{
+  getMyContent()
+})
 </script>
 
 
 <template>
 <div class="container">
-<div class="row mb-3" :style="{backgroundImage: `url(${account?.coverImg})`}"></div>
+<div class="row mb-3 coverImg justify-content-center align-items-end shadow" :style="{backgroundImage: `url(${account?.coverImg})`}">
+  <img class="coverImg rounded-circle shadow" :src="account?.picture"/>
+</div>
+<div class="row justify-content-center mb-3">
+<h2>{{ account?.name }}</h2>
+<div v-if="vaults" class="col-6">
+  <h5>{{ vaultcount }} Vaults</h5>
+</div>
+<span v-if="vaults && keeps">|</span>
+<div v-if="keeps" class="col-6">
+  <h5>{{ keepcount }} Keeps</h5>
+</div>
+</div>
 <div class="row">
     <h3 class="mb-3">Vaults</h3>
     <div class="col-4 mb-3" v-for="vault in vaults" :key="vault.id">
@@ -32,5 +68,13 @@ const keeps = computed(()=>AppState.keeps)
 
 
 <style lang="scss" scoped>
-
+.coverImg{
+  height: 40dvh;
+}
+.profileImg{
+  height: 20dvh;
+  width: 20dvh;
+  object-fit: cover;
+  object-position: center;
+}
 </style>

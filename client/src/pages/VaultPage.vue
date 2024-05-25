@@ -1,7 +1,6 @@
 <script setup>
-import { computed } from 'vue';
+import { computed, onMounted } from 'vue';
 import { AppState } from '../AppState.js';
-import VaultCard from '../components/VaultCard.vue';
 import KeepCard from '../components/KeepCard.vue';
 import Pop from '../utils/Pop.js';
 import { logger } from '../utils/Logger.js';
@@ -21,6 +20,10 @@ catch (error){
   logger.log("unable to get keeps for vault", error)
 }
 }
+
+onMounted(()=>{
+    getKeeps()
+})
 </script>
 
 
