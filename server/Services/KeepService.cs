@@ -72,7 +72,7 @@ public class KeepService
 
     internal Keep GetKeepByVaultKeep(int keepId)
     {
-        Keep keep = _repository.GetKeepsByVaultKeep(keepId);
+        Keep keep = _repository.GetKeepById(keepId);
         return keep;
     }
 }

@@ -23,6 +23,10 @@ public class ProfileService
         List<VaultKeep> vaultkeeps = new List<VaultKeep>();
         foreach (Vault vault in vaults)
         {
+            if (vault.IsPrivate == true)
+            {
+                return null;
+            }
             List<VaultKeep> vaultkeepsByVault = _vaultkeepService.GetVaultKeepByVault(vault.Id);
             vaultkeeps.AddRange(vaultkeepsByVault);
         }
