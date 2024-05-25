@@ -34,11 +34,11 @@ public class ProfileController : ControllerBase
     }
 
     [HttpGet("{profileId}/keeps")]
-    public ActionResult<List<Keep>> GetKeepsByProfile(string profileId)
+    public ActionResult<List<KeptVaultKeep>> GetKeepsByProfile(string profileId)
     {
         try
         {
-            List<Keep> keeps = _profileService.GetKeepsByProfile(profileId);
+            List<KeptVaultKeep> keeps = _keepService.GetKeepsByProfile(profileId);
             return Ok(keeps);
         }
         catch (Exception exception)

@@ -75,4 +75,10 @@ public class KeepService
         Keep keep = _repository.GetKeepById(keepId);
         return keep;
     }
+
+    internal List<KeptVaultKeep> GetKeepsByProfile(string profileId)
+    {
+        List<KeptVaultKeep> keeps = _repository.GetKeepsByProfile(profileId);
+        return keeps;
+    }
 }
