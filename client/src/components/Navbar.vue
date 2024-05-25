@@ -18,16 +18,16 @@ function toggleTheme() {
 </script>
 
 <template>
-  <nav class="navbar navbar-expand-sm navbar-dark px-3 shadow">
-    <router-link class="navbar-brand d-flex" :to="{ name: 'Home' }">
+  <nav class="navbar navbar-expand-sm navbar-dark px-3 shadow mb-3">
+    <RouterLink class="navbar-brand d-flex" :to="{ name: 'Home' }">
       <div class="d-flex flex-column align-items-center">
         <span class="btn btn-dark-outline rounded d-flex align-items-center"><i class="mdi mdi-lock-open fs-3 text-dark"></i>HOME</span>
       </div>
-    </router-link>
+    </RouterLink>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
     <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle text-dark d-flex align-items-center" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+          <a class="nav-link dropdown-toggle text-dark d-flex flex-column align-items-center" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             <strong>CREATE</strong>
           </a>
           <ul class="dropdown-menu">
@@ -35,7 +35,7 @@ function toggleTheme() {
             <li><a class="dropdown-item" href="#">Create Keep</a></li>
           </ul>
         </li>
-        <router-link :to="{ name: 'About' }" class="btn text-dark btn btn-dark-outline rounded">
+        <router-link :to="{ name: 'About' }" class="btn text-dark btn btn-dark-outline rounded d-flex flex-column align-items-center">
             ABOUT
           </router-link>
         </ul>
