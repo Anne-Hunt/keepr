@@ -35,10 +35,17 @@ function toggleTheme() {
             <li><a class="dropdown-item" href="#">Create Keep</a></li>
           </ul>
         </li>
-        <router-link :to="{ name: 'About' }" class="btn text-dark btn btn-dark-outline rounded d-flex flex-column align-items-center">
-            ABOUT
-          </router-link>
+
         </ul>
+      </div>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+      <div class="text-center">
+        <router-link :to="{ name: 'About' }" class="btn border-dark text-dark btn btn-dark-outline rounded d-flex flex-column align-items-center">
+            The <strong>KEEPR</strong> Co.
+          </router-link>
+        </div>
+      </ul>
       </div>
       <!-- LOGIN COMPONENT HERE -->
       <div>

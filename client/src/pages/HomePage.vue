@@ -25,7 +25,7 @@ getVaults())
   <div class="container">
     <section class="row">
       <div class="col-4">
-        <div v-for="vault in vaults" :key="vault.id">
+        <div v-for="vault in vaults" :key="vault.id" class="mb-3">
 
           <VaultCard :vault="vault"/>
         </div>

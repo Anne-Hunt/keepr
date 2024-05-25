@@ -16,26 +16,26 @@ public class ProfileService
         _vaultService = vaultService;
     }
 
-    internal List<Keep> GetKeepsByProfile(string profileId)
+    internal List<Vault> GetKeepsByProfile(string profileId)
     {
         List<Vault> vaults = _vaultService.GetPublicVaultsByProfile(profileId);
-        List<Keep> keeps = new List<Keep>();
-        List<VaultKeep> vaultkeeps = new List<VaultKeep>();
-        foreach (Vault vault in vaults)
-        {
-            if (vault.IsPrivate == true)
-            {
-                return null;
-            }
-            List<VaultKeep> vaultkeepsByVault = _vaultkeepService.GetVaultKeepByVault(vault.Id);
-            vaultkeeps.AddRange(vaultkeepsByVault);
-        }
-        foreach (VaultKeep vaultkeep in vaultkeeps)
-        {
-            Keep keepByVault = _keepService.GetKeepByVaultKeep(vaultkeep.KeepId);
-            keeps.Add(keepByVault);
-        }
-        return keeps;
+        // List<Keep> keeps = new List<Keep>();
+        // List<VaultKeep> vaultkeeps = new List<VaultKeep>();
+        // foreach (Vault vault in vaults)
+        // {
+        //     if (vault.IsPrivate == true)
+        //     {
+        //         return null;
+        //     }
+        //     List<VaultKeep> vaultkeepsByVault = _vaultkeepService.GetVaultKeepByVault(vault.Id);
+        //     vaultkeeps.AddRange(vaultkeepsByVault);
+        // }
+        // foreach (VaultKeep vaultkeep in vaultkeeps)
+        // {
+        //     Keep keepByVault = _keepService.GetKeepByVaultKeep(vaultkeep.KeepId);
+        //     keeps.Add(keepByVault);
+        // }
+        return vaults;
     }
 
     internal Profile GetProfileById(string profileId)
