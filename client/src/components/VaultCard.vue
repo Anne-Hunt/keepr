@@ -7,8 +7,8 @@ defineProps({vault: Vault})
 
 
 <template>
-<div class="card vault" :style="{backgroundImage: `url(${vault?.img})`}">
-
+<div class="card vault d-flex align-items-bottom p-1" :style="{backgroundImage: `url(${vault?.img})`}">
+    <h4 class="text-light">{{ vault.name }}</h4>
 </div>
 </template>
 
