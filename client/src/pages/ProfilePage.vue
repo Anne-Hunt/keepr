@@ -5,9 +5,7 @@ import VaultCard from '../components/VaultCard.vue';
 import KeepCard from '../components/KeepCard.vue';
 import Pop from '../utils/Pop.js';
 import { logger } from '../utils/Logger.js';
-import { accountService } from '../services/AccountService.js';
 import { profileService } from '../services/ProfileService.js';
-
 
 
 const profile = computed(()=> AppState.activeProfile)
@@ -43,11 +41,11 @@ onMounted(()=>{
 <div class="row justify-content-center mb-3">
 <h2>{{ profile?.name }}</h2>
 <div v-if="vaults" class="col-6">
-  <h5>{{ vaultcount }} Vaults</h5>
+  <span>{{ vaultcount }} Vaults</span>
 </div>
 <span v-if="vaults && keeps">|</span>
 <div v-if="keeps" class="col-6">
-  <h5>{{ keepcount }} Keeps</h5>
+  <span>{{ keepcount }} Keeps</span>
 </div>
 </div>
 <div class="row">

@@ -24,7 +24,7 @@ getVaults())
 <template>
   <div class="container">
     <section class="row">
-      <div class="col-4">
+      <div class="col-12">
         <div v-for="vault in vaults" :key="vault.id" class="mb-3">
 
           <VaultCard :vault="vault"/>
@@ -35,5 +35,8 @@ getVaults())
 </template>
 
 <style scoped lang="scss">
-
+.masonry {
+  columns: 350px;
+  column-gap: 2rem;
+}
 </style>

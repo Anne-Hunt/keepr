@@ -7,8 +7,6 @@ import Pop from '../utils/Pop.js';
 import { logger } from '../utils/Logger.js';
 import { accountService } from '../services/AccountService.js';
 
-
-
 const account = computed(()=> AppState.account)
 const vaults = computed(()=>AppState.vaults)
 const keeps = computed(()=>AppState.keeps)
@@ -44,22 +42,22 @@ onMounted(()=>{
 <div class="row justify-content-center mb-3">
 <h2>{{ account?.name }}</h2>
 <div v-if="vaults" class="col-6">
-  <h5>{{ vaultcount }} Vaults</h5>
+  <span>{{ vaultcount }} Vaults</span>
 </div>
 <span v-if="vaults && keeps">|</span>
 <div v-if="keeps" class="col-6">
-  <h5>{{ keepcount }} Keeps</h5>
+  <span>{{ keepcount }} Keeps</span>
 </div>
 </div>
 <div class="row">
     <h3 class="mb-3">Vaults</h3>
-    <div class="col-4 mb-3" v-for="vault in vaults" :key="vault.id">
+    <div class="col-4 mb-3" v-for="vault in vaults" :key="vault?.id">
         <VaultCard/>
     </div>
 </div>
 <div class="row">
     <h3 class="mb-3">Keeps</h3>
-    <div class="col-4 mb-3" v-for="keep in keeps" :key="keep.id">
+    <div class="col-4 mb-3" v-for="keep in keeps" :key="keep?.id">
         <KeepCard/>
     </div>
 </div>
