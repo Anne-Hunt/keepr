@@ -9,7 +9,7 @@ defineProps({vault: Vault})
 
 async function setActiveVault(vaultId){
     try {
-      await vaultService.getVaultById(vaultId)
+      vaultService.setActiveVault(vaultId)
       await keepService.getKeepsByVault(vaultId)
     }
     catch (error){
@@ -22,7 +22,7 @@ async function setActiveVault(vaultId){
 
 <template>
     <RouterLink :to="{name: 'Vault', params: {vaultId: vault.id}}" @click="setActiveVault(vault?.id)">
-<div class="card vault p-1" :style="{backgroundImage: `url(${vault?.img})`}">
+<div class="card vault p-1 d-flex justify-content-end" :style="{backgroundImage: `url(${vault?.img})`}">
     <h4 class="text-light">{{ vault.name }}</h4>
 </div>
 </RouterLink>
@@ -32,4 +32,6 @@ async function setActiveVault(vaultId){
 .vault{
     height: 30dvh;
 }
+
+//FIXME Add filter to css
 </style>

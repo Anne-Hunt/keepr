@@ -56,3 +56,11 @@ LEFT JOIN vaultkeeps on vaultkeeps.keepId = keeps.id
 GROUP BY
 (keeps.id)
 
+        SELECT
+        keeps.*,
+        vaultkeeps.*,
+        accounts.*
+        FROM keeps
+        CROSS JOIN vaultkeeps ON keeps.Id = vaultkeeps.KeepId
+        JOIN accounts ON keeps.CreatorId = accounts.Id
+        WHERE keeps.CreatorId = 5;

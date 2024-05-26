@@ -1,5 +1,6 @@
 <script setup>
 import { AppState } from './AppState'
+import ModalBox from './components/ModalBox.vue';
 import Navbar from './components/Navbar.vue'
 
 
@@ -11,6 +12,7 @@ import Navbar from './components/Navbar.vue'
   </header>
   <main>
     <router-view />
+    <ModalBox></ModalBox>
   </main>
 </template>
 

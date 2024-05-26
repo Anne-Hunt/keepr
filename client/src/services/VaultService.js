@@ -4,6 +4,10 @@ import { api } from "./AxiosService.js"
 
 
 class VaultService{
+  setActiveVault(vaultId) {
+    const vault = AppState.vaults.find(vault => vault.id = vaultId)
+    AppState.activeVault = vault
+  }
   async getVaults() {
     const response = await api.get("api/vaults")
     const vaults = response.data.map(vault => new Vault(vault))

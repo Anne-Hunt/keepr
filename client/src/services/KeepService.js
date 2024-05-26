@@ -3,10 +3,9 @@ import { Keep } from "../models/Keep.js"
 import { api } from "./AxiosService.js"
 
 class KeepService{
-
-    async setActiveKeep(keepId){
-        const response = await api.get(`api/keeps/${keepId}`)
-        const keep = new Keep(response.data)
+    setActiveKeep(keepId) {
+        AppState.activeKeep = null
+        const keep = AppState.keeps.find(keep => keep.id = keepId)
         AppState.activeKeep = keep
     }
 
