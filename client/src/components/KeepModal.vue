@@ -39,41 +39,52 @@ catch (error){
 
 
 <template>
-    <div class="col-6 rounded-start" :style="{backgroundImage: `url(${keep?.img})`}"></div>
-    <div class="col-6">
-        <div class="row">
-            <div class="col-11 text-center">
-                <i class="mdi mdi-eye"></i>{{ keep?.views }} | <i class="mdi mdi-alpha-k-box-outline"></i>
-                {{ keep?.kept }}
-            </div>
-            <div class="col-1 text-end">
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
+    <div class="row keepInfo">
+        <div class="col-6 rounded-start">
+            <img :src="keep.img" alt="Keep image" class="keepImg">
         </div>
-        <div class="row">
-        </div>
-        <div class="row justify-content-between">
-            <form @submit.prevent="createVaultKeep()">
-                <div class="input-group">
-                    <select class="form-select" id="inputGroupSelect04" aria-label="Example select with button addon">
-                        <option v-for="userVault in userVaults" :key="userVault?.id" :value="userVault?.id">
-                            {{userVault?.name}}</option>
-                        <option v-if="!userVaults"><a href="">Add a Vault</a></option>
-                    </select>
-                    <button class="btn btn-outline-secondary" type="button">Button</button>
+        <div class="col-6">
+            <div class="row ">
+                <div class="col-11 text-center">
+                    <i class="mdi mdi-eye"></i>{{ keep?.views }} | <i class="mdi mdi-alpha-k-box-outline"></i>
+                    {{ keep?.kept }}
                 </div>
-            </form>
-            <RouterLink v-if="keep.creatorId = account.id" :to="{name: 'Account'}">
+                <div class="col-1 text-end">
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+            </div>
+            <div class="row contentInfo my-5">
+                <h2 id="exampleModalToggleLabel">{{ keep.name }}</h2>
+                <p>{{ keep.description }}</p>
+            </div>
+            <div class="modal-footer row justify-content-between align-items-end">
+                <div class="col-8">
+                    <form @submit.prevent="createVaultKeep()">
+                        <div class="input-group">
+                            <select class="form-select" id="inputGroupSelect04" aria-label="Example select with button addon">
+                                <option v-for="userVault in userVaults" :key="userVault?.id" :value="userVault?.id">
+                                    {{userVault?.name}}</option>
+                                    <option v-if="!userVaults"><a href="">Add a Vault</a></option>
+                                </select>
+                                <button class="btn btn-outline-secondary" type="button">Button</button>
+                            </div>
+                        </form>
+                </div>
+                <div class="col-3">
+
+                    <RouterLink v-if="keep.creatorId = account.id" :to="{name: 'Account'}">
+                        <div class="profileImg rounded-circle" :style="{backgroundImage: `url(${keep?.creator.picture})`}">
+                        </div>
+                    </RouterLink>
+                    <RouterLink v-if="keep.creatorId != account.id" :to="{name: 'Profile', params: {profileId: keep.creatorId}}"
+                    @click="setActiveProfile(keep?.creatorId)">
                 <div class="profileImg rounded-circle" :style="{backgroundImage: `url(${keep?.creator.picture})`}">
                 </div>
             </RouterLink>
-            <RouterLink v-if="keep.creatorId != account.id" :to="{name: 'Profile', params: {profileId: keep.creatorId}}"
-                @click="setActiveProfile(keep?.creatorId)">
-                <div class="profileImg rounded-circle" :style="{backgroundImage: `url(${keep?.creator.picture})`}">
                 </div>
-            </RouterLink>
         </div>
     </div>
+</div>
 </template>
 
 
@@ -83,5 +94,16 @@ catch (error){
     width: 50px;
     background-position: center;
     background-size: cover;
+}
+.keepImg{
+    height: 80dvh;
+}
+
+.keepInfo{
+    height: 80dvh;
+}
+
+.contentInfo{
+    height: 50dvh;
 }
 </style>

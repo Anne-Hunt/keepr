@@ -18,43 +18,47 @@ function toggleTheme() {
 </script>
 
 <template>
-  <nav class="navbar navbar-expand-sm navbar-dark px-3 shadow mb-3">
-    <RouterLink class="navbar-brand d-flex" :to="{ name: 'Home' }">
-      <div class="d-flex flex-column align-items-center">
-        <span class="btn btn-dark-outline rounded d-flex align-items-center"><i class="mdi mdi-lock-open fs-3 text-dark"></i>HOME</span>
+  <nav class="navbar navbar-expand-sm px-3 shadow mb-3">
+    <div class="container-fluid">
+      <div  class="navbar-brand bg-tertiary rounded d-flex col-1">
+        <RouterLink :to="{ name: 'Home' }">
+          <span class="navbar-text"><strong>HOME</strong></span>
+        </RouterLink>
       </div>
-    </RouterLink>
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-    <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle text-dark d-flex flex-column align-items-center" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            <strong>CREATE</strong>
-          </a>
-          <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="#">Create Vault</a></li>
-            <li><a class="dropdown-item" href="#">Create Keep</a></li>
-          </ul>
-        </li>
-
-        </ul>
-      </div>
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-      <div class="text-center">
-        <router-link :to="{ name: 'About' }" class="btn border-dark text-dark btn btn-dark-outline rounded d-flex flex-column align-items-center">
-            The <strong>KEEPR</strong> Co.
-          </router-link>
-        </div>
-      </ul>
-      </div>
+      <div class="collapse navbar-collapse col-1">
+        <ul class="navbar-nav d-flex align-items-center justify-content-between">
+          <li class="nav-item dropdown pe-5">
+                <a class="nav-link dropdown-toggle text-dark d-flex flex-column align-items-center" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  <strong>CREATE</strong>
+                </a>
+                <ul class="dropdown-menu">
+                  <li><a class="dropdown-item" data-bs-target="#vaultForm" data-bs-toggle="modal">Create Vault</a></li>
+                  <li><a class="dropdown-item" data-bs-target="#keepForm" data-bs-toggle="modal">Create Keep</a></li>
+                </ul>
+              </li>
+              <li>
+              </li>
+            </ul>
+          </div>
+          <div class="col-8 text-center">
+            <RouterLink :to="{ name: 'About'}">
+              <span class="navbar-text border border-2 border-dark rounded p-2">The <strong>Keepr</strong> Co</span>
+            </RouterLink>
+          </div>
+    </div>
       <!-- LOGIN COMPONENT HERE -->
-      <div>
-        <button class="btn text-warning" @click="toggleTheme"
-          :title="`Enable ${theme == 'light' ? 'dark' : 'light'} theme.`">
-          <i class="mdi" :class="theme == 'light' ? 'mdi-toggle-switch-variant' : 'mdi-toggle-switch-variant-off'"></i>
-        </button>
+      <div class="col-2">
+        
+        <div class="d-flex text-end">
+          <button class="btn text-warning" @click="toggleTheme"
+            :title="`Enable ${theme == 'light' ? 'dark' : 'light'} theme.`">
+            <i class="mdi" :class="theme == 'light' ? 'mdi-toggle-switch-variant' : 'mdi-toggle-switch-variant-off'"></i>
+          </button>
+          <Login />
       </div>
-      <Login />
+        <div>
+        </div>
+      </div>
   </nav>
 </template>
 

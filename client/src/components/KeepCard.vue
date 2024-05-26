@@ -9,6 +9,9 @@ import Pop from '../utils/Pop.js';
 defineProps({keep: Keep})
 
 const account = computed(()=> AppState.account)
+const brick = Math.random()*80
+const brickHeight = `${brick}dvh`
+// const owner = account.value.id = props.keep.creatorId
 
 function setActiveKeep(keepId){
     try {
@@ -38,9 +41,10 @@ async function trashKeep(keepId){
 
 <template>
     <div>
-        <!-- <i v-if="account.id = keep?.creatorId" class="mdi mdi-close-circle text-end text-danger" @click="trashKeep(keep?.id)"></i> -->
+        <!-- <i v-if="owner" class="mdi mdi-close-circle text-end text-danger" @click="trashKeep(keep?.id)"></i> -->
         <div data-bs-toggle="modal" data-bs-target="#keepModal" @click="setActiveKeep(keep?.id)">
     <div class="card keep p-1 d-flex justify-content-end" :style="{backgroundImage: `url(${keep?.img})`}">
+        <img class="" :style="{backgroundImage: `url(${keep?.img})`}"/>
         <h4 class="text-light">{{ keep.name }}</h4>
     </div>
     </div>
@@ -49,9 +53,13 @@ async function trashKeep(keepId){
 
 
 <style lang="scss" scoped>
-// .keep{
-//     max-height: 50dvh;
-//     min-height: 30dvh;
-// }
+.keep{
+    height: v-bind(brickHeight);
+    min-height: 20dvh;
+    width: 30dvh;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
 //FIXME Add filter to css
 </style>

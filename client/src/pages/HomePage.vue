@@ -26,7 +26,7 @@ getKeeps())
   <div class="container">
     <section class="row ">
       <div class="col-12 masonry">
-        <div v-for="keep in keeps" :key="keep.id" class="mb-3">
+        <div v-for="keep in keeps" :key="keep.id" class="mb-3 d-flex">
           <KeepCard :keep="keep"/>
         </div>
       </div>
