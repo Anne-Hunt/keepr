@@ -27,7 +27,6 @@ getKeeps())
     <section class="row">
       <div class="col-12 masonry">
         <div v-for="keep in keeps" :key="keep.id" class="mb-3">
-
           <KeepCard :keep="keep"/>
         </div>
       </div>
@@ -37,7 +36,7 @@ getKeeps())
 
 <style scoped lang="scss">
 .masonry {
-  columns: 350px;
+  columns: 250px;
   column-gap: 2rem;
 }
 </style>

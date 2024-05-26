@@ -29,10 +29,10 @@ onMounted(()=>{
 
 <template>
 <div class="container">
-<div class="row mb-3">
+<div class="row mb-3 justify-content-center">
     <div class="col-6 vault" :style="{backgroundImage: `url(${vault?.img})`}">
         <h4>{{ vault?.name }}</h4>
-        <h5>{{ vault?.creator.name }}</h5>
+        <h5>by {{ vault?.creator.name }}</h5>
     </div>
 </div>
 <div class="row">
