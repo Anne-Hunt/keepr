@@ -51,7 +51,6 @@ catch (error){
             </div>
         </div>
         <div class="row">
-
         </div>
         <div class="row justify-content-between">
             <form @submit.prevent="createVaultKeep()">

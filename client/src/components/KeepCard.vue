@@ -1,4 +1,5 @@
 <script setup>
+import { computed } from 'vue';
 import { AppState } from '../AppState.js';
 import { Keep } from '../models/Keep.js';
 import { keepService } from '../services/KeepService.js';
@@ -37,9 +38,9 @@ async function trashKeep(keepId){
 
 <template>
     <div>
-        <i v-if="account.id = keep?.creatorId" class="mdi mdi-close-circle text-end text-danger" @click="trashKeep(keep?.id)"></i>
+        <!-- <i v-if="account.id = keep?.creatorId" class="mdi mdi-close-circle text-end text-danger" @click="trashKeep(keep?.id)"></i> -->
         <div data-bs-toggle="modal" data-bs-target="#keepModal" @click="setActiveKeep(keep?.id)">
-    <div class="card vault p-1 d-flex justify-content-end" :style="{backgroundImage: `url(${keep?.img})`}">
+    <div class="card keep p-1 d-flex justify-content-end" :style="{backgroundImage: `url(${keep?.img})`}">
         <h4 class="text-light">{{ keep.name }}</h4>
     </div>
     </div>
@@ -48,9 +49,9 @@ async function trashKeep(keepId){
 
 
 <style lang="scss" scoped>
-.vault{
-    height: 30dvh;
-}
-
+// .keep{
+//     max-height: 50dvh;
+//     min-height: 30dvh;
+// }
 //FIXME Add filter to css
 </style>
