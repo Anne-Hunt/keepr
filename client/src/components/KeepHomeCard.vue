@@ -5,16 +5,16 @@ import { Keep } from '../models/Keep.js';
 import { keepService } from '../services/KeepService.js';
 import { logger } from '../utils/Logger.js';
 import Pop from '../utils/Pop.js';
-import { useRoute } from 'vue-router';
 
 defineProps({keep: Keep})
 
-const account = computed(()=> AppState.account)
-const route = useRoute()
+// const account = computed(()=> AppState.account)
+const brick = Math.random()*80
+const brickHeight = `${brick}dvh`
+// const owner = account.value.id = props.keep.creatorId
 
-function setActiveKeep(){
+function setActiveKeep(keepId){
     try {
-        const keepId = route.params.keepId
       keepService.setActiveKeep(keepId)
     }
     catch (error){
@@ -23,9 +23,8 @@ function setActiveKeep(){
     }
 }
 
-async function trashKeep(){
+async function trashKeep(keepId){
     try {
-        const keepId = route.params.keepId
         const confirm = await Pop.confirm("Do you want to delete this keep? This cannot be undone.")
         if(!confirm){
             return
@@ -42,8 +41,8 @@ async function trashKeep(){
 
 <template>
     <div>
-        <!-- <i v-if="account.id = keep?.creatorId" class="mdi mdi-close-circle text-end text-danger" @click="trashKeep()"></i>         -->
-        <div data-bs-toggle="modal" data-bs-target="#keepModal" @click="setActiveKeep()">
+        <!-- <i v-if="owner" class="mdi mdi-close-circle text-end text-danger" @click="trashKeep(keep?.id)"></i> -->
+        <div data-bs-toggle="modal" data-bs-target="#keepModal" @click="setActiveKeep(keep?.id)">
     <div class="card keep p-1 d-flex justify-content-end" :style="{backgroundImage: `url(${keep?.img})`}">
         <img class="" :style="{backgroundImage: `url(${keep?.img})`}"/>
         <h4 class="text-light">{{ keep?.name }}</h4>
@@ -55,6 +54,7 @@ async function trashKeep(){
 
 <style lang="scss" scoped>
 .keep{
+    height: v-bind(brickHeight);
     min-height: 20dvh;
     width: 30dvh;
     background-position: center;

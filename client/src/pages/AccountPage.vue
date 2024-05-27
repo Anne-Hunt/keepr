@@ -13,23 +13,43 @@ const keeps = computed(()=>AppState.keeps)
 const vaultcount = computed(()=>AppState.vaults.length)
 const keepcount = computed(()=>AppState.keeps.length)
 
-async function getMyContent(){
+async function getMyVaults(){
   try {
     const vaults = await accountService.getMyVaults()
     logger.log(vaults)
-    const keeps = await accountService.getMyKeeps()
-    logger.log(keeps)
-    const vaultkeeps = await accountService.getMyVaultKeeps()
-    logger.log(vaultkeeps)
   }
   catch (error){
-    Pop.error("Unable to get your stuff!");
-    logger.log("Unable to get vaults and keeps", error)
+    Pop.error("Unable to get your vaults!", 'error');
+    logger.log("Unable to get vaults", error)
   }
 }
 
+async function getMyKeeps(){
+  try {
+    const keeps = await accountService.getMyKeeps()
+    logger.log(keeps)
+  }
+  catch (error){
+    Pop.error("Unable to get your keeps!");
+    logger.log("Unable to get keeps", error)
+  }
+}
+
+// async function getMyVaultKeeps(){
+//   try {
+//     const vaultkeeps = await accountService.getMyVaultKeeps()
+//     logger.log(vaultkeeps)
+//   }
+//   catch (error){
+//     Pop.error("Unable to get your kept content!");
+//     logger.log("Unable to get vaultkeeps", error)
+//   }
+// }
+
 onMounted(()=>{
-  getMyContent()
+  getMyVaults()
+  getMyKeeps()
+  // getMyVaultKeeps()
 })
 </script>
 
@@ -52,13 +72,13 @@ onMounted(()=>{
 <div class="row">
     <h3 class="mb-3">Vaults</h3>
     <div class="col-4 mb-3" v-for="vault in vaults" :key="vault?.id">
-        <VaultCard/>
+        <VaultCard :vault="vault"/>
     </div>
 </div>
 <div class="row">
     <h3 class="mb-3">Keeps</h3>
     <div class="col-4 mb-3" v-for="keep in keeps" :key="keep?.id">
-        <KeepCard/>
+        <KeepCard :keep="keep"/>
     </div>
 </div>
 </div>

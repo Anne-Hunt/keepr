@@ -6,12 +6,15 @@ import { vaultService } from '../services/VaultService.js';
 import { logger } from '../utils/Logger.js';
 import Pop from '../utils/Pop.js';
 import { AppState } from '../AppState.js';
+import { useRoute } from 'vue-router';
 
 defineProps({vault: Vault})
 const account = computed(()=> AppState.account)
+const route = useRoute()
 
-async function setActiveVault(vaultId){
+async function setActiveVault(){
     try {
+      const vaultId = route.params.vaultId
       vaultService.setActiveVault(vaultId)
       await keepService.getKeepsByVault(vaultId)
     }
@@ -21,8 +24,9 @@ async function setActiveVault(vaultId){
     }
 }
 
-async function trashVault(vaultId){
+async function trashVault(){
   try {
+      const vaultId = route.params.vaultId
     const confirm = await Pop.confirm("Do you really want to remove this vault and its contents? This cannot be undone.")
     if(!confirm){
       return
@@ -37,14 +41,14 @@ async function trashVault(vaultId){
 </script>
 
 <template>
-    <RouterLink :to="{name: 'Vault', params: {vaultId: vault.id}}" @click="setActiveVault(vault?.id)">
-      <i v-if="account.id = vault?.creatorId" class="mdi mdi-close-circle text-end text-danger" @click="trashVault(vault?.id)"></i>
+    <!-- <RouterLink :to="{name: 'Vault', params: {vaultId: props.vault.id}}" @click="setActiveVault()"> -->
+      <i v-if="account.id = vault?.creatorId" class="mdi mdi-close-circle text-end text-danger" @click="trashVault()"></i>
 <div class="card vault p-1 d-flex justify-content-end" :style="{backgroundImage: `url(${vault?.img})`}">
    <div class="d-flex justify-content-between text-light">
     <h4 class="">{{ vault?.name }}</h4> <i class="mdi mdi-lock" @pointerover.stop=""></i>
    </div>
 </div>
-</RouterLink>
+<!-- </RouterLink> -->
 </template>
 
 <style lang="scss" scoped>
