@@ -40,7 +40,7 @@ catch (error){
 
 <template>
     <div class="row keepInfo">
-        <div class="col-6 rounded-start">
+        <div class="col-md-6 col-12 rounded-start">
             <img :src="keep.img" alt="Keep image" class="keepImg">
         </div>
         <div class="col-6">
@@ -49,12 +49,12 @@ catch (error){
                     <i class="mdi mdi-eye"></i>{{ keep?.views }} | <i class="mdi mdi-alpha-k-box-outline"></i>
                     {{ keep?.kept }}
                 </div>
-                <div class="col-1 text-end">
+                <div class="col-1">
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
             </div>
-            <div class="row contentInfo my-5">
-                <h2 id="exampleModalToggleLabel">{{ keep.name }}</h2>
+            <div class="row contentInfo align-content-center">
+                <h2 id="keepModalLabel" class="text-center">{{ keep.name }}</h2>
                 <p>{{ keep.description }}</p>
             </div>
             <div class="modal-footer row justify-content-between align-items-end">
