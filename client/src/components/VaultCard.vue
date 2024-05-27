@@ -41,14 +41,14 @@ async function trashVault(){
 </script>
 
 <template>
-    <!-- <RouterLink :to="{name: 'Vault', params: {vaultId: props.vault.id}}" @click="setActiveVault()"> -->
+    <RouterLink :to="{name: 'Vault', params: {vaultId: vault.id}}" @click="setActiveVault()">
       <i v-if="account.id = vault?.creatorId" class="mdi mdi-close-circle text-end text-danger" @click="trashVault()"></i>
 <div class="card vault p-1 d-flex justify-content-end" :style="{backgroundImage: `url(${vault?.img})`}">
    <div class="d-flex justify-content-between text-light">
     <h4 class="">{{ vault?.name }}</h4> <i class="mdi mdi-lock" @pointerover.stop=""></i>
    </div>
 </div>
-<!-- </RouterLink> -->
+</RouterLink>
 </template>
 
 <style lang="scss" scoped>

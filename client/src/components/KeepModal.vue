@@ -5,6 +5,7 @@ import Pop from '../utils/Pop.js';
 import { logger } from '../utils/Logger.js';
 import { profileService } from '../services/ProfileService.js';
 import { vaultKeepService } from '../services/VaultKeepService.js';
+import { keepService } from '../services/KeepService.js';
 
 
 const keep = computed(()=> AppState.activeKeep)
@@ -25,6 +26,16 @@ async function setActiveProfile(profileId){
     catch (error){
       Pop.error("Unable to find profile", 'error');
       logger.log("Unable to find profile", error)
+    }
+}
+
+function unsetActiveKeep(){
+    try {
+      keepService.unsetActiveKeep()
+    }
+    catch (error){
+      Pop.error("Unable to forget keep", 'error');
+      logger.log("unable to unset active Keep", error)
     }
 }
 
@@ -55,7 +66,7 @@ catch (error){
                     {{ keep?.kept }}
                 </div>
                 <div class="col-1">
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" @click="unsetActiveKeep()"></button>
                 </div>
             </div>
             <div class="row contentInfo align-content-center">

@@ -1,4 +1,4 @@
-<script setup>
+<!-- <script setup>
 import { computed } from 'vue';
 import { AppState } from '../AppState.js';
 import { Keep } from '../models/Keep.js';
@@ -42,24 +42,34 @@ function setActiveKeep(keepId){
 <template>
     <div>
         <!-- <i v-if="owner" class="mdi mdi-close-circle text-end text-danger" @click="trashKeep(keep?.id)"></i> -->
-        <div data-bs-toggle="modal" data-bs-target="#keepModal" @click="setActiveKeep(keep?.id)">
-    <div class="card keep p-1 d-flex justify-content-end" :style="{backgroundImage: `url(${keep?.img})`}">
-        <img class="" :style="{backgroundImage: `url(${keep?.img})`}"/>
+        <!-- <div data-bs-toggle="modal" data-bs-target="#keepModal" @click="setActiveKeep(keep?.id)"> -->
+    <!-- <div class="card keep p-1 d-flex justify-content-end" :style="{backgroundImage: `url(${keep?.img})`}"> -->
+        <!-- <img class="" :style="{backgroundImage: `url(${keep?.img})`}"/>
         <h4 class="text-light">{{ keep?.name }}</h4>
     </div>
     </div>
-    </div>
+    </div> -->
+<!-- </template> -->
+
+
+<!-- <style lang="scss" scoped>
+// .keep{
+//     height: v-bind(brickHeight);
+//     background-position: center;
+//     background-repeat: no-repeat;
+//     background-size: fill;
+// }
+</style> --> 
+<script setup>
+
+</script>
+
+
+<template>
+<div></div>
 </template>
 
 
 <style lang="scss" scoped>
-.keep{
-    height: v-bind(brickHeight);
-    min-height: 20dvh;
-    width: 30dvh;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-}
-//FIXME Add filter to css
+
 </style>

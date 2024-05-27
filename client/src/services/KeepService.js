@@ -3,10 +3,14 @@ import { Keep } from "../models/Keep.js"
 import { api } from "./AxiosService.js"
 
 class KeepService{
+    unsetActiveKeep() {
+        AppState.activeKeep = null
+    }
     setActiveKeep(keepId) {
         AppState.activeKeep = null
-        const keep = AppState.keeps.find(keep => keep.id = keepId)
-        AppState.activeKeep = keep
+        const keep = this.getKeepById(keepId)
+        const activeKeep = new Keep(keep)
+        AppState.activeKeep = activeKeep
     }
 
     async getKeepsByVault(vaultId) {
