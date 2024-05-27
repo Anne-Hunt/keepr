@@ -11,6 +11,7 @@ defineProps({keep: Keep})
 
 const account = computed(()=> AppState.account)
 const route = useRoute()
+const owner = route.path.includes('Account')
 
 function setActiveKeep(){
     try {
@@ -42,10 +43,10 @@ async function trashKeep(){
 
 <template>
     <div>
-        <!-- <i v-if="account.id = keep?.creatorId" class="mdi mdi-close-circle text-end text-danger" @click="trashKeep()"></i>         -->
+        <i v-if="owner" class="mdi mdi-close-circle text-end text-danger" @click="trashKeep()"></i>        
         <div data-bs-toggle="modal" data-bs-target="#keepModal" @click="setActiveKeep()">
-    <div class="card keep p-1 d-flex justify-content-end" :style="{backgroundImage: `url(${keep?.img})`}">
-        <img class="" :style="{backgroundImage: `url(${keep?.img})`}"/>
+    <div class="card keepProfile p-1 d-flex justify-content-end" :style="{backgroundImage: `url(${keep?.img})`}">
+        <!-- <img class="" :style="{backgroundImage: `url(${keep?.img})`}"/> -->
         <h4 class="text-light">{{ keep?.name }}</h4>
     </div>
     </div>
@@ -54,7 +55,7 @@ async function trashKeep(){
 
 
 <style lang="scss" scoped>
-.keep{
+.keepProfile{
     min-height: 20dvh;
     width: 30dvh;
     background-position: center;

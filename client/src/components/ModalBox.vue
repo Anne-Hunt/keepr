@@ -4,6 +4,13 @@ import { AppState } from '../AppState.js';
 import KeepModal from './KeepModal.vue';
 import KeepForm from './KeepForm.vue';
 import VaultForm from './VaultForm.vue';
+import { Keep } from '../models/Keep.js';
+import { Vault } from '../models/Vault.js';
+import { VaultKeep } from '../models/VaultKeep.js';
+import { Account } from '../models/Account.js';
+import { Profile } from '../models/Profile.js';
+
+defineProps({keep: Keep, vault: Vault, vaultKeep: VaultKeep, account: Account, profile: Profile})
 
 const activeKeep = computed(()=> AppState.activeKeep)
 const activeVaultKeep = computed(()=> AppState.activeVaultKeep)
@@ -16,12 +23,14 @@ const activeVaultKeep = computed(()=> AppState.activeVaultKeep)
     <div class="modal fade" id="keepModal" tabindex="-1" aria-labelledby="keepModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-xl">
     <div class="modal-content">
+      <h1 class="modal-title fs-5" id="keepModalLabel"></h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
         <div class="modal-body p-0 row">
-            <div v-if="activeKeep"><KeepModal></KeepModal></div>
+            <div><KeepModal></KeepModal></div>
       </div>
     </div>
   </div>
-</div>
 
 <!--VIEW MODAL /// VaultKeep-->
 <div class="modal fade" id="vaultkeepModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">

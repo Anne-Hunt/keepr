@@ -12,9 +12,11 @@ const account = computed(()=> AppState.account)
 const userVaults = computed (()=>AppState.userVaults)
 const vaultKeepForm = ref({
     vaultId: '',
-    keepId: keep?.value.id,
-    creatorId: account?.value.id
+    keepId: 0,
+    creatorId: ''
 })
+
+const owner = computed(()=> {if(account.value)AppState.account.id = AppState.activeKeep?.creatorId; return true})
 
 async function setActiveProfile(profileId){
     try {
@@ -28,7 +30,10 @@ async function setActiveProfile(profileId){
 
 async function createVaultKeep(){
 try {
-    const formData = vaultKeepForm.value
+    const formData = {}
+    formData.creatorId = account.value.id
+    formData.keepId = vaultKeepForm.value.keepId
+    formData.vaultId = vaultKeepForm.value.vaultId
     await vaultKeepService.createVaultKeep(formData)
 }
 catch (error){
@@ -41,7 +46,7 @@ catch (error){
 <template>
     <div class="row keepInfo">
         <div class="col-md-6 col-12 rounded-start">
-            <img :src="keep.img" alt="Keep image" class="keepImg">
+            <img :src="keep?.img" alt="Keep image" class="keepImg">
         </div>
         <div class="col-6">
             <div class="row ">
@@ -54,29 +59,30 @@ catch (error){
                 </div>
             </div>
             <div class="row contentInfo align-content-center">
-                <h2 id="keepModalLabel" class="text-center">{{ keep.name }}</h2>
-                <p>{{ keep.description }}</p>
+                <h2 id="keepModalLabel" class="text-center">{{ keep?.name }}</h2>
+                <p>{{ keep?.description }}</p>
             </div>
             <div class="modal-footer row justify-content-between align-items-end">
                 <div class="col-8">
-                    <form @submit.prevent="createVaultKeep()">
+                    <!-- <form @submit.prevent="createVaultKeep()">
                         <div class="input-group">
-                            <select class="form-select" id="inputGroupSelect04" aria-label="Example select with button addon">
+                            <select class="form-select" id="inputGroupSelect04" aria-label="Example select with button addon" v-model="vaultKeepForm.vaultId">
                                 <option v-for="userVault in userVaults" :key="userVault?.id" :value="userVault?.id">
                                     {{userVault?.name}}</option>
                                     <option v-if="!userVaults"><a href="">Add a Vault</a></option>
                                 </select>
+                                <input type="number" class="d-none" :v-model="vaultKeepForm.keepId" :value="keep?.id">
                                 <button class="btn btn-outline-secondary" type="button">Button</button>
                             </div>
-                        </form>
+                        </form> -->
                 </div>
                 <div class="col-3">
 
-                    <RouterLink v-if="keep.creatorId = account.id" :to="{name: 'Account'}">
+                    <RouterLink v-if="owner" :to="{name: 'Account'}">
                         <div class="profileImg rounded-circle" :style="{backgroundImage: `url(${keep?.creator.picture})`}">
                         </div>
                     </RouterLink>
-                    <RouterLink v-if="keep.creatorId != account.id" :to="{name: 'Profile', params: {profileId: keep.creatorId}}"
+                    <RouterLink v-if="!owner" :to="{name: 'Profile', params: {profileId: keep?.creatorId}}"
                     @click="setActiveProfile(keep?.creatorId)">
                 <div class="profileImg rounded-circle" :style="{backgroundImage: `url(${keep?.creator.picture})`}">
                 </div>

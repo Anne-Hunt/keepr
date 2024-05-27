@@ -16,7 +16,11 @@ const keepData = ref({
 
 async function createKeep(){
     try {
-      await keepService.createKeep(keepData)
+        const newKeep = {}
+        newKeep.name = keepData.value.name
+        newKeep.description = keepData.value.description
+        newKeep.img = keepData.value.img
+      await keepService.createKeep(newKeep)
       resetForm()
     }
     catch (error){
@@ -27,7 +31,11 @@ async function createKeep(){
 
 async function updateKeep(){
     try {
-      await keepService.updateKeep(keepData)
+        const updatedKeep = {}
+        updatedKeep.name = keepData.value.name
+        updatedKeep.description = keepData.value.description
+        updatedKeep.img = keepData.value.img
+      await keepService.updateKeep(updatedKeep)
       resetForm()
     }
     catch (error){
@@ -44,11 +52,12 @@ function resetForm(){
 }
 
 function values(){
-    keepData.value.name = AppState.activeKeep?.name
-    keepData.value.img = AppState.activeKeep?.img
-    // keepData.value.tags = AppState.activeKeep.tags
-    keepData.value.description = AppState.activeKeep?.description
-
+    if(AppState.activeKeep){
+        keepData.value.name = AppState.activeKeep?.name
+        keepData.value.img = AppState.activeKeep?.img
+        // keepData.value.tags = AppState.activeKeep.tags
+        keepData.value.description = AppState.activeKeep?.description
+    }
 }
 
 onMounted(()=>{

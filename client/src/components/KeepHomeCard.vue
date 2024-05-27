@@ -23,19 +23,19 @@ function setActiveKeep(keepId){
     }
 }
 
-async function trashKeep(keepId){
-    try {
-        const confirm = await Pop.confirm("Do you want to delete this keep? This cannot be undone.")
-        if(!confirm){
-            return
-        }
-        await keepService.trashKeep(keepId)
-    }
-    catch (error){
-      Pop.error("Unable to remove keep", 'error');
-      logger.log("unable to remove keep", error)
-    }
-}
+// async function trashKeep(keepId){
+//     try {
+//         const confirm = await Pop.confirm("Do you want to delete this keep? This cannot be undone.")
+//         if(!confirm){
+//             return
+//         }
+//         await keepService.trashKeep(keepId)
+//     }
+//     catch (error){
+//       Pop.error("Unable to remove keep", 'error');
+//       logger.log("unable to remove keep", error)
+//     }
+// }
 </script>
 
 
