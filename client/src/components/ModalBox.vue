@@ -9,6 +9,7 @@ import { Vault } from '../models/Vault.js';
 import { VaultKeep } from '../models/VaultKeep.js';
 import { Account } from '../models/Account.js';
 import { Profile } from '../models/Profile.js';
+import AccountForm from './AccountForm.vue';
 
 defineProps({keep: Keep, vault: Vault, vaultKeep: VaultKeep, account: Account, profile: Profile})
 
@@ -68,6 +69,22 @@ const activeVaultKeep = computed(()=> AppState.activeVaultKeep)
       </div>
       <div class="modal-body">
         <VaultForm></VaultForm>
+      </div>
+    </div>
+  </div>
+  </div>
+
+  <!-- FORM MODAL /// Account -->
+
+  <div class="modal fade" id="accountForm" tabindex="-1" aria-labelledby="account-form" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="account-form">Edit Account</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <AccountForm></AccountForm>
       </div>
     </div>
   </div>

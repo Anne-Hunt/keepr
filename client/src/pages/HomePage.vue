@@ -7,8 +7,6 @@ import { keepService } from '../services/KeepService.js';
 import { accountService } from '../services/AccountService.js';
 
 const keeps = computed(()=>AppState.keeps)
-// const brick = Math.random()*80
-// const brickHeight = `${brick}dvh`
 
 async function getKeeps(){
   try {
@@ -51,11 +49,6 @@ getUserVaults()})
 </template>
 
 <style scoped lang="scss">
-// .masonry {
-//   columns: 200px;
-//   column-gap: 2rem;
-// }
-
 .masonry-with-columns {
   columns: 6 200px;
   column-gap: 1rem;
@@ -67,12 +60,5 @@ getUserVaults()})
     width: 100%;
     text-align: left;
   } 
-  // @for $i from 1 through 36 { 
-  //   div:nth-child(#{$i}) {
-  //     $h: (random(400) + 100) + px;
-  //     height: $h;
-  //     line-height: $h;
-  //   }
-  // }
 }
 </style>

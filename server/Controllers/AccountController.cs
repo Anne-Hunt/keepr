@@ -1,3 +1,5 @@
+using Microsoft.AspNetCore.Mvc.Diagnostics;
+
 namespace keepr.Controllers;
 
 [ApiController]
@@ -66,6 +68,23 @@ public class AccountController : ControllerBase
       }
       List<Keep> keeps = _keepService.GetMyKeeps(user.Id);
       return Ok(keeps);
+    }
+    catch (Exception exception)
+    {
+      return BadRequest(exception.Message);
+    }
+  }
+
+  [HttpPut("{accountId}")]
+  [Authorize]
+  public async Task<ActionResult<Account>> EditAccount([FromBody] Account accountData, string accountId)
+  {
+    try
+    {
+      Account accountUser = await _auth0Provider.GetUserInfoAsync<Account>(HttpContext);
+      string accountEmail = accountUser.Email;
+      Account account = _accountService.Edit(accountData, accountEmail);
+      return account;
     }
     catch (Exception exception)
     {

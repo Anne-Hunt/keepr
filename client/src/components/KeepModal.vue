@@ -71,7 +71,6 @@ onMounted(()=>{
 })
 </script>
 
-
 <template>
     <div class="row keepInfo">
         <div class="col-md-6 col-12 rounded-start keepImg" :style="{backgroundImage:`url(${keep?.img})`}">

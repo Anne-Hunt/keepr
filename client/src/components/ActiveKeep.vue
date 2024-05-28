@@ -13,8 +13,8 @@ function setActiveKeep(keepId){
       logger.log(AppState.activeKeep)
     }
     catch (error){
-      Pop.error("Unable to set active vault", 'error');
-      logger.log("unable to set active vault", error)
+      Pop.error("Unable to set active keep", 'error');
+      logger.log("unable to set active keep", error)
     }
 }
 </script>

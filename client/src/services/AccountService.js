@@ -34,9 +34,10 @@ class AccountService {
     AppState.vaultkeeps = vaultkeeps
   }
 
-  async editAccount(){
+  async editAccount(accountData){
     const accountId = AppState.account.id
-    const response = await api.put(`/account/${accountId}`)
+    accountData.id = accountId
+    const response = await api.put(`/account/${accountId}`, accountData)
     const account = new Account(response.data)
     AppState.account = account
   }

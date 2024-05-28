@@ -2,10 +2,10 @@
 import { computed, onMounted } from 'vue';
 import { AppState } from '../AppState.js';
 import VaultCard from '../components/VaultCard.vue';
-import KeepCard from '../components/KeepCard.vue';
 import Pop from '../utils/Pop.js';
 import { logger } from '../utils/Logger.js';
 import { accountService } from '../services/AccountService.js';
+import ActiveKeep from '../components/ActiveKeep.vue';
 
 const account = computed(()=> AppState.account)
 const vaults = computed(()=>AppState.vaults)
@@ -55,33 +55,36 @@ onMounted(()=>{
 
 
 <template>
-<div class="container">
-<div class="row mb-3 coverImg justify-content-center align-items-end shadow" :style="{backgroundImage: `url(${account?.coverImg})`}">
-  <img class="coverImg rounded-circle shadow" :src="account?.picture"/>
-</div>
-<div class="row justify-content-center mb-3">
-<h2>{{ account?.name }}</h2>
-<div v-if="vaults" class="col-6">
-  <span>{{ vaultcount }} Vaults</span>
-</div>
-<span v-if="vaults && keeps">|</span>
-<div v-if="keeps" class="col-6">
-  <span>{{ keepcount }} Keeps</span>
-</div>
-</div>
-<div class="row">
-    <h3 class="mb-3">Vaults</h3>
-    <div class="col-4 mb-3" v-for="vault in vaults" :key="vault?.id">
-        <VaultCard :vault="vault"/>
+  <div class="container">
+    <div class="row mb-3 coverImg justify-content-center align-items-end shadow"
+      :style="{backgroundImage: `url(${account?.coverImg})`}">
+      <img class="coverImg rounded-circle shadow" :src="account?.picture" />
     </div>
-</div>
-<div class="row">
-    <h3 class="mb-3">Keeps</h3>
-    <div class="col-4 mb-3" v-for="keep in keeps" :key="keep?.id">
-        <KeepCard :keep="keep"/>
+    <div class="text-end" role="button" data-bs-target="#accountForm" data-bs-toggle="modal"><i class="mdi mdi-dots-horizontal fs-3"></i></div>
+    <div class="row text-center mb-3">
+      <h2>{{ account?.name }}</h2>
+      <div class="text-center">
+        <span>{{ vaultcount }} Vaults | {{ keepcount }} Keeps</span>
+      </div>
     </div>
-</div>
-</div>
+    <div class="row">
+      <h3 class="mb-3">Vaults</h3>
+      <div v-if="!AppState.userVaults"><strong>Add a Vault</strong></div>
+      <div class="col-12 masonry-with-columns">
+        <section v-for="vault in vaults" :key="vault?.id">
+          <ActiveVault :vault="vault"></ActiveVault>
+        </section>
+      </div>
+      <div class="row ">
+        <h3 class="mb-3">Keeps</h3>
+        <div class="col-12 masonry-with-columns">
+          <section v-for="keep in keeps" :key="keep?.id">
+            <ActiveKeep :keep="keep"></ActiveKeep>
+          </section>
+        </div>
+      </div>
+    </div>
+  </div>
 </template>
 
 
@@ -94,5 +97,18 @@ onMounted(()=>{
   width: 20dvh;
   object-fit: cover;
   object-position: center;
+}
+
+.masonry-with-columns {
+  columns: 6 200px;
+  column-gap: 1rem;
+  div {
+    width: 150px;
+    height: auto;
+    color: white;
+    display: inline-block;
+    width: 100%;
+    text-align: left;
+  } 
 }
 </style>
