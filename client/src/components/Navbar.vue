@@ -24,7 +24,7 @@ function clearActive(){
 </script>
 
 <template>
-  <nav class="navbar navbar-expand-sm px-3 shadow mb-3">
+  <nav class="navbar navbar-expand-sm px-3 shadow mb-3 sticky-sm-bottom">
     <div class="container-fluid">
       <div  class="navbar-brand bg-tertiary rounded d-flex col-1">
         <RouterLink :to="{ name: 'Home' }">

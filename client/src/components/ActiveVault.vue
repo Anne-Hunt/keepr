@@ -21,10 +21,12 @@ function setActiveVault(vaultId){
 
 
 <template>
-          <div class="mb-3 rounded keepbox" data-bs-toggle="modal" data-bs-target="#keepModal" @click="setActiveVault(vault.id)">
-            <img class="imgView rounded" :src="vault.img" :alt="vault.name">
-          <p class="text-light bottom-left fs-3 m-0">{{ vault.name }}</p>
-      </div>
+  <RouterLink :to="{name: 'Vault', params:{vaultId: vault.id}}">
+    <div class="mb-3 rounded keepbox" @click="setActiveVault(vault.id)">
+      <img class="imgView rounded" :src="vault.img" :alt="vault.name">
+    <p class="text-light bottom-left fs-3 m-0">{{ vault.name }}</p>
+</div>
+  </RouterLink>
 </template>
 
 

@@ -7,6 +7,7 @@ import { profileService } from '../services/ProfileService.js';
 import { vaultKeepService } from '../services/VaultKeepService.js';
 import { keepService } from '../services/KeepService.js';
 import { accountService } from '../services/AccountService.js';
+import { Modal } from 'bootstrap';
 
 
 const keep = computed(()=> AppState.activeKeep)
@@ -42,11 +43,8 @@ function unsetActiveKeep(){
 
 async function createVaultKeep(){
 try {
-    const formData = {}
-    formData.creatorId = account.value.id
-    formData.keepId = vaultKeepForm.value.keepId
-    formData.vaultId = vaultKeepForm.value.vaultId
-    await vaultKeepService.createVaultKeep(formData)
+    await vaultKeepService.createVaultKeep(vaultKeepForm.value)
+    Modal.getOrCreateInstance('#keepModal').hide
 }
 catch (error){
     Pop.error("Unable to keep in vault", 'error');
@@ -72,24 +70,28 @@ onMounted(()=>{
 </script>
 
 <template>
-    <div class="row keepInfo">
+    <div class="row keepInfo rounded">
         <div class="col-md-6 col-12 order-1 rounded-start keepImg" :style="{backgroundImage:`url(${keep?.img})`}">
         </div>
-        <div class="col-md-6 col-12 order-2 bg-light">
-            <div class="row ">
-                <div class="col-11 text-center">
-                    <i class="mdi mdi-eye"></i>{{ keep?.views }} | <i class="mdi mdi-alpha-k-box-outline"></i>
-                    {{ keep?.kept }}
-                </div>
-                <div class="col-1">
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" @click="unsetActiveKeep()"></button>
+        <div class="col-md-6 col-12 order-2 bg-light rounded-end">
+            <div class="row py-2">
+                <div class="row">
+                    <div class="col-10 text-center">
+                        <i class="mdi mdi-eye"></i>{{ keep?.views }} | <i class="mdi mdi-alpha-k-box-outline"></i>
+                        {{ keep?.kept }}
+                    </div>
+                    <div class="col-1 text-center">
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" @click="unsetActiveKeep()"></button>
+                    </div>
                 </div>
             </div>
-            <div class="row contentInfo align-content-center">
-                <h2 id="keepModalLabel" class="text-center">{{ keep?.name }}</h2>
-                <p>{{ keep?.description }}</p>
+            <div class="contentInfo row align-items-center">
+                <div class="p-3">
+                    <h2 id="keepModalLabel" class="text-center">{{ keep?.name }}</h2>
+                    <p>{{ keep?.description }}</p>
+                </div>
             </div>
-            <div class="modal-footer row justify-content-between align-items-end">
+            <div class="row justify-content-between align-items-center">
                 <div class="col-8">
                     <form @submit.prevent="createVaultKeep()">
                         <div class="input-group">
@@ -99,7 +101,7 @@ onMounted(()=>{
                                     <option v-if="!userVaults"><a href="">Add a Vault</a></option>
                                 </select>
                                 <input type="number" class="d-none" :v-model="vaultKeepForm.keepId" :value="keep?.id">
-                                <button class="btn btn-outline-secondary" type="button">Button</button>
+                                <button class="btn btn-outline-secondary" type="button">Keep <i class="mdi mdi-arrow-right"> Vault</i></button>
                             </div>
                         </form>
                 </div>
@@ -129,6 +131,8 @@ onMounted(()=>{
 }
 .keepImg{
     height: 80dvh;
+    background-size: cover;
+    background-position: center;
 }
 
 .keepInfo{
@@ -136,6 +140,6 @@ onMounted(()=>{
 }
 
 .contentInfo{
-    height: 50dvh;
+    height: 60dvh;
 }
 </style>

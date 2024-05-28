@@ -2,11 +2,23 @@
 import { computed } from 'vue';
 import { AppState } from '../AppState';
 import { AuthService } from '../services/AuthService';
+import Pop from '../utils/Pop.js';
+import { logger } from '../utils/Logger.js';
+import { accountService } from '../services/AccountService.js';
 
 const identity = computed(() => AppState.identity)
 const account = computed(() => AppState.account)
 async function login() {
   AuthService.loginWithPopup()
+  if(AppState.account){
+    try {
+      accountService.getMyVaults()
+    }
+    catch (error){
+      Pop.toast("Unable to get vaults", 'error');
+      logger.log(error)
+    }
+  }
 }
 async function logout() {
   AuthService.logout()

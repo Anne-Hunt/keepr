@@ -21,7 +21,7 @@ const activeVaultKeep = computed(()=> AppState.activeVaultKeep)
 
 <template>
     <!-- VIEW MODAL /// Keep-->
-    <div class="modal fade" id="keepModal" tabindex="-1" aria-labelledby="keepModalLabel" aria-hidden="true">
+    <div class="modal fade rounded" id="keepModal" tabindex="-1" aria-labelledby="keepModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-xl">
     <div class="modal-content">
       <h1 class="modal-title d-none" id="keepModalLabel">Keep</h1>
@@ -33,7 +33,7 @@ const activeVaultKeep = computed(()=> AppState.activeVaultKeep)
   </div>
 
 <!--VIEW MODAL /// VaultKeep-->
-<div class="modal fade" id="vaultkeepModal" tabindex="-1" aria-labelledby="VaultModal" aria-hidden="true">
+<div class="modal fade rounded" id="vaultkeepModal" tabindex="-1" aria-labelledby="VaultModal" aria-hidden="true">
   <div class="modal-dialog modal-xl">
     <div class="modal-content">
       <h1 class="modal-title d-none" id="VaultModal">Vault</h1>
@@ -46,7 +46,7 @@ const activeVaultKeep = computed(()=> AppState.activeVaultKeep)
   </div>
 </div>
 <!--FORM MODALS /// Keep-->
-<div class="modal fade" id="keepForm" tabindex="-1" aria-labelledby="keep-form" aria-hidden="true">
+<div class="modal fade rounded" id="keepForm" tabindex="-1" aria-labelledby="keep-form" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -60,7 +60,7 @@ const activeVaultKeep = computed(()=> AppState.activeVaultKeep)
   </div>
   </div>
   <!--FORM MODAL /// Vault-->
-  <div class="modal fade" id="vaultForm" tabindex="-1" aria-labelledby="vault-form" aria-hidden="true">
+  <div class="modal fade rounded" id="vaultForm" tabindex="-1" aria-labelledby="vault-form" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -76,7 +76,7 @@ const activeVaultKeep = computed(()=> AppState.activeVaultKeep)
 
   <!-- FORM MODAL /// Account -->
 
-  <div class="modal fade" id="accountForm" tabindex="-1" aria-labelledby="account-form" aria-hidden="true">
+  <div class="modal fade rounded" id="accountForm" tabindex="-1" aria-labelledby="account-form" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">

@@ -1,18 +1,20 @@
 <script setup>
 import { computed, onMounted } from 'vue';
 import { AppState } from '../AppState.js';
-import KeepCard from '../components/KeepCard.vue';
 import Pop from '../utils/Pop.js';
 import { logger } from '../utils/Logger.js';
 import { keepService } from '../services/KeepService.js';
+import { useRoute } from 'vue-router';
 
 
 const vault = computed(()=>AppState.activeVault)
 const keeps = computed(()=>AppState.keeps)
+const route = useRoute()
+const vaultImg = computed(()=>`url(${AppState.activeVault.img})`)
 
 async function getKeeps(){
 try {
-    const vaultId = AppState.activeVault.id
+    const vaultId = route.params.vaultId
     await keepService.getKeepsByVault(vaultId)
 }
 catch (error){
@@ -30,9 +32,11 @@ onMounted(()=>{
 <template>
 <div class="container">
 <div class="row mb-3 justify-content-center">
-    <div class="col-6 vault" :style="{backgroundImage: `url(${vault?.img})`}">
-        <h4>{{ vault?.name }}</h4>
-        <h5>by {{ vault?.creator.name }}</h5>
+    <div class="col-6 vault rounded text-light d-flex align-items-end" data-bs-toggle="modal" data-bs-target="#vaultModal" :style="{backgroundImage: `url(${vault?.img})`}">
+        <div class="text-center">
+            <h4>{{ vault?.name }}</h4>
+            <h5>by {{ vault?.creator.name }}</h5>
+        </div>
     </div>
 </div>
 <div class="row ">
@@ -49,6 +53,10 @@ onMounted(()=>{
 <style lang="scss" scoped>
 .vault{
     height: 30dvh;
+    background-image: v-bind(vaultImg);
+    background-size: cover;
+    background-position: center;
+    position: fixed;
 }
 
 .masonry-with-columns {
@@ -62,5 +70,10 @@ onMounted(()=>{
     width: 100%;
     text-align: left;
   } 
+}
+
+.bottom-center{
+    position: absolute;
+    bottom: 8px;
 }
 </style>

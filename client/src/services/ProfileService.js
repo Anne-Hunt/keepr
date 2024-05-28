@@ -2,6 +2,7 @@ import { AppState } from "../AppState.js"
 import { Keep } from "../models/Keep.js"
 import { Profile } from "../models/Profile.js"
 import { Vault } from "../models/Vault.js"
+import { logger } from "../utils/Logger.js"
 import { api } from "./AxiosService.js"
 
 
@@ -15,7 +16,9 @@ class ProfileService{
 
     async getVaultsByProfile(profileId){
         const response = await api.get(`api/profiles/${profileId}/vaults`)
+        logger.log(response.data)
         const vaults = response.data.map(vaultData => new Vault(vaultData))
+        logger.log(vaults)
         AppState.vaults = vaults
     }
     
