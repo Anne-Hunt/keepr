@@ -11,6 +11,7 @@ const vault = computed(()=>AppState.activeVault)
 const keeps = computed(()=>AppState.keepsInVault)
 const route = useRoute()
 const vaultImg = computed(()=>`url(${AppState.activeVault?.img})`)
+const keepsTotal = computed(()=> AppState.keepsInVault.length + 1)
 
 
 async function getVaultById(){
@@ -35,6 +36,7 @@ catch (error){
 }
 
 onMounted(()=>{
+  getVaultById()
     getKeeps()
 })
 </script>
@@ -50,13 +52,19 @@ onMounted(()=>{
         </div>
     </div>
 </div>
-<div class="row ">
-      <div class="col-12 masonry-with-columns">
-        <section v-for="keep in keeps" :key="keep.id">
-          <ActiveKeep :keep="keep"></ActiveKeep>
-      </section>
+</div>
+<div class="container">
+  <div class="row ">
+    <div>
+  
+      <span v-if="keeps != []">{{ keepsTotal }} Keeps</span>
     </div>
-  </div>
+        <div class="col-12 masonry-with-columns">
+          <section v-for="keep in keeps" :key="keep.id">
+            <ActiveKeep :keep="keep"></ActiveKeep>
+        </section>
+      </div>
+    </div>
 </div>
 </template>
 

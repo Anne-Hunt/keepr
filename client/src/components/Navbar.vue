@@ -46,14 +46,18 @@ function clearActive(){
               </li>
             </ul>
           </div>
-          <div class="col-8 text-center">
+          <div class="col-7 text-center">
             <RouterLink :to="{ name: 'About'}">
-              <span class="navbar-text border border-2 border-dark rounded p-2">The <strong>Keepr</strong> Co</span>
+              <div class="navbar-text text-center p-1">
+                <button class="button button-dark-outline rounded px-2 py-0 my-2">
+                  <p class="m-0 p-0">the</p><p class="m-0 p-0">keepr</p><p class="m-0 p-0">co</p>
+                </button>
+              </div>
             </RouterLink>
           </div>
     </div>
       <!-- LOGIN COMPONENT HERE -->
-      <div class="col-2">
+      <div class="col-3">
         
         <div class="d-flex justify-content-end">
           <button class="btn text-warning" @click="toggleTheme"
@@ -69,6 +73,13 @@ function clearActive(){
 </template>
 
 <style scoped>
+button{
+  p{
+    font-size: small;
+    font-family: Quando;
+  }
+}
+
 a:hover {
   text-decoration: none;
 }
