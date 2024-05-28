@@ -1,11 +1,12 @@
 <script setup>
-import { computed, ref } from 'vue';
+import { computed, onMounted, ref } from 'vue';
 import { AppState } from '../AppState.js';
 import Pop from '../utils/Pop.js';
 import { logger } from '../utils/Logger.js';
 import { profileService } from '../services/ProfileService.js';
 import { vaultKeepService } from '../services/VaultKeepService.js';
 import { keepService } from '../services/KeepService.js';
+import { accountService } from '../services/AccountService.js';
 
 
 const keep = computed(()=> AppState.activeKeep)
@@ -51,13 +52,29 @@ catch (error){
     Pop.error("Unable to keep in vault", 'error');
     logger.log("Unable to add to vault", error)
 }}
+
+async function getUserVaults(){
+    try {
+      if(userVaults.value){
+        return
+      }
+      await accountService.getMyVaults()
+    }
+    catch (error){
+        Pop.error("Unable to get your vaults", 'error');
+    logger.log("Unable to get vaults", error)
+    }
+}
+
+onMounted(()=>{
+    getUserVaults()
+})
 </script>
 
 
 <template>
     <div class="row keepInfo">
-        <div class="col-md-6 col-12 rounded-start">
-            <img :src="keep?.img" alt="Keep image" class="keepImg">
+        <div class="col-md-6 col-12 rounded-start keepImg" :style="{backgroundImage:`url(${keep?.img})`}">
         </div>
         <div class="col-6">
             <div class="row ">
@@ -75,9 +92,9 @@ catch (error){
             </div>
             <div class="modal-footer row justify-content-between align-items-end">
                 <div class="col-8">
-                    <!-- <form @submit.prevent="createVaultKeep()">
+                    <form @submit.prevent="createVaultKeep()">
                         <div class="input-group">
-                            <select class="form-select" id="inputGroupSelect04" aria-label="Example select with button addon" v-model="vaultKeepForm.vaultId">
+                            <select class="form-select" id="vaultSelect" aria-label="Example select with button addon" v-model="vaultKeepForm.vaultId">
                                 <option v-for="userVault in userVaults" :key="userVault?.id" :value="userVault?.id">
                                     {{userVault?.name}}</option>
                                     <option v-if="!userVaults"><a href="">Add a Vault</a></option>
@@ -85,19 +102,18 @@ catch (error){
                                 <input type="number" class="d-none" :v-model="vaultKeepForm.keepId" :value="keep?.id">
                                 <button class="btn btn-outline-secondary" type="button">Button</button>
                             </div>
-                        </form> -->
+                        </form>
                 </div>
                 <div class="col-3">
-
-                    <RouterLink v-if="owner" :to="{name: 'Account'}">
-                        <div class="profileImg rounded-circle" :style="{backgroundImage: `url(${keep?.creator.picture})`}">
-                        </div>
-                    </RouterLink>
-                    <RouterLink v-if="!owner" :to="{name: 'Profile', params: {profileId: keep?.creatorId}}"
+                    <RouterLink v-if="!AppState.account || AppState.account.id != AppState.activeKeep?.creatorId" :to="{name: 'Profile', params: {profileId: `${keep?.creatorId}`}}"
                     @click="setActiveProfile(keep?.creatorId)">
-                <div class="profileImg rounded-circle" :style="{backgroundImage: `url(${keep?.creator.picture})`}">
-                </div>
-            </RouterLink>
+                    <div class="profileImg rounded-circle" data-bs-dismiss="modal" :style="{backgroundImage: `url(${keep?.creator.picture})`}">
+                    </div>
+                </RouterLink>
+                <RouterLink v-else :to="{name: 'Account'}">
+                    <div class="profileImg rounded-circle" data-bs-dismiss="modal" :style="{backgroundImage: `url(${keep?.creator.picture})`}">
+                    </div>
+                </RouterLink>
                 </div>
         </div>
     </div>

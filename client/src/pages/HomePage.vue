@@ -4,10 +4,11 @@ import { logger } from '../utils/Logger.js';
 import Pop from '../utils/Pop.js';
 import { AppState } from '../AppState.js';
 import { keepService } from '../services/KeepService.js';
+import { accountService } from '../services/AccountService.js';
 
 const keeps = computed(()=>AppState.keeps)
-const brick = Math.random()*80
-const brickHeight = `${brick}dvh`
+// const brick = Math.random()*80
+// const brickHeight = `${brick}dvh`
 
 async function getKeeps(){
   try {
@@ -19,9 +20,22 @@ async function getKeeps(){
   }
 }
 
+async function getUserVaults(){
+    try {
+      if(AppState.userVaults){
+        return
+      }
+      await accountService.getMyVaults()
+    }
+    catch (error){
+        Pop.error("Unable to get your vaults", 'error');
+    logger.log("Unable to get vaults", error)
+    }
+}
 
-onMounted(()=>
-getKeeps())
+onMounted(()=>{
+getKeeps()
+getUserVaults()})
 </script>
 
 <template>
@@ -47,22 +61,18 @@ getKeeps())
   column-gap: 1rem;
   div {
     width: 150px;
-    height: v-bind(brickHeight);
+    height: auto;
     color: white;
-    margin: 0 1rem 1rem 0;
     display: inline-block;
     width: 100%;
-    text-align: center;
-    font-family: system-ui;
-    font-weight: 900;
-    font-size: 2rem;
+    text-align: left;
   } 
-  @for $i from 1 through 36 { 
-    div:nth-child(#{$i}) {
-      $h: (random(400) + 100) + px;
-      height: $h;
-      line-height: $h;
-    }
-  }
+  // @for $i from 1 through 36 { 
+  //   div:nth-child(#{$i}) {
+  //     $h: (random(400) + 100) + px;
+  //     height: $h;
+  //     line-height: $h;
+  //   }
+  // }
 }
 </style>
