@@ -60,7 +60,7 @@ function clearActive(){
       <div class="col-3">
         
         <div class="d-flex justify-content-end">
-          <button class="btn text-warning" @click="toggleTheme"
+          <button class="btn text-tertiary" @click="toggleTheme"
             :title="`Enable ${theme == 'light' ? 'dark' : 'light'} theme.`">
             <i class="mdi" :class="theme == 'light' ? 'mdi-toggle-switch-variant' : 'mdi-toggle-switch-variant-off'"></i>
           </button>
