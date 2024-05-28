@@ -73,9 +73,9 @@ onMounted(()=>{
 
 <template>
     <div class="row keepInfo">
-        <div class="col-md-6 col-12 rounded-start keepImg" :style="{backgroundImage:`url(${keep?.img})`}">
+        <div class="col-md-6 col-12 order-1 rounded-start keepImg" :style="{backgroundImage:`url(${keep?.img})`}">
         </div>
-        <div class="col-6">
+        <div class="col-md-6 col-12 order-2 bg-light">
             <div class="row ">
                 <div class="col-11 text-center">
                     <i class="mdi mdi-eye"></i>{{ keep?.views }} | <i class="mdi mdi-alpha-k-box-outline"></i>

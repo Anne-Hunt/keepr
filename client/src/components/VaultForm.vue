@@ -4,6 +4,7 @@ import Pop from '../utils/Pop.js';
 import { logger } from '../utils/Logger.js';
 import { vaultService } from '../services/VaultService.js';
 import { AppState } from '../AppState.js';
+import { Modal } from 'bootstrap';
 
 const activeVault = computed(()=>AppState.activeVault)
 
@@ -15,7 +16,8 @@ const vaultData = ref({
 
 async function createVault(){
     try {
-      await vaultService.createVault(vaultData)
+      await vaultService.createVault(vaultData.value)
+      Modal.getOrCreateInstance('#vaultForm').hide
       resetForm()
     }
     catch (error){
@@ -26,7 +28,8 @@ async function createVault(){
 
 async function updateVault(){
     try {
-      await vaultService.updateVault(vaultData)
+      await vaultService.updateVault(vaultData.value)
+      Modal.getOrCreateInstance('#vaultForm').hide
       resetForm()
     }
     catch (error){

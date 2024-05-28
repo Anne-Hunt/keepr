@@ -58,7 +58,7 @@ onMounted(()=>{
   <div class="container">
     <div class="row mb-3 coverImg justify-content-center align-items-end shadow"
       :style="{backgroundImage: `url(${account?.coverImg})`}">
-      <img class="coverImg rounded-circle shadow" :src="account?.picture" />
+      <img class="profileImg rounded-circle shadow p-0 border border-dark" :src="account?.picture" />
     </div>
     <div class="text-end" role="button" data-bs-target="#accountForm" data-bs-toggle="modal"><i class="mdi mdi-dots-horizontal fs-3"></i></div>
     <div class="row text-center mb-3">
@@ -91,12 +91,17 @@ onMounted(()=>{
 <style lang="scss" scoped>
 .coverImg{
   height: 40dvh;
+  background-position: center;
+  background-size: cover;
+  position:relative;
 }
 .profileImg{
-  height: 20dvh;
-  width: 20dvh;
+  height: 100px;
+  width: 100px;
   object-fit: cover;
   object-position: center;
+  position:absolute;
+  bottom: -50px;
 }
 
 .masonry-with-columns {

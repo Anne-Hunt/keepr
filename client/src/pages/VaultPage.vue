@@ -35,12 +35,13 @@ onMounted(()=>{
         <h5>by {{ vault?.creator.name }}</h5>
     </div>
 </div>
-<div class="row">
-    <h3 class="mb-3">Keeps</h3>
-    <div class="col-4 mb-3" v-for="keep in keeps" :key="keep?.id">
-        <KeepCard/>
+<div class="row ">
+      <div class="col-12 masonry-with-columns">
+        <section v-for="keep in keeps" :key="keep.id">
+          <ActiveKeep :keep="keep"></ActiveKeep>
+      </section>
     </div>
-</div>
+  </div>
 </div>
 </template>
 
@@ -48,5 +49,18 @@ onMounted(()=>{
 <style lang="scss" scoped>
 .vault{
     height: 30dvh;
+}
+
+.masonry-with-columns {
+  columns: 6 200px;
+  column-gap: 1rem;
+  div {
+    width: 150px;
+    height: auto;
+    color: white;
+    display: inline-block;
+    width: 100%;
+    text-align: left;
+  } 
 }
 </style>

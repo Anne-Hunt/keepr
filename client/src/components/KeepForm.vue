@@ -4,6 +4,7 @@ import Pop from '../utils/Pop.js';
 import { logger } from '../utils/Logger.js';
 import { AppState } from '../AppState.js';
 import { keepService } from '../services/KeepService.js';
+import { Modal } from 'bootstrap';
 
 const activeKeep = computed(()=>AppState.activeKeep)
 
@@ -16,11 +17,8 @@ const keepData = ref({
 
 async function createKeep(){
     try {
-        const newKeep = {}
-        newKeep.name = keepData.value.name
-        newKeep.description = keepData.value.description
-        newKeep.img = keepData.value.img
-      await keepService.createKeep(newKeep)
+      await keepService.createKeep(keepData.value)
+      Modal.getOrCreateInstance('#keepForm').hide
       resetForm()
     }
     catch (error){
@@ -31,12 +29,10 @@ async function createKeep(){
 
 async function updateKeep(){
     try {
-        const updatedKeep = {}
-        updatedKeep.name = keepData.value.name
-        updatedKeep.description = keepData.value.description
-        updatedKeep.img = keepData.value.img
-      await keepService.updateKeep(updatedKeep)
+      await keepService.updateKeep(keepData.value)
+      Modal.getOrCreateInstance('#keepForm').hide
       resetForm()
+      Modal.getOrCreateInstance('#keepModal').show
     }
     catch (error){
       Pop.error("Unable to update Keep at this time", 'error');
