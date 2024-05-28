@@ -1,14 +1,13 @@
 <script setup>
 import { computed, onMounted } from 'vue';
 import { AppState } from '../AppState.js';
-import VaultCard from '../components/VaultCard.vue';
 import Pop from '../utils/Pop.js';
 import { logger } from '../utils/Logger.js';
 import { accountService } from '../services/AccountService.js';
 import ActiveKeep from '../components/ActiveKeep.vue';
 
 const account = computed(()=> AppState.account)
-const vaults = computed(()=>AppState.vaults)
+const vaults = computed(()=>AppState.userVaults)
 const keeps = computed(()=>AppState.keeps)
 const vaultcount = computed(()=>AppState.vaults.length)
 const keepcount = computed(()=>AppState.keeps.length)

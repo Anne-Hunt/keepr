@@ -5,13 +5,24 @@ import Pop from '../utils/Pop.js';
 import { logger } from '../utils/Logger.js';
 import { keepService } from '../services/KeepService.js';
 import { useRoute } from 'vue-router';
-
+import { vaultService } from '../services/VaultService.js';
 
 const vault = computed(()=>AppState.activeVault)
-const keeps = computed(()=>AppState.keeps)
+const keeps = computed(()=>AppState.keepsInVault)
 const route = useRoute()
-const vaultImg = computed(()=>`url(${AppState.activeVault.img})`)
+const vaultImg = computed(()=>`url(${AppState.activeVault?.img})`)
 
+
+async function getVaultById(){
+  try {
+    const vaultId = route.params.vaultId
+    await vaultService.getVaultById(vaultId)
+  }
+  catch (error){
+    Pop.error("Unable to get this vault", 'error');
+  logger.log("unable to get vault", error)
+  }
+}
 async function getKeeps(){
 try {
     const vaultId = route.params.vaultId
@@ -32,7 +43,7 @@ onMounted(()=>{
 <template>
 <div class="container">
 <div class="row mb-3 justify-content-center">
-    <div class="col-6 vault rounded text-light d-flex align-items-end" data-bs-toggle="modal" data-bs-target="#vaultModal" :style="{backgroundImage: `url(${vault?.img})`}">
+    <div class="col-6 vault rounded text-light d-flex align-items-end" :style="{backgroundImage: `url(${vault?.img})`}">
         <div class="text-center">
             <h4>{{ vault?.name }}</h4>
             <h5>by {{ vault?.creator.name }}</h5>

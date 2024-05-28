@@ -18,22 +18,8 @@ async function getKeeps(){
   }
 }
 
-async function getUserVaults(){
-    try {
-      if(AppState.userVaults){
-        return
-      }
-      await accountService.getMyVaults()
-    }
-    catch (error){
-        Pop.error("Unable to get your vaults", 'error');
-    logger.log("Unable to get vaults", error)
-    }
-}
-
 onMounted(()=>{
-getKeeps()
-getUserVaults()})
+getKeeps()})
 </script>
 
 <template>
