@@ -49,10 +49,21 @@ async function getKeptKeepsByVault(){
   }
 }
 
+async function getVaultKeeps(){
+  try {
+    const vaultId = route.params.vaultId
+    await vaultKeepService.getVaultKeepsByVault(vaultId)
+  }
+  catch (error){
+    Pop.error("Unable to get vaultkeeps for this vault", 'error');
+  logger.log("unable to get vaultkeeps for vault", error)
+  }
+}
+
 onMounted(()=>{
   getVaultById()
     getKeeps()
-    getKeptKeepsByVault()
+    getVaultKeeps()
 })
 </script>
 

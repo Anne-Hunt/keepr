@@ -36,6 +36,17 @@ public class VaultKeepRepository
         return vaultkeeps;
     }
 
+    internal List<VaultKeep> GetAllVaultKeeps()
+    {
+        string sql = @"
+        SELECT
+        * 
+        FROM vaultkeeps;";
+
+        List<VaultKeep> vaultkeeps = _db.Query<VaultKeep>(sql).ToList();
+        return vaultkeeps;
+    }
+
     internal VaultKeep CreateVaultKeep(VaultKeep vaultkeepData)
     {
         string sql = @"

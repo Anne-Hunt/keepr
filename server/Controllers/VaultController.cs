@@ -32,6 +32,20 @@ public class VaultController : ControllerBase
         }
     }
 
+    [HttpGet("{vaultId}/vaultkeeps")]
+    public ActionResult<List<Vault>> GetVaultKeepsByVault(int vaultId)
+    {
+        try
+        {
+            List<VaultKeep> vaultkeeps = _vaultkeepService.GetVaultKeepByVault(vaultId);
+            return Ok(vaultkeeps);
+        }
+        catch (Exception exception)
+        {
+            return BadRequest(exception.Message);
+        }
+    }
+
     [HttpGet("{vaultId}")]
     public async Task<ActionResult<Vault>> GetVaultById(int vaultId)
     {

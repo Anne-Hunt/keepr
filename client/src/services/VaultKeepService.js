@@ -5,6 +5,11 @@ import { api } from "./AxiosService.js"
 
 
 class VaultKeepService{
+    async getVaultKeepsByVault(vaultId){
+        const response = await api.get(`api/vault/${vaultId}/vaultkeeps`)
+        const vaultkeeps = response.data.map(vaultkeep => new VaultKeep(vaultkeep))
+        AppState.vaultkeeps = vaultkeeps
+    }
 
     async createVaultKeep(vaultkeepData){
         vaultkeepData.creatorId = AppState.account.id
