@@ -15,8 +15,7 @@ const account = computed(()=> AppState.account)
 const userVaults = computed (()=>AppState.userVaults)
 const vaultKeepForm = ref({
     vaultId: '',
-    keepId: 0,
-    creatorId: ''
+    keepId: ''
 })
 async function setActiveProfile(profileId){
     try {
@@ -38,8 +37,9 @@ function unsetActiveKeep(){
     }
 }
 
-async function createVaultKeep(){
+async function createVaultKeep(keepId){
 try {
+    vaultKeepForm.value.keepId = keepId
     await vaultKeepService.createVaultKeep(vaultKeepForm.value)
     Modal.getOrCreateInstance('#keepModal').hide
 }
@@ -90,15 +90,14 @@ onMounted(()=>{
             </div>
             <div class="row justify-content-between align-items-center">
                 <div class="col-8">
-                    <form @submit.prevent="createVaultKeep()">
+                    <form @submit.prevent="createVaultKeep(keep?.id)">
                         <div class="input-group">
                             <select class="form-select" id="vaultSelect" aria-label="Example select with button addon" v-model="vaultKeepForm.vaultId">
                                 <option v-for="userVault in userVaults" :key="userVault?.id" :value="userVault?.id">
                                     {{userVault?.name}}</option>
                                     <option v-if="!userVaults"><a href="">Add a Vault</a></option>
                                 </select>
-                                <input type="number" class="d-none" :v-model="vaultKeepForm.keepId" :value="keep?.id">
-                                <button class="btn btn-outline-secondary" type="button">Keep <i class="mdi mdi-arrow-right"> Vault</i></button>
+                                <button class="btn btn-outline-secondary" type="submit">Keep <i class="mdi mdi-arrow-right"> Vault</i></button>
                             </div>
                         </form>
                 </div>

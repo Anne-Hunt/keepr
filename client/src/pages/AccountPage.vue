@@ -34,21 +34,21 @@ async function getMyKeeps(){
   }
 }
 
-// async function getMyVaultKeeps(){
-//   try {
-//     const vaultkeeps = await accountService.getMyVaultKeeps()
-//     logger.log(vaultkeeps)
-//   }
-//   catch (error){
-//     Pop.error("Unable to get your kept content!");
-//     logger.log("Unable to get vaultkeeps", error)
-//   }
-// }
+async function getMyVaultKeeps(){
+  try {
+    const vaultkeeps = await accountService.getMyVaultKeeps()
+    logger.log(vaultkeeps)
+  }
+  catch (error){
+    Pop.error("Unable to get your kept content!");
+    logger.log("Unable to get vaultkeeps", error)
+  }
+}
 
 onMounted(()=>{
   getMyVaults()
   getMyKeeps()
-  // getMyVaultKeeps()
+  getMyVaultKeeps()
 })
 </script>
 

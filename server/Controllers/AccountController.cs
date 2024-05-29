@@ -10,13 +10,15 @@ public class AccountController : ControllerBase
   private readonly Auth0Provider _auth0Provider;
   private readonly VaultService _vaultService;
   private readonly KeepService _keepService;
+  private readonly VaultKeepService _vaultkeepService;
 
-  public AccountController(AccountService accountService, Auth0Provider auth0Provider, VaultService vaultService, KeepService keepService)
+  public AccountController(AccountService accountService, Auth0Provider auth0Provider, VaultService vaultService, KeepService keepService, VaultKeepService vaultkeepService)
   {
     _accountService = accountService;
     _auth0Provider = auth0Provider;
     _vaultService = vaultService;
     _keepService = keepService;
+    _vaultkeepService = vaultkeepService;
   }
 
   [HttpGet]
@@ -67,6 +69,26 @@ public class AccountController : ControllerBase
         throw new Exception("Please log in to continue!");
       }
       List<Keep> keeps = _keepService.GetMyKeeps(user.Id);
+      return Ok(keeps);
+    }
+    catch (Exception exception)
+    {
+      return BadRequest(exception.Message);
+    }
+  }
+
+  [HttpGet("vaultkeeps")]
+  [Authorize]
+  public async Task<ActionResult<List<VaultKeep>>> GetMyVaultKeeps()
+  {
+    try
+    {
+      Account user = await _auth0Provider.GetUserInfoAsync<Account>(HttpContext);
+      if (user == null)
+      {
+        throw new Exception("Please log in to continue!");
+      }
+      List<VaultKeep> keeps = _vaultkeepService.GetVaultKeepsByAccount(user.Id);
       return Ok(keeps);
     }
     catch (Exception exception)

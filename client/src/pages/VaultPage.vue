@@ -4,13 +4,14 @@ import { AppState } from '../AppState.js';
 import Pop from '../utils/Pop.js';
 import { logger } from '../utils/Logger.js';
 import { keepService } from '../services/KeepService.js';
-import { useRoute } from 'vue-router';
+import { useRoute, useRouter } from 'vue-router';
 import { vaultService } from '../services/VaultService.js';
 import { vaultKeepService } from '../services/VaultKeepService.js';
 
 const vault = computed(()=>AppState.activeVault)
 const keeps = computed(()=>AppState.keepsInVault)
 const route = useRoute()
+const router = useRouter()
 const vaultImg = computed(()=>`url(${AppState.activeVault?.img})`)
 const keepsTotal = computed(()=> AppState.keepsInVault.length)
 
@@ -21,6 +22,7 @@ async function getVaultById(){
     await vaultService.getVaultById(vaultId)
   }
   catch (error){
+    router.push({name: 'Home'})
     Pop.error("Unable to get this vault", 'error');
   logger.log("unable to get vault", error)
   }
@@ -50,7 +52,7 @@ async function getKeptKeepsByVault(){
 onMounted(()=>{
   getVaultById()
     getKeeps()
-    // getKeptKeepsByVault()
+    getKeptKeepsByVault()
 })
 </script>
 

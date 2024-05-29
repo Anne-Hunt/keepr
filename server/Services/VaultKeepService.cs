@@ -55,4 +55,10 @@ public class VaultKeepService
         _repository.TrashVaultKeep(vaultkeepId);
         return "VaultKeep deleted!";
     }
+
+    internal List<VaultKeep> GetVaultKeepsByAccount(string userId)
+    {
+        List<VaultKeep> vaultkeeps = _repository.GetVaultKeepsByAccount(userId);
+        return vaultkeeps;
+    }
 }
