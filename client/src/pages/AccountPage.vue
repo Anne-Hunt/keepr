@@ -4,7 +4,7 @@ import { AppState } from '../AppState.js';
 import Pop from '../utils/Pop.js';
 import { logger } from '../utils/Logger.js';
 import { accountService } from '../services/AccountService.js';
-import ActiveKeep from '../components/ActiveKeep.vue';
+import AccountVault from '../components/AccountVault.vue';
 
 const account = computed(()=> AppState.account)
 const vaults = computed(()=>AppState.userVaults)
@@ -71,14 +71,14 @@ onMounted(()=>{
       <div v-if="!AppState.userVaults"><strong>Add a Vault</strong></div>
       <div class="col-12 masonry-with-columns">
         <section v-for="vault in vaults" :key="vault?.id">
-          <ActiveVault :vault="vault"></ActiveVault>
+          <AccountVault :vault="vault"></AccountVault>
         </section>
       </div>
       <div class="row ">
         <h3 class="mb-3">Keeps</h3>
         <div class="col-12 masonry-with-columns">
           <section v-for="keep in keeps" :key="keep?.id">
-            <ActiveKeep :keep="keep"></ActiveKeep>
+            <AccountKeep :keep="keep"></AccountKeep>
           </section>
         </div>
       </div>

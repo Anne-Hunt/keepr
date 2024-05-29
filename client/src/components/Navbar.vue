@@ -26,7 +26,7 @@ function clearActive(){
 <template>
   <nav class="navbar navbar-expand-sm px-3 shadow mb-3 sticky-sm-bottom">
     <div class="container-fluid">
-      <div  class="navbar-brand d-flex col-1">
+      <div class="navbar-brand d-flex col-1">
         <RouterLink :to="{ name: 'Home' }">
           <span class="navbar-text quando text-dark home rounded p-1"><strong>Home</strong></span>
         </RouterLink>
@@ -34,42 +34,47 @@ function clearActive(){
       <div class="collapse navbar-collapse col-1">
         <ul class="navbar-nav d-flex align-items-center justify-content-between">
           <li class="nav-item dropdown pe-5">
-                <a class="nav-link quando dropdown-toggle text-dark align-items-center" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                  <strong>Create</strong>
-                </a>
-                <ul class="dropdown-menu rounded-bottom ltpurple border border-dark">
-                  <li><a class="dropdown-item quando" data-bs-target="#vaultForm" data-bs-toggle="modal" @click="clearActive()">Create Vault</a></li>
-                  <hr/>
-                  <li><a class="dropdown-item quando" data-bs-target="#keepForm" data-bs-toggle="modal" @click="clearActive()">Create Keep</a></li>
-                </ul>
-              </li>
-              <li>
-              </li>
+            <a class="nav-link quando dropdown-toggle text-dark align-items-center" href="#" role="button"
+              data-bs-toggle="dropdown" aria-expanded="false">
+              <strong>Create</strong>
+            </a>
+            <ul class="dropdown-menu rounded-bottom ltpurple border border-dark">
+              <li><a class="dropdown-item quando" data-bs-target="#vaultForm" data-bs-toggle="modal"
+                  @click="clearActive()">Create Vault</a></li>
+              <hr />
+              <li><a class="dropdown-item quando" data-bs-target="#keepForm" data-bs-toggle="modal"
+                  @click="clearActive()">Create Keep</a></li>
             </ul>
+          </li>
+          <li>
+          </li>
+        </ul>
+      </div>
+      <div class="col-6 text-center">
+        <RouterLink :to="{ name: 'About'}">
+          <div class="navbar-text text-center p-1">
+            <button class="button button-dark-outline rounded quando px-2 py-0 my-2">
+              <p class="m-0 p-0">the</p>
+              <p class="m-0 p-0">keepr</p>
+              <p class="m-0 p-0">co</p>
+            </button>
           </div>
-          <div class="col-6 text-center">
-            <RouterLink :to="{ name: 'About'}">
-              <div class="navbar-text text-center p-1">
-                <button class="button button-dark-outline rounded quando px-2 py-0 my-2">
-                  <p class="m-0 p-0">the</p><p class="m-0 p-0">keepr</p><p class="m-0 p-0">co</p>
-                </button>
-              </div>
-            </RouterLink>
-          </div>
+        </RouterLink>
+      </div>
     </div>
-      <!-- LOGIN COMPONENT HERE -->
-      <div class="col-4">
-        
-        <div class="d-flex justify-content-end">
-          <button class="btn text-tertiary" @click="toggleTheme"
-            :title="`Enable ${theme == 'light' ? 'dark' : 'light'} theme.`">
-            <i class="mdi" :class="theme == 'light' ? 'mdi-toggle-switch-variant' : 'mdi-toggle-switch-variant-off'"></i>
-          </button>
-          <Login />
+    <!-- LOGIN COMPONENT HERE -->
+    <div class="col-4">
+
+      <div class="d-flex justify-content-end">
+        <button class="btn text-tertiary" @click="toggleTheme"
+          :title="`Enable ${theme == 'light' ? 'dark' : 'light'} theme.`">
+          <i class="mdi" :class="theme == 'light' ? 'mdi-toggle-switch-variant' : 'mdi-toggle-switch-variant-off'"></i>
+        </button>
+        <Login />
       </div>
-        <div>
-        </div>
+      <div>
       </div>
+    </div>
   </nav>
 </template>
 

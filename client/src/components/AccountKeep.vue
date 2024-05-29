@@ -42,7 +42,7 @@ async function trashKeep(keepId){
 
 <template>
           <div class="mb-3 rounded keepbox" data-bs-toggle="modal" data-bs-target="#keepModal" @click="setActiveKeep(keep.id)">
-            <i v-if="owner" class="mdi mdi-close-circle text-end text-danger fs-1 top-right" @click="trashKeep(keep.id)"></i> 
+            <i class="mdi mdi-close-circle text-end text-danger fs-3 top-right index" @click="trashKeep(keep.id)"></i> 
             <img class="imgView rounded" :src="keep.img" :alt="keep.name">
           <p class="text-light bottom-left fs-5 m-0 keepName">{{ keep.name }}</p>
       </div>
@@ -55,6 +55,11 @@ async function trashKeep(keepId){
     height: auto;
     background-color: black;
     filter: contrast(.8);
+    z-index: 1;
+}
+
+.index{
+  z-index: 2;
 }
 
 .keepName{
@@ -78,8 +83,7 @@ async function trashKeep(keepId){
 
 .top-right{
     position: absolute;
-  top: 8px;
-  right: 16px;
+  right: 15%;
 }
 
 </style>

@@ -17,14 +17,29 @@ function setActiveVault(vaultId){
       logger.log("unable to set active vault", error)
     }
 }
+
+async function trashVault(vaultId){
+    try {
+        const confirm = await Pop.confirm("Do you want to delete this vault? This cannot be undone.")
+        if(!confirm){
+            return
+        }
+        await vaultService.TrashVault(vaultId)
+    }
+    catch (error){
+      Pop.error("Unable to remove vault", 'error');
+      logger.log("unable to remove vault", error)
+    }
+}
 </script>
 
 
 <template>
   <RouterLink :to="{name: 'Vault', params:{vaultId: vault.id}}">
     <div class="mb-3 rounded keepbox" @click="setActiveVault(vault.id)">
+      <i class="mdi mdi-close-circle text-end text-danger fs-3 top-right index" @click="trashVault(vault.id)"></i> 
       <img class="imgView rounded" :src="vault.img" :alt="vault.name">
-    <p class="text-light bottom-left fs-3 m-0">{{ vault.name }}</p>
+    <p class="text-light bottom-left text-uppercase m-0">{{ vault.name }}</p>
 </div>
   </RouterLink>
 </template>
@@ -33,12 +48,15 @@ function setActiveVault(vaultId){
 <style lang="scss" scoped>
 .imgView{
     width: 200px;
-    height: auto;
+    height: 150px;
     background-color: black;
     filter: contrast(.8);
+    z-index: 1;
 }
+
 .keepbox {
   position: relative;
+  font-family: Marko, Quando, Verdana, serif;
 }
 
 .bottom-left{
@@ -46,5 +64,13 @@ function setActiveVault(vaultId){
   bottom: 8px;
   left: 16px;
   text-shadow: 0px 0px 10px black;
+}
+.index{
+  z-index: 2;
+}
+
+.top-right{
+    position: absolute;
+  right: 15%;
 }
 </style>

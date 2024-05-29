@@ -32,26 +32,30 @@ async function logout() {
       Login
     </button>
     <div v-else>
-      <div class="dropdown my-2 my-lg-0">
-        <div type="button" class="border-0 selectable no-select" data-bs-toggle="dropdown"
-          aria-expanded="false">
-          <div v-if="account?.picture || identity?.picture">
-            <img :src="account?.picture || identity?.picture" alt="account photo" height="40" class="rounded-circle loginImg shadow border border-dark" />
-          </div>
-        </div>
-        <div class="dropdown-menu dropdown-menu-sm-end dropdown-menu-start p-0" aria-labelledby="authDropdown">
-          <div class="list-group border border-dark">
-            <router-link :to="{ name: 'Account' }">
-              <div class="list-group-item dropdown-item list-group-item-action ltpurple">
-                Your Account
+      <div class="collapse navbar-collapse col-1">
+        <ul class="navbar-nav d-flex align-items-center justify-content-between">
+          <li class="nav-item dropdown pe-5">
+            <div type="button" class="border-0 selectable no-select" data-bs-toggle="dropdown" aria-expanded="false">
+              <div v-if="account?.picture || identity?.picture">
+                <img :src="account?.picture || identity?.picture" alt="account photo" height="40"
+                  class="rounded-circle loginImg shadow border border-dark" />
               </div>
-            </router-link>
-            <div class="list-group-item dropdown-item list-group-item-action selectable ltpurple" @click="logout">
-              <i class="mdi mdi-logout"></i>
-              Log Out
             </div>
-          </div>
-        </div>
+            <ul
+              class="dropdown-menu dropdown-menu-sm-end dropdown-menu-start rounded-bottom ltpurple border border-dark"
+              aria-labelledby="authDropdown">
+              <li><a class="dropdown-item quando">
+                  <router-link :to="{ name: 'Account' }">
+                    Your Account
+                  </router-link>
+                </a></li>
+              <hr />
+              <li><a class="dropdown-item quando" @click="logout"><i class="mdi mdi-logout"></i>Log Out</a></li>
+            </ul>
+          </li>
+          <li>
+          </li>
+        </ul>
       </div>
     </div>
   </span>
