@@ -1,8 +1,7 @@
 
-public class KeptVaultKeep : VaultKeep
+public class KeptVaultKeep : Keep
 {
-    public Profile Creator { get; set; }
-
-    public Keep Keep { get; set; }
+    public VaultKeep VaultKeep { get; set; }
+    public int VaultKeepId { get; set; }
 
 }

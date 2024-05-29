@@ -76,28 +76,34 @@ public class VaultController : ControllerBase
         try
         {
             Account user = await _auth0Provider.GetUserInfoAsync<Account>(HttpContext);
-            List<KeptVaultKeep> keeps = new List<KeptVaultKeep>();
-            List<VaultKeep> vaultkeeps = new List<VaultKeep>();
-            if (user != null)
-            {
-                Vault vaultClosed = _vaultService.GetPrivateVault(vaultId, user.Id);
-                List<VaultKeep> vaultkeepsClosed = _vaultkeepService.GetVaultKeepByVault(vaultId);
-                vaultkeeps = vaultkeepsClosed;
-            }
-            if (user == null)
-            {
-                Vault vaultOpen = _vaultService.GetPublicVault(vaultId);
-                List<VaultKeep> vaultkeepsOpen = _vaultkeepService.GetVaultKeepByVault(vaultId);
-                vaultkeeps = vaultkeepsOpen;
-            }
-            foreach (VaultKeep vaultkeep in vaultkeeps)
-            {
-                int keepId = vaultkeep.KeepId;
-                KeptVaultKeep keep = _keepService.GetKeepsByVaultId(keepId);
-                keeps.Add(keep);
-            }
-            return Ok(keeps);
+            Vault vault = _vaultService.GetVaultById(vaultId);
+            List<KeptVaultKeep> keepV = _keepService.GetKeepsByVaultId(vaultId);
+            return keepV;
         }
+        // {
+        //     Account user = await _auth0Provider.GetUserInfoAsync<Account>(HttpContext);
+        //     List<KeptVaultKeep> keeps = new List<KeptVaultKeep>();
+        //     List<VaultKeep> vaultkeeps = new List<VaultKeep>();
+        //     if (user != null)
+        //     {
+        //         Vault vaultClosed = _vaultService.GetPrivateVault(vaultId, user.Id);
+        //         List<VaultKeep> vaultkeepsClosed = _vaultkeepService.GetVaultKeepByVault(vaultId);
+        //         vaultkeeps = vaultkeepsClosed;
+        //     }
+        //     if (user == null)
+        //     {
+        //         Vault vaultOpen = _vaultService.GetPublicVault(vaultId);
+        //         List<VaultKeep> vaultkeepsOpen = _vaultkeepService.GetVaultKeepByVault(vaultId);
+        //         vaultkeeps = vaultkeepsOpen;
+        //     }
+        //     foreach (VaultKeep vaultkeep in vaultkeeps)
+        //     {
+        //         int keepId = vaultkeep.KeepId;
+        //         KeptVaultKeep keep = _keepService.GetKeepsByVaultId(keepId);
+        //         keeps.Add(keep);
+        //     }
+        //     return Ok(keeps);
+        // }
         catch (Exception exception)
         {
             return BadRequest(exception.Message);

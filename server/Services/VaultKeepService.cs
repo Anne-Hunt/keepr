@@ -39,12 +39,6 @@ public class VaultKeepService
         return vaultkeeps;
     }
 
-    internal List<KeptVaultKeep> GetKeepsAndVaultKeepsByVault(int vaultId)
-    {
-        List<KeptVaultKeep> vaultkeeps = _repository.GetKeepsAndVaultKeepsByVault(vaultId);
-        return vaultkeeps;
-    }
-
     internal string TrashVaultKeep(int vaultkeepId, string userId)
     {
         VaultKeep foundVK = GetVaultKeepById(vaultkeepId);

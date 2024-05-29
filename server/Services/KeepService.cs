@@ -60,14 +60,14 @@ public class KeepService
         return "Deleted Keep";
     }
 
-    internal KeptVaultKeep GetKeepsByVaultId(int keepId)
+    internal List<KeptVaultKeep> GetKeepsByVaultId(int keepId)
     {
-        KeptVaultKeep keep = _repository.GetKeepsByVaultId(keepId);
-        if (keep == null)
+        List<KeptVaultKeep> keeps = _repository.GetKeepsByVaultId(keepId);
+        if (keeps == null)
         {
-            throw new Exception("Unable to find keep!");
+            throw new Exception("Unable to find keeps!");
         }
-        return keep;
+        return keeps;
     }
 
     internal Keep GetKeepByVaultKeep(int keepId)
