@@ -87,4 +87,14 @@ public class KeepService
         List<Keep> keeps = _repository.GetAccountKeeps(userId);
         return keeps;
     }
+
+
+    internal Keep IncrementViews(int keepId)
+    {
+        _repository.IncrementViews(keepId);
+
+        Keep keep = GetKeepById(keepId);
+
+        return keep;
+    }
 }

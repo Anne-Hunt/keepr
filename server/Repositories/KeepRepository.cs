@@ -166,4 +166,15 @@ public class KeepRepository
         }, new { userId }).ToList();
         return keeps;
     }
+
+    internal void IncrementViews(int keepId)
+    {
+        string sql = @"
+      UPDATE keeps
+      SET views = views + 1
+      WHERE id = @keepId
+      LIMIT 1;";
+
+        _db.Execute(sql, new { keepId });
+    }
 }
