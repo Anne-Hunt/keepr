@@ -27,7 +27,7 @@ async function logout() {
 </script>
 
 <template>
-  <span class="navbar-text">
+  <span class="navbar-text quando">
     <button class="btn selectable text-success lighten-30 text-uppercase my-2 my-lg-0" @click="login" v-if="!identity">
       Login
     </button>
@@ -40,13 +40,13 @@ async function logout() {
           </div>
         </div>
         <div class="dropdown-menu dropdown-menu-sm-end dropdown-menu-start p-0" aria-labelledby="authDropdown">
-          <div class="list-group">
+          <div class="list-group border border-dark">
             <router-link :to="{ name: 'Account' }">
-              <div class="list-group-item dropdown-item list-group-item-action">
+              <div class="list-group-item dropdown-item list-group-item-action ltpurple">
                 Your Account
               </div>
             </router-link>
-            <div class="list-group-item dropdown-item list-group-item-action text-danger selectable" @click="logout">
+            <div class="list-group-item dropdown-item list-group-item-action selectable ltpurple" @click="logout">
               <i class="mdi mdi-logout"></i>
               Log Out
             </div>
@@ -63,5 +63,12 @@ async function logout() {
   width: 40px;
   object-fit: cover;
   object-position: center;
+}
+
+.ltpurple{
+  background-color: var(--bg-ltpurple);
+}
+.quando{
+  font-family: Quando, Verdana, serif;
 }
 </style>

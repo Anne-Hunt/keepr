@@ -43,11 +43,11 @@ async function trashKeep(){
 
 <template>
     <div>
-        <i v-if="owner" class="mdi mdi-close-circle text-end text-danger" @click="trashKeep()"></i>        
-        <div data-bs-toggle="modal" data-bs-target="#keepModal" @click="setActiveKeep()">
+        <div class="parent" data-bs-toggle="modal" data-bs-target="#keepModal" @click="setActiveKeep()">
+            <i v-if="owner" class="mdi mdi-close-circle text-end text-danger fs-1 child" @click="trashKeep()"></i>        
     <div class="card keepProfile p-1 d-flex justify-content-end" :style="{backgroundImage: `url(${keep?.img})`}">
         <!-- <img class="" :style="{backgroundImage: `url(${keep?.img})`}"/> -->
-        <h4 class="text-light">{{ keep?.name }}</h4>
+        <h4 class="text-light quando">{{ keep?.name }}</h4>
     </div>
     </div>
     </div>
@@ -62,5 +62,18 @@ async function trashKeep(){
     background-repeat: no-repeat;
     background-size: cover;
 }
-//FIXME Add filter to css
+
+.parent{
+    position: relative;
+}
+
+.child{
+    position: absolute;
+  top: 8px;
+  right: 16px;
+}
+
+.quando{
+  font-family: Quando, Verdana, serif;
+}
 </style>
