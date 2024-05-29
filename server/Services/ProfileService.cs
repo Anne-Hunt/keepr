@@ -16,9 +16,9 @@ public class ProfileService
         _vaultService = vaultService;
     }
 
-    internal List<KeptVaultKeep> GetKeepsByProfile(string profileId)
+    internal List<Keep> GetKeepsByProfile(string profileId)
     {
-        List<KeptVaultKeep> keeps = _keepService.GetKeepsByProfile(profileId);
+        List<Keep> keeps = _keepService.GetKeepsByProfile(profileId);
         return keeps;
     }
 

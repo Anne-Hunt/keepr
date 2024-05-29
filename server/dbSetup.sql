@@ -64,3 +64,12 @@ GROUP BY
         CROSS JOIN vaultkeeps ON keeps.Id = vaultkeeps.KeepId
         JOIN accounts ON keeps.CreatorId = accounts.Id
         WHERE keeps.CreatorId = 5;
+
+        SELECT
+        keeps.*,
+        accounts.*,
+        vaultkeeps.*
+        FROM keeps
+        JOIN accounts ON accounts.Id = keeps.CreatorId
+        JOIN vaultkeeps ON vaultkeeps.KeepId = keeps.Id
+        WHERE keeps.CreatorId = 4;

@@ -131,45 +131,22 @@ public class KeepRepository
         return kept;
     }
 
-    // internal Keep GetKeepsByVaultKeep(int keepId)
-    // {
-    //     string sql = @"
-    //     SELECT
-    //     keeps.*,
-    //     accounts.*
-    //     FROM keeps
-    //     JOIN accounts ON accounts.Id = keeps.CreatorId
-    //     WHERE keeps.Id = @keepId;";
-
-    //     Keep keep = _db.Query<Keep, Profile, Keep>(sql, (keep, profile) =>
-    //     {
-    //         keep.Creator = profile;
-    //         return keep;
-    //     }, new { keepId }).FirstOrDefault();
-    //     return keep;
-    // }
-
-    internal List<KeptVaultKeep> GetKeepsByProfile(string profileId)
+    internal List<Keep> GetKeepsByProfile(string profileId)
     {
         string sql = @"
         SELECT
         keeps.*,
-        accounts.*,
-        vaultkeeps.*
+        accounts.*
         FROM keeps
         JOIN accounts ON keeps.CreatorId = accounts.Id
-        JOIN vaultkeeps ON keeps.Id = vaultkeeps.KeepId
         WHERE keeps.CreatorId = @profileId;";
 
-        List<KeptVaultKeep> kepts = _db.Query<KeptVaultKeep, Profile, VaultKeep, KeptVaultKeep>(sql, (keptvault, profile, vaultkeep) =>
+        List<Keep> keeps = _db.Query<Keep, Profile, Keep>(sql, (keep, profile) =>
         {
-            keptvault.Creator = profile;
-            keptvault.KeepId = vaultkeep.KeepId;
-            keptvault.CreatorId = vaultkeep.CreatorId;
-            keptvault.VaultKeepId = vaultkeep.Id;
-            return keptvault;
+            keep.Creator = profile;
+            return keep;
         }, new { profileId }).ToList();
-        return kepts;
+        return keeps;
     }
 
     internal List<Keep> GetAccountKeeps(string userId)
