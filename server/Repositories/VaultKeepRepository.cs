@@ -73,4 +73,25 @@ public class VaultKeepRepository
         List<VaultKeep> vaultkeeps = _db.Query<VaultKeep>(sql, new { vaultId }).ToList();
         return vaultkeeps;
     }
+
+    internal List<KeptVaultKeep> GetKeepsAndVaultKeepsByVault(int vaultId)
+    {
+        string sql = @"
+        SELECT 
+        vaultkeeps.*,
+        keeps.*,
+        accounts.*
+        FROM vaultkeeps
+        JOIN keeps ON keeps.Id = vaultkeeps.KeepId
+        JOIN accounts ON accounts.Id = vaultkeeps.CreatorId
+        WHERE vaultkeeps.VaultId = @vaultId;";
+
+        List<KeptVaultKeep> vaultkeeps = _db.Query<KeptVaultKeep, Keep, Profile, KeptVaultKeep>(sql, (kept, keep, profile) =>
+        {
+            kept.Keep = keep;
+            kept.Creator = profile;
+            return kept;
+        }, new { vaultId }).ToList();
+        return vaultkeeps;
+    }
 }

@@ -6,6 +6,7 @@ import { logger } from '../utils/Logger.js';
 import { keepService } from '../services/KeepService.js';
 import { useRoute } from 'vue-router';
 import { vaultService } from '../services/VaultService.js';
+import { vaultKeepService } from '../services/VaultKeepService.js';
 
 const vault = computed(()=>AppState.activeVault)
 const keeps = computed(()=>AppState.keepsInVault)
@@ -35,9 +36,21 @@ catch (error){
 }
 }
 
+async function getKeptKeepsByVault(){
+  try {
+    const vaultId = route.params.vaultId
+    await vaultKeepService.getKeepsAndVaultKeepsByVault(vaultId)
+  }
+  catch (error){
+    Pop.error("Unable to get vaultkeeps for this vault", 'error');
+  logger.log("unable to get vaultkeeps for vault", error)
+  }
+}
+
 onMounted(()=>{
   getVaultById()
     getKeeps()
+    getKeptKeepsByVault()
 })
 </script>
 
