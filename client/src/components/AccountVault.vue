@@ -39,7 +39,8 @@ async function trashVault(vaultId){
     <div class="mb-3 rounded keepbox" @click="setActiveVault(vault.id)">
       <i class="mdi mdi-close-circle text-end text-danger fs-3 top-right index" @click="trashVault(vault.id)"></i> 
       <img class="imgView rounded" :src="vault.img" :alt="vault.name">
-    <p class="text-light bottom-left text-uppercase m-0">{{ vault.name }}</p>
+    <p class="text-light bottom-left text-uppercase m-0">{{ vault.name }} <i v-if="vault.isPrivate == true" class="mdi mdi-lock fs-2 text-light"></i></p>
+    
 </div>
   </RouterLink>
 </template>

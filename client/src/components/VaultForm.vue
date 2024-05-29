@@ -31,6 +31,7 @@ async function updateVault(){
       await vaultService.updateVault(vaultData.value)
       Modal.getOrCreateInstance('#vaultForm').hide
       resetForm()
+      Pop.success("Created!")
     }
     catch (error){
       Pop.error("Unable to update Vault at this time", 'error');
@@ -48,7 +49,6 @@ function values(){
     vaultData.value.name = AppState.activeVault?.name
     vaultData.value.img = AppState.activeVault?.img
     vaultData.value.isPrivate = AppState.activeVault?.isPrivate
-
 }
 
 onMounted(()=>{

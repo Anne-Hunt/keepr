@@ -50,7 +50,7 @@ async function getKeptKeepsByVault(){
 onMounted(()=>{
   getVaultById()
     getKeeps()
-    getKeptKeepsByVault()
+    // getKeptKeepsByVault()
 })
 </script>
 

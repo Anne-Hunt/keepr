@@ -24,31 +24,33 @@ function clearActive(){
 </script>
 
 <template>
-  <nav class="navbar navbar-expand-sm px-3 shadow mb-3 sticky-sm-bottom">
-    <div class="container-fluid">
-      <div class="navbar-brand d-flex col-1">
-        <RouterLink :to="{ name: 'Home' }">
-          <span class="navbar-text quando text-dark home rounded p-1"><strong>Home</strong></span>
-        </RouterLink>
-      </div>
-      <div class="collapse navbar-collapse col-1">
-        <ul class="navbar-nav d-flex align-items-center justify-content-between">
-          <li class="nav-item dropdown pe-5">
-            <a class="nav-link quando dropdown-toggle text-dark align-items-center" href="#" role="button"
-              data-bs-toggle="dropdown" aria-expanded="false">
-              <strong>Create</strong>
-            </a>
-            <ul class="dropdown-menu rounded-bottom ltpurple border border-dark">
-              <li><a class="dropdown-item quando" data-bs-target="#vaultForm" data-bs-toggle="modal"
-                  @click="clearActive()">Create Vault</a></li>
-              <hr />
-              <li><a class="dropdown-item quando" data-bs-target="#keepForm" data-bs-toggle="modal"
-                  @click="clearActive()">Create Keep</a></li>
-            </ul>
-          </li>
-          <li>
-          </li>
-        </ul>
+  <nav class="navbar topNav navbar-expand-sm px-3 shadow mb-3">
+    <div class="container">
+      <div class="col-3 d-flex">
+        <div class="navbar-brand">
+          <RouterLink :to="{ name: 'Home' }">
+            <span class="navbar-text quando text-dark home rounded p-1"><strong>Home</strong></span>
+          </RouterLink>
+        </div>
+        <div class="collapse navbar-collapse">
+          <ul class="navbar-nav d-flex align-items-center justify-content-between">
+            <li class="nav-item dropdown pe-5">
+              <a class="nav-link quando dropdown-toggle text-dark align-items-center" href="#" role="button"
+                data-bs-toggle="dropdown" aria-expanded="false">
+                <strong>Create</strong>
+              </a>
+              <ul class="dropdown-menu rounded-bottom ltpurple border border-dark">
+                <li><a class="dropdown-item quando" data-bs-target="#vaultForm" data-bs-toggle="modal"
+                    @click="clearActive()">Create Vault</a></li>
+                <hr />
+                <li><a class="dropdown-item quando" data-bs-target="#keepForm" data-bs-toggle="modal"
+                    @click="clearActive()">Create Keep</a></li>
+              </ul>
+            </li>
+            <li>
+            </li>
+          </ul>
+        </div>
       </div>
       <div class="col-6 text-center">
         <RouterLink :to="{ name: 'About'}">
@@ -61,20 +63,25 @@ function clearActive(){
           </div>
         </RouterLink>
       </div>
-    </div>
-    <!-- LOGIN COMPONENT HERE -->
-    <div class="col-4">
+      <!-- LOGIN COMPONENT HERE -->
+      <div class="col-4">
+        
+        <div class="row justify-content-end">
+          <div class="col text-end">
+            <button class="btn text-tertiary" @click="toggleTheme"
+            :title="`Enable ${theme == 'light' ? 'dark' : 'light'} theme.`">
+            <i class="mdi" :class="theme == 'light' ? 'mdi-toggle-switch-variant' : 'mdi-toggle-switch-variant-off'"></i>
+          </button>
+          </div>
+          <div class="col">
 
-      <div class="d-flex justify-content-end">
-        <button class="btn text-tertiary" @click="toggleTheme"
-          :title="`Enable ${theme == 'light' ? 'dark' : 'light'} theme.`">
-          <i class="mdi" :class="theme == 'light' ? 'mdi-toggle-switch-variant' : 'mdi-toggle-switch-variant-off'"></i>
-        </button>
-        <Login />
+            <Login />
+          </div>
       </div>
       <div>
       </div>
     </div>
+  </div>
   </nav>
 </template>
 
@@ -110,8 +117,15 @@ a:hover {
 }
 
 @media screen and (min-width: 576px) {
-  nav {
+  .topNav {
+    display: contents;
     height: 64px;
+  }
+}
+
+@media screen and (max-width: 576px){
+  .topNav{
+    display: none;
   }
 }
 </style>

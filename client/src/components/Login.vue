@@ -34,7 +34,7 @@ async function logout() {
     <div v-else>
       <div class="collapse navbar-collapse col-1">
         <ul class="navbar-nav d-flex align-items-center justify-content-between">
-          <li class="nav-item dropdown pe-5">
+          <li class="nav-item dropdown">
             <div type="button" class="border-0 selectable no-select" data-bs-toggle="dropdown" aria-expanded="false">
               <div v-if="account?.picture || identity?.picture">
                 <img :src="account?.picture || identity?.picture" alt="account photo" height="40"

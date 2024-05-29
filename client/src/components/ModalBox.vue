@@ -59,6 +59,7 @@ const activeVaultKeep = computed(()=> AppState.activeVaultKeep)
     </div>
   </div>
   </div>
+  
   <!--FORM MODAL /// Vault-->
   <div class="modal fade rounded" id="vaultForm" tabindex="-1" aria-labelledby="vault-form" aria-hidden="true">
   <div class="modal-dialog">

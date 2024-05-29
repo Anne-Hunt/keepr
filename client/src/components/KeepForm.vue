@@ -32,6 +32,7 @@ async function updateKeep(){
       await keepService.updateKeep(keepData.value)
       Modal.getOrCreateInstance('#keepForm').hide
       resetForm()
+      Pop.success("Created!")
       Modal.getOrCreateInstance('#keepModal').show
     }
     catch (error){
