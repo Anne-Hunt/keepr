@@ -18,9 +18,6 @@ const vaultKeepForm = ref({
     keepId: 0,
     creatorId: ''
 })
-
-const owner = computed(()=> {if(account.value)AppState.account.id = AppState.activeKeep?.creatorId; return true})
-
 async function setActiveProfile(profileId){
     try {
       await profileService.getProfile(profileId)

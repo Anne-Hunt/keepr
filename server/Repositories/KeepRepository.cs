@@ -123,9 +123,9 @@ public class KeepRepository
         KeptVaultKeep kept = _db.Query<KeptVaultKeep, Profile, VaultKeep, KeptVaultKeep>(sql, (keptvault, profile, vaultkeep) =>
         {
             keptvault.Creator = profile;
+            keptvault.Id = vaultkeep.Id;
             keptvault.KeepId = vaultkeep.KeepId;
             keptvault.CreatorId = vaultkeep.CreatorId;
-            keptvault.VaultKeepId = vaultkeep.Id;
             return keptvault;
         }, new { KeepId }).FirstOrDefault();
         return kept;

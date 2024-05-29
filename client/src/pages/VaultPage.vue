@@ -12,7 +12,7 @@ const vault = computed(()=>AppState.activeVault)
 const keeps = computed(()=>AppState.keepsInVault)
 const route = useRoute()
 const vaultImg = computed(()=>`url(${AppState.activeVault?.img})`)
-const keepsTotal = computed(()=> AppState.keepsInVault.length + 1)
+const keepsTotal = computed(()=> AppState.keepsInVault.length)
 
 
 async function getVaultById(){
@@ -56,29 +56,24 @@ onMounted(()=>{
 
 
 <template>
-<div class="container">
-<div class="row mb-3 justify-content-center">
-    <div class="col-6 vault rounded text-light d-flex align-items-end" :style="{backgroundImage: `url(${vault?.img})`}">
-        <div class="text-center">
-            <h4>{{ vault?.name }}</h4>
-            <h5>by {{ vault?.creator.name }}</h5>
-        </div>
-    </div>
-</div>
-</div>
-<div class="container">
-  <div class="row ">
-    <div>
-  
-      <span v-if="keeps != []">{{ keepsTotal }} Keeps</span>
-    </div>
-        <div class="col-12 masonry-with-columns">
-          <section v-for="keep in keeps" :key="keep.id">
-            <ActiveKeep :keep="keep"></ActiveKeep>
-        </section>
+  <div class="row mb-3 justify-content-center">
+    <div class="col-6 vault rounded" :style="{backgroundImage: `url(${vault?.img})`}">
+      <div class="bottom-center text-light">
+        <h4 class="marko text-uppercase">{{ vault?.name }}</h4>
+        <h5 class="marko">by {{ vault?.creator.name }}</h5>
       </div>
     </div>
-</div>
+  </div>
+  <div class="row ">
+    <div class="col">
+      <p v-if="keeps.length > 0">{{ keepsTotal }} Keeps</p>
+    </div>
+    <div class="col-12 masonry-with-columns">
+      <section v-for="keep in keeps" :key="keep.id">
+        <ActiveKeep :keep="keep"></ActiveKeep>
+      </section>
+    </div>
+  </div>
 </template>
 
 
@@ -89,6 +84,8 @@ onMounted(()=>{
     background-size: cover;
     background-position: center;
     position: fixed;
+    background-color: black;
+    filter: contrast(.8);
 }
 
 .masonry-with-columns {
@@ -102,6 +99,10 @@ onMounted(()=>{
     width: 100%;
     text-align: left;
   } 
+}
+
+.marko{
+  font-family: Marko One, Verdana, serif;
 }
 
 .bottom-center{

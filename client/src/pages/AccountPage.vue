@@ -93,6 +93,8 @@ onMounted(()=>{
   background-position: center;
   background-size: cover;
   position:relative;
+  background-color: black;
+    filter: contrast(.8);
 }
 .profileImg{
   height: 100px;
