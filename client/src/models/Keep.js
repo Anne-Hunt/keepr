@@ -12,5 +12,6 @@ export class Keep{
         this.creator = data.creator
         this.createdAt = data.createdAt
         this.updatedAt = data.updatedAt
+        this.vaultkeepId = data.vaultkeepId
     }
 }

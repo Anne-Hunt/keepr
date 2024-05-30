@@ -6,7 +6,6 @@ import { logger } from '../utils/Logger.js';
 import { keepService } from '../services/KeepService.js';
 import { useRoute, useRouter } from 'vue-router';
 import { vaultService } from '../services/VaultService.js';
-import { vaultKeepService } from '../services/VaultKeepService.js';
 
 const vault = computed(()=>AppState.activeVault)
 const keeps = computed(()=>AppState.keepsInVault)
@@ -31,6 +30,7 @@ async function getKeeps(){
 try {
     const vaultId = route.params.vaultId
     await keepService.getKeepsByVault(vaultId)
+    // await vaultKeepService.getVaultKeepsByVault(vaultId)
 }
 catch (error){
   Pop.error("Unable to get keeps for this vault", 'error');
@@ -38,56 +38,48 @@ catch (error){
 }
 }
 
-async function getKeptKeepsByVault(){
-  try {
-    const vaultId = route.params.vaultId
-    await vaultKeepService.getKeepsAndVaultKeepsByVault(vaultId)
-  }
-  catch (error){
-    Pop.error("Unable to get vaultkeeps for this vault", 'error');
-  logger.log("unable to get vaultkeeps for vault", error)
-  }
-}
-
-async function getVaultKeeps(){
-  try {
-    const vaultId = route.params.vaultId
-    await vaultKeepService.getVaultKeepsByVault(vaultId)
-  }
-  catch (error){
-    Pop.error("Unable to get vaultkeeps for this vault", 'error');
-  logger.log("unable to get vaultkeeps for vault", error)
-  }
-}
+// async function getVaultKeeps(){
+//   try {
+//     const vaultId = route.params.vaultId
+//     await vaultKeepService.getVaultKeepsByVault(vaultId)
+//   }
+//   catch (error){
+//     Pop.error("Unable to get vaultkeeps for this vault", 'error');
+//   logger.log("unable to get vaultkeeps for vault", error)
+//   }
+// }
 
 onMounted(()=>{
   getVaultById()
     getKeeps()
-    getVaultKeeps()
+    // getVaultKeeps()
 })
 </script>
 
 
 <template>
-  <div class="row mb-3 justify-content-center">
-    <div class="col-6 vault rounded" :style="{backgroundImage: `url(${vault?.img})`}">
-      <div class="bottom-center text-light">
-        <h4 class="marko text-uppercase">{{ vault?.name }}</h4>
-        <h5 class="marko">by {{ vault?.creator.name }}</h5>
+  <div class="container">
+
+    <div class="row mb-3 justify-content-center">
+      <div class="col-6 vault rounded" :style="{backgroundImage: `url(${vault?.img})`}">
+        <div class="bottom-center text-light">
+          <h4 class="marko text-uppercase">{{ vault?.name }}</h4>
+          <h5 class="marko">by {{ vault?.creator.name }}</h5>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="text-center">
+        <p v-if="keeps.length > 0">{{ keepsTotal }} Keeps</p>
+      </div>
+      <div class="col-12 masonry-with-columns">
+        <section v-for="keep in keeps" :key="keep.id">
+          <AccountKeep :keep="keep"></AccountKeep>
+        </section>
       </div>
     </div>
   </div>
-  <div class="row ">
-    <div class="col">
-      <p v-if="keeps.length > 0">{{ keepsTotal }} Keeps</p>
-    </div>
-    <div class="col-12 masonry-with-columns">
-      <section v-for="keep in keeps" :key="keep.id">
-        <ActiveKeep :keep="keep"></ActiveKeep>
-      </section>
-    </div>
-  </div>
-</template>
+  </template>
 
 
 <style lang="scss" scoped>
@@ -96,7 +88,7 @@ onMounted(()=>{
     background-image: v-bind(vaultImg);
     background-size: cover;
     background-position: center;
-    position: fixed;
+    position: relative;
     background-color: black;
     filter: contrast(.8);
 }
