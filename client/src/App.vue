@@ -13,7 +13,7 @@ import Navbar from './components/Navbar.vue'
   <main>
     <router-view />
     <ModalBox></ModalBox>
-    <NavbarMobile/>
+    <!-- <NavbarMobile/> -->
   </main>
 </template>
 

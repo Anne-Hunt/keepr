@@ -24,7 +24,7 @@ function clearActive(){
 </script>
 
 <template>
-  <nav class="navbar topNav navbar-expand-sm px-3 shadow mb-3">
+  <nav class="navbar navbar-expand-sm px-3 shadow mb-3">
     <div class="container">
       <div class="col-3 d-flex">
         <div class="navbar-brand">

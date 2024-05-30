@@ -32,7 +32,7 @@ async function logout() {
       Login
     </button>
     <div v-else>
-      <div class="collapse navbar-collapse col-1">
+      <div class="collapse navbar-collapse">
         <ul class="navbar-nav d-flex align-items-center justify-content-between">
           <li class="nav-item dropdown">
             <div type="button" class="border-0 selectable no-select" data-bs-toggle="dropdown" aria-expanded="false">

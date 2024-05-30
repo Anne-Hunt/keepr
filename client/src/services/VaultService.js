@@ -1,5 +1,6 @@
 import { AppState } from "../AppState.js"
 import { Vault } from "../models/Vault.js"
+import { accountService } from "./AccountService.js"
 import { api } from "./AxiosService.js"
 
 
@@ -18,15 +19,17 @@ class VaultService{
     const userId = AppState.account.id
     const response = await api.get(`api/vaults/${vaultId}`)
     const vault = new Vault(response.data)
-    if(vault.creatorId != userId){
-        if(vault.isPrivate == true){
-        throw new Error("You can't access private vaults that aren't yours!")
-      }
+    if(vault.isPrivate == true){
+      await accountService.getAccount()
       if(vault.creatorId == userId){
         return AppState.activeVault = vault
       }
+      if(vault.creatorId != userId){
+        throw new Error("You can't access private vaults that aren't yours!")
+      }
+      }
     }
-  }
+  
 
   async createVault(vaultData){
     const response = await api.post("api/vaults", vaultData)
@@ -44,8 +47,9 @@ class VaultService{
 
   async TrashVault(vaultId){
     const userId = AppState.account.id
-    this.getVaultById(vaultId)
-    const vaultCreator = AppState.activeVault.creatorId
+    const foundVault = this.getVaultById(vaultId)
+    const testVault = new Vault(foundVault)
+    const vaultCreator = testVault.creatorId
     if(userId != vaultCreator){
         throw new Error("You don't own this vault!")
     }
