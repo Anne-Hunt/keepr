@@ -39,12 +39,13 @@ getKeeps()})
   columns: 6 200px;
   column-gap: 1rem;
   div {
-    width: 150px;
+    width: 200px;
     height: auto;
     color: white;
     display: inline-block;
     width: 100%;
     text-align: left;
+    justify-content: center;
   } 
 }
 </style>

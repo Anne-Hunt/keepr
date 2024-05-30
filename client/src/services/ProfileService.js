@@ -19,7 +19,7 @@ class ProfileService{
         logger.log(response.data)
         const vaults = response.data.map(vaultData => new Vault(vaultData))
         logger.log(vaults)
-        AppState.vaults = vaults
+        AppState.profileVaults = vaults
     }
     
     async getKeepsByProfile(profileId){

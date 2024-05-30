@@ -8,9 +8,9 @@ import { useRoute } from 'vue-router';
 
 
 const profile = computed(()=> AppState.activeProfile)
-const vaults = computed(()=>AppState.vaults)
+const vaults = computed(()=>AppState.profileVaults)
 const keeps = computed(()=>AppState.keeps)
-const vaultcount = computed(()=>AppState.vaults.length)
+const vaultcount = computed(()=>AppState.profileVaults.length)
 const keepcount = computed(()=>AppState.keeps.length)
 const route = useRoute()
 

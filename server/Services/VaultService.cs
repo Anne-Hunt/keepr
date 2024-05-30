@@ -63,7 +63,7 @@ public class VaultService
     internal Vault GetPublicVault(int vaultId)
     {
         Vault vaultCheck = GetVaultById(vaultId);
-        if (vaultCheck.IsPrivate == true)
+        if (vaultCheck.IsPrivate != false)
         {
             throw new Exception("You don't own this private vault!");
         }

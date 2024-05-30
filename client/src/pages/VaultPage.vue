@@ -7,6 +7,7 @@ import { keepService } from '../services/KeepService.js';
 import { useRoute, useRouter } from 'vue-router';
 import { vaultService } from '../services/VaultService.js';
 import VaultKeep from '../components/VaultKeep.vue';
+import { accountService } from '../services/AccountService.js';
 
 const vault = computed(()=>AppState.activeVault)
 const keeps = computed(()=>AppState.keepsInVault)
@@ -22,16 +23,15 @@ async function getVaultById(){
     await vaultService.getVaultById(vaultId)
   }
   catch (error){
-    router.push({name: 'Home'})
     Pop.error("Unable to get this vault", 'error');
   logger.log("unable to get vault", error)
+  router.push({name: 'Home'})
   }
 }
 async function getKeeps(){
 try {
     const vaultId = route.params.vaultId
     await keepService.getKeepsByVault(vaultId)
-    // await vaultKeepService.getVaultKeepsByVault(vaultId)
 }
 catch (error){
   Pop.error("Unable to get keeps for this vault", 'error');
@@ -39,21 +39,28 @@ catch (error){
 }
 }
 
-// async function getVaultKeeps(){
+// async function checkPrivacy(){
 //   try {
 //     const vaultId = route.params.vaultId
-//     await vaultKeepService.getVaultKeepsByVault(vaultId)
+//     const vault = await vaultService.getVaultById(vaultId)
+//     if(vault.isPrivate == true){
+//       const account = await accountService.getAccount()
+//       if(account == null){
+//       router.push({name: 'Home'})
+//       Pop.toast("Sign in before viewing this vault, please!")
+//       }
+//     }
 //   }
 //   catch (error){
-//     Pop.error("Unable to get vaultkeeps for this vault", 'error');
-//   logger.log("unable to get vaultkeeps for vault", error)
+//     router.push({name: 'Home'})
+//     Pop.toast("Sign in to view private content", 'error');
 //   }
-// }
+//   }
 
 onMounted(()=>{
   getVaultById()
     getKeeps()
-    // getVaultKeeps()
+    // checkPrivacy()
 })
 </script>
 
