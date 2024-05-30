@@ -33,11 +33,11 @@ public class KeepRepository
         string sql = @"
         SELECT
         keeps.*,
-        COUNT(vaultkeeps.id) AS kept,
+        COUNT(vaultkeeps.Id) AS kept,
         accounts.*
         FROM keeps
         JOIN accounts ON accounts.Id = keeps.CreatorId
-        LEFT JOIN vaultkeeps on vaultkeeps.keepId = keeps.Id
+        LEFT JOIN vaultkeeps ON vaultkeeps.keepId = keeps.Id
         GROUP BY (keeps.Id)
         ORDER BY keeps.createdAt;";
 
@@ -117,11 +117,14 @@ public class KeepRepository
         string sql = @"
         SELECT
         keeps.*,
+        COUNT(vaultkeeps.Id) AS kept,
         accounts.*,
         vaultkeeps.*
         FROM keeps
         JOIN accounts ON keeps.CreatorId = accounts.Id
         JOIN vaultkeeps ON keeps.Id = vaultkeeps.KeepId
+        LEFT JOIN vaultkeeps ON vaultkeeps.keepId = keeps.Id
+        GROUP BY (keeps.Id)
         WHERE vaultkeeps.VaultId = @vaultId;";
 
         List<KeptVaultKeep> kept = _db.Query<KeptVaultKeep, Profile, VaultKeep, KeptVaultKeep>(sql, (keptvault, profile, vaultkeep) =>
@@ -158,9 +161,13 @@ public class KeepRepository
         string sql = @"
         SELECT
         keeps.*,
+        COUNT(vaultkeeps.Id) AS kept,
         accounts.*
         FROM keeps
-        JOIN accounts ON keeps.CreatorId = accounts.Id
+        JOIN accounts ON accounts.Id = keeps.CreatorId
+        LEFT JOIN vaultkeeps ON vaultkeeps.keepId = keeps.Id
+        GROUP BY (keeps.Id)
+        ORDER BY keeps.createdAt
         WHERE keeps.CreatorId = @userId;";
 
         List<Keep> keeps = _db.Query<Keep, Profile, Keep>(sql, (keep, profile) =>
