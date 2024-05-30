@@ -33,9 +33,13 @@ public class KeepRepository
         string sql = @"
         SELECT
         keeps.*,
+        COUNT(vaultkeeps.id) AS kept,
         accounts.*
         FROM keeps
-        JOIN accounts ON accounts.Id = keeps.CreatorId;";
+        JOIN accounts ON accounts.Id = keeps.CreatorId
+        LEFT JOIN vaultkeeps on vaultkeeps.keepId = keeps.Id
+        GROUP BY (keeps.Id)
+        ORDER BY keeps.createdAt;";
 
         List<Keep> keeps = _db.Query<Keep, Profile, Keep>(sql, (keep, profile) =>
         {

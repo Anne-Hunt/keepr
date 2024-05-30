@@ -49,18 +49,9 @@ DROP TABLE vaults;
 
 SELECT
 keeps.*,
-COUNT(vaultkeeps.keepId) AS kept
+COUNT(vaultkeeps.id) AS kept
 from
 keeps
 LEFT JOIN vaultkeeps on vaultkeeps.keepId = keeps.id
 GROUP BY
 (keeps.id)
-
-        SELECT 
-        vaultkeeps.*,
-        keeps.*,
-        accounts.*
-        FROM vaultkeeps
-        JOIN keeps ON keeps.Id = vaultkeeps.KeepId
-        JOIN accounts ON accounts.Id = vaultkeeps.CreatorId
-        WHERE vaultkeeps.VaultId = 3;

@@ -97,7 +97,7 @@ onMounted(()=>{
                                     {{userVault?.name}}</option>
                                     <option v-if="!userVaults"><a href="">Add a Vault</a></option>
                                 </select>
-                                <button class="btn btn-outline-secondary" type="submit">Keep <i class="mdi mdi-arrow-right"> Vault</i></button>
+                                <button class="btn btn-outline-secondary" type="submit"><i class="mdi mdi-folder"></i></button>
                             </div>
                         </form>
                 </div>
@@ -111,6 +111,7 @@ onMounted(()=>{
                     <div class="profileImg rounded-circle" data-bs-dismiss="modal" :style="{backgroundImage: `url(${keep?.creator.picture})`}">
                     </div>
                 </RouterLink>
+                {{ keep?.creator.name }}
                 </div>
         </div>
     </div>
