@@ -76,25 +76,25 @@ public class VaultKeepRepository
         _db.Execute(sql, new { vaultkeepId });
     }
 
-    internal List<VaultKeep> GetVaultKeepsByVault(int vaultId)
-    {
-        string sql = @"
-        SELECT *
-        FROM vaultkeeps
-        WHERE vaultkeeps.VaultId = @vaultId;";
+    // internal List<VaultKeep> GetVaultKeepsByVault(int vaultId)
+    // {
+    //     string sql = @"
+    //     SELECT *
+    //     FROM vaultkeeps
+    //     WHERE vaultkeeps.VaultId = @vaultId;";
 
-        List<VaultKeep> vaultkeeps = _db.Query<VaultKeep>(sql, new { vaultId }).ToList();
-        return vaultkeeps;
-    }
+    //     List<VaultKeep> vaultkeeps = _db.Query<VaultKeep>(sql, new { vaultId }).ToList();
+    //     return vaultkeeps;
+    // }
 
-    internal List<VaultKeep> GetVaultKeepsByAccount(string userId)
-    {
-        string sql = @"
-        SELECT *
-        FROM vaultkeeps
-        WHERE vaultkeeps.CreatorId = @userId;";
+    // internal List<VaultKeep> GetVaultKeepsByAccount(string userId)
+    // {
+    //     string sql = @"
+    //     SELECT *
+    //     FROM vaultkeeps
+    //     WHERE vaultkeeps.CreatorId = @userId;";
 
-        List<VaultKeep> vaultkeeps = _db.Query<VaultKeep>(sql, new { userId }).ToList();
-        return vaultkeeps;
-    }
+    //     List<VaultKeep> vaultkeeps = _db.Query<VaultKeep>(sql, new { userId }).ToList();
+    //     return vaultkeeps;
+    // }
 }

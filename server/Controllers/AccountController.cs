@@ -77,25 +77,25 @@ public class AccountController : ControllerBase
     }
   }
 
-  [HttpGet("vaultkeeps")]
-  [Authorize]
-  public async Task<ActionResult<List<VaultKeep>>> GetMyVaultKeeps()
-  {
-    try
-    {
-      Account user = await _auth0Provider.GetUserInfoAsync<Account>(HttpContext);
-      if (user == null)
-      {
-        throw new Exception("Please log in to continue!");
-      }
-      List<VaultKeep> keeps = _vaultkeepService.GetVaultKeepsByAccount(user.Id);
-      return Ok(keeps);
-    }
-    catch (Exception exception)
-    {
-      return BadRequest(exception.Message);
-    }
-  }
+  // [HttpGet("vaultkeeps")]
+  // [Authorize]
+  // public async Task<ActionResult<List<VaultKeep>>> GetMyVaultKeeps()
+  // {
+  //   try
+  //   {
+  //     Account user = await _auth0Provider.GetUserInfoAsync<Account>(HttpContext);
+  //     if (user == null)
+  //     {
+  //       throw new Exception("Please log in to continue!");
+  //     }
+  //     List<VaultKeep> keeps = _vaultkeepService.GetVaultKeepsByAccount(user.Id);
+  //     return Ok(keeps);
+  //   }
+  //   catch (Exception exception)
+  //   {
+  //     return BadRequest(exception.Message);
+  //   }
+  // }
 
   [HttpPut("{accountId}")]
   [Authorize]

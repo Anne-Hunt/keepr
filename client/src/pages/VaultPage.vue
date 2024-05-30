@@ -6,6 +6,7 @@ import { logger } from '../utils/Logger.js';
 import { keepService } from '../services/KeepService.js';
 import { useRoute, useRouter } from 'vue-router';
 import { vaultService } from '../services/VaultService.js';
+import VaultKeep from '../components/VaultKeep.vue';
 
 const vault = computed(()=>AppState.activeVault)
 const keeps = computed(()=>AppState.keepsInVault)
@@ -74,7 +75,7 @@ onMounted(()=>{
       </div>
       <div class="col-12 masonry-with-columns">
         <section v-for="keep in keeps" :key="keep.id">
-          <AccountKeep :keep="keep"></AccountKeep>
+          <VaultKeep :keep="keep"></VaultKeep>
         </section>
       </div>
     </div>

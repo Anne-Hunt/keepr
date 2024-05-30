@@ -27,11 +27,11 @@ public class VaultKeepService
         return vaultkeep;
     }
 
-    internal List<VaultKeep> GetVaultKeepByVault(int vaultId)
-    {
-        List<VaultKeep> vaultkeeps = _repository.GetVaultKeepsByVault(vaultId);
-        return vaultkeeps;
-    }
+    // internal List<VaultKeep> GetVaultKeepByVault(int vaultId)
+    // {
+    //     List<VaultKeep> vaultkeeps = _repository.GetVaultKeepsByVault(vaultId);
+    //     return vaultkeeps;
+    // }
 
     internal List<VaultKeep> GetVaultKeeps(string userId)
     {
@@ -50,11 +50,11 @@ public class VaultKeepService
         return "VaultKeep deleted!";
     }
 
-    internal List<VaultKeep> GetVaultKeepsByAccount(string userId)
-    {
-        List<VaultKeep> vaultkeeps = _repository.GetVaultKeepsByAccount(userId);
-        return vaultkeeps;
-    }
+    // internal List<VaultKeep> GetVaultKeepsByAccount(string userId)
+    // {
+    //     List<VaultKeep> vaultkeeps = _repository.GetVaultKeepsByAccount(userId);
+    //     return vaultkeeps;
+    // }
 
     internal List<VaultKeep> GetAllVaultKeeps()
     {

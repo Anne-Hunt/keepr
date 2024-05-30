@@ -22,13 +22,13 @@ function setActiveKeep(keepId){
     }
 }
 
-async function trashKeep(keepId, vaultId){
+async function trashKeep(vaultkeepId){
     try {
         const confirm = await Pop.confirm("Do you want to delete this keep? This cannot be undone.")
         if(!confirm){
             return
         }
-        await vaultKeepService.trashVaultKeepByKeepId(keepId, vaultId)
+        await vaultKeepService.trashVaultKeep(vaultkeepId)
     }
     catch (error){
       Pop.error("Unable to remove keep", 'error');
@@ -40,7 +40,7 @@ async function trashKeep(keepId, vaultId){
 
 <template>
           <div class="mb-3 rounded keepbox" data-bs-toggle="modal" data-bs-target="#keepModal" @click="setActiveKeep(keep.id)">
-            <i class="mdi mdi-close-circle text-end text-danger fs-3 top-right index" @click="trashKeep(keep.id, vault.id)"></i> 
+            <i class="mdi mdi-close-circle text-end text-danger fs-3 top-right index" @click="trashKeep(keep.vaultKeepId)"></i> 
             <img class="imgView rounded" :src="keep.img" :alt="keep.name">
           <p class="text-light bottom-left fs-5 m-0 keepName">{{ keep.name }}</p>
       </div>
