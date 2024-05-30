@@ -55,19 +55,11 @@ public class VaultController : ControllerBase
             if (user != null)
             {
                 Vault vaultClosed = _vaultService.GetPrivateVault(vaultId, user.Id);
-                if (vaultClosed.CreatorId == user.Id)
-                {
-                    return Ok(vaultClosed);
-                }
-                throw new Exception("You can't have what is private to others!");
+                return Ok(vaultClosed);
             }
             if (user == null)
             {
                 Vault vaultOpen = _vaultService.GetPublicVault(vaultId);
-                if (vaultOpen.IsPrivate == true)
-                {
-                    throw new Exception("You aren't allowed to see private vaults!");
-                }
                 return Ok(vaultOpen);
             }
             return Ok("Vault Found");

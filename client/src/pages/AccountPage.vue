@@ -9,7 +9,7 @@ import AccountVault from '../components/AccountVault.vue';
 const account = computed(()=> AppState.account)
 const vaults = computed(()=>AppState.userVaults)
 const keeps = computed(()=>AppState.keeps)
-const vaultcount = computed(()=>AppState.vaults.length)
+const vaultcount = computed(()=>AppState.userVaults.length)
 const keepcount = computed(()=>AppState.keeps.length)
 
 async function getMyVaults(){
