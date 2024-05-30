@@ -72,7 +72,7 @@ public class VaultService
 
     internal Vault GetPrivateVault(int vaultId, string userId)
     {
-        Vault vaultCheck = _repository.GetVaultById(vaultId);
+        Vault vaultCheck = _repository.GetPrivateVault(vaultId);
         if (vaultCheck.CreatorId != userId)
         {
             throw new Exception("You don't own this private Vault!");

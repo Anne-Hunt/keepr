@@ -28,6 +28,25 @@ public class VaultRepository
         return vault;
     }
 
+
+    internal Vault GetPrivateVault(int vaultId)
+    {
+        string sql = @"
+        SELECT
+        vaults.*,
+        accounts.*
+        FROM vaults
+        JOIN accounts ON accounts.Id = vaults.CreatorId
+        WHERE vaults.Id = @vaultId AND NOT vaults.IsPrivate = true;";
+
+        Vault vault = _db.Query<Vault, Profile, Vault>(sql, (vault, profile) =>
+        {
+            vault.Creator = profile;
+            return vault;
+        }, new { vaultId }).FirstOrDefault();
+        return vault;
+    }
+
     internal List<Vault> GetVaults()
     {
         string sql = @"
@@ -139,7 +158,7 @@ public class VaultRepository
         accounts.*
         FROM vaults
         JOIN accounts ON accounts.Id = vaults.CreatorId
-        WHERE vaults.IsPrivate = 0 AND vaults.CreatorId = @profileId;";
+        WHERE NOT vaults.IsPrivate = true;";
 
         List<Vault> vaults = _db.Query<Vault, Profile, Vault>(sql, (vault, profile) =>
         {

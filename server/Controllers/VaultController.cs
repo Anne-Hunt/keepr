@@ -55,11 +55,19 @@ public class VaultController : ControllerBase
             if (user != null)
             {
                 Vault vaultClosed = _vaultService.GetPrivateVault(vaultId, user.Id);
-                return Ok(vaultClosed);
+                if (vaultClosed.CreatorId == user.Id)
+                {
+                    return Ok(vaultClosed);
+                }
+                throw new Exception("You can't have what is private to others!");
             }
             if (user == null)
             {
                 Vault vaultOpen = _vaultService.GetPublicVault(vaultId);
+                if (vaultOpen.IsPrivate == true)
+                {
+                    throw new Exception("You aren't allowed to see private vaults!");
+                }
                 return Ok(vaultOpen);
             }
             return Ok("Vault Found");
@@ -77,6 +85,13 @@ public class VaultController : ControllerBase
         {
             Account user = await _auth0Provider.GetUserInfoAsync<Account>(HttpContext);
             Vault vault = _vaultService.GetVaultById(vaultId);
+            if (vault.IsPrivate == true)
+            {
+                if (vault.CreatorId != user.Id)
+                {
+                    throw new Exception("You can't access private data! Begone and BESMIRCHED!");
+                }
+            }
             List<KeptVaultKeep> keepV = _keepService.GetKeepsByVaultId(vaultId);
             return keepV;
         }

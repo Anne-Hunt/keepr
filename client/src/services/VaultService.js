@@ -15,9 +15,17 @@ class VaultService{
   }
 
   async getVaultById(vaultId){
+    const userId = AppState.account.id
     const response = await api.get(`api/vaults/${vaultId}`)
     const vault = new Vault(response.data)
-    AppState.activeVault = vault
+    if(vault.creatorId != userId){
+        if(vault.isPrivate == true){
+        throw new Error("You can't access private vaults that aren't yours!")
+      }
+      if(vault.creatorId == userId){
+        return AppState.activeVault = vault
+      }
+    }
   }
 
   async createVault(vaultData){
