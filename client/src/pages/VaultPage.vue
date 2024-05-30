@@ -1,5 +1,5 @@
 <script setup>
-import { computed, onMounted } from 'vue';
+import { computed, onBeforeMount, onMounted } from 'vue';
 import { AppState } from '../AppState.js';
 import Pop from '../utils/Pop.js';
 import { logger } from '../utils/Logger.js';
@@ -21,11 +21,14 @@ async function getVaultById(){
   try {
     const vaultId = route.params.vaultId
     await vaultService.getVaultById(vaultId)
+    if(AppState.activeVault.isPrivate == true){
+      if(AppState.activeVault.creatorId != AppState.account.id)
+      router.push({name: 'Home'})
+    }
   }
   catch (error){
     Pop.error("Unable to get this vault", 'error');
   logger.log("unable to get vault", error)
-  router.push({name: 'Home'})
   }
 }
 async function getKeeps(){
@@ -60,7 +63,6 @@ catch (error){
 onMounted(()=>{
   getVaultById()
     getKeeps()
-    // checkPrivacy()
 })
 </script>
 

@@ -110,13 +110,17 @@ public class VaultController : ControllerBase
         }
     }
 
-    [Authorize]
     [HttpPut("{vaultId}")]
+    [Authorize]
     public async Task<ActionResult<Vault>> UpdateVault(Vault vaultData, int vaultId)
     {
         try
         {
             Account user = await _auth0Provider.GetUserInfoAsync<Account>(HttpContext);
+            if (user == null)
+            {
+                throw new Exception("Do you even exist, bro?");
+            }
             Vault vault = _vaultService.UpdateVault(vaultData, vaultId, user.Id);
             return Ok(vault);
         }
