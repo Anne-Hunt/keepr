@@ -54,6 +54,8 @@ async function trashVault(){
 <style lang="scss" scoped>
 .vault{
     height: 30dvh;
+    background-position: center;
+    background-size: cover;
 }
 
 //FIXME Add filter to css

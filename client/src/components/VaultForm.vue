@@ -60,7 +60,7 @@ onMounted(()=>{
 <template>
 <form v-if="!activeVault" @submit.prevent="createVault()">
     <div class="mb-3">
-        <input type="text" v-model="vaultData.name" class="w-100" placeholder="Title ...">
+        <input type="text" v-model="vaultData.name" class="w-100" placeholder="Title ..." minlength="5" maxlength="25">
     </div>
     <div class="mb-3">
         <input type="text" v-model="vaultData.img" class="w-100" placeholder="Image URL ...">

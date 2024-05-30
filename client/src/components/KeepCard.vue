@@ -1,4 +1,4 @@
-<script setup>
+<!-- <script setup>
 import { computed } from 'vue';
 import { AppState } from '../AppState.js';
 import { Keep } from '../models/Keep.js';
@@ -75,4 +75,17 @@ async function trashKeep(){
 .quando{
   font-family: Quando, Verdana, serif;
 }
+</style> -->
+<script setup>
+
+</script>
+
+
+<template>
+<div></div>
+</template>
+
+
+<style lang="scss" scoped>
+
 </style>

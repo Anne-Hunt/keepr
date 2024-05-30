@@ -66,13 +66,13 @@ onMounted(()=>{
 <template>
 <form v-if="!activeKeep" @submit.prevent="createKeep()">
     <div class="mb-3">
-        <input type="text" v-model="keepData.name" class="w-100" placeholder="Title ...">
+        <input type="text" v-model="keepData.name" class="w-100" placeholder="Title ..." minlength="5" maxlength="25">
     </div>
     <div class="mb-3">
         <input type="text" v-model="keepData.img" class="w-100" placeholder="Image URL ...">
     </div>
         <div class="form-check mb-3 w-100">
-            <textarea class="form-control w-100" type="textarea" v-model="keepData.description" value="" id="description" rows="5" placeholder="Description ..."></textarea>
+            <textarea class="form-control w-100" type="textarea" v-model="keepData.description" value="" id="description" rows="5" placeholder="Description ..." minlength="5" maxlength="200"></textarea>
         </div>
     <div class="d-flex justify-content-end">
         <button class="btn btn-dark text-light text-end" type="submit">Create Keep</button>
