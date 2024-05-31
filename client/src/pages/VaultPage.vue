@@ -21,14 +21,11 @@ async function getVaultById(){
   try {
     const vaultId = route.params.vaultId
     await vaultService.getVaultById(vaultId)
-    if(AppState.activeVault.isPrivate == true){
-      if(AppState.activeVault.creatorId != AppState.account.id)
-      router.push({name: 'Home'})
-    }
   }
   catch (error){
     Pop.error("Unable to get this vault", 'error');
-  logger.log("unable to get vault", error)
+    logger.log("unable to get vault", error)
+    router.push({name: 'Home'})
   }
 }
 async function getKeeps(){
@@ -42,27 +39,9 @@ catch (error){
 }
 }
 
-// async function checkPrivacy(){
-//   try {
-//     const vaultId = route.params.vaultId
-//     const vault = await vaultService.getVaultById(vaultId)
-//     if(vault.isPrivate == true){
-//       const account = await accountService.getAccount()
-//       if(account == null){
-//       router.push({name: 'Home'})
-//       Pop.toast("Sign in before viewing this vault, please!")
-//       }
-//     }
-//   }
-//   catch (error){
-//     router.push({name: 'Home'})
-//     Pop.toast("Sign in to view private content", 'error');
-//   }
-//   }
-
 onMounted(()=>{
   getVaultById()
-    getKeeps()
+  getKeeps()
 })
 </script>
 

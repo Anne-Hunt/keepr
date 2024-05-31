@@ -4,7 +4,6 @@ import { logger } from '../utils/Logger.js';
 import Pop from '../utils/Pop.js';
 import { AppState } from '../AppState.js';
 import { keepService } from '../services/KeepService.js';
-import { accountService } from '../services/AccountService.js';
 
 const keeps = computed(()=>AppState.keeps)
 

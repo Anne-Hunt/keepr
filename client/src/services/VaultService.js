@@ -16,7 +16,7 @@ class VaultService{
   }
 
   async getVaultById(vaultId){
-    const userId = AppState.account.id
+    await accountService.getAccount()
     const response = await api.get(`api/vaults/${vaultId}`)
     const vault = new Vault(response.data)
     return AppState.activeVault = vault

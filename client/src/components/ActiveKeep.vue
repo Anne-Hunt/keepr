@@ -65,7 +65,7 @@ function setActiveKeep(keepId){
 .top-right{
     position: absolute;
   top: 8px;
-  right: 16px;
+  right: 15%;
 }
 
 </style>
