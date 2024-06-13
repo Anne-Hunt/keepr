@@ -4,7 +4,7 @@ created by Anne Hunt
 
 Live Link: [KEEPR](https://keepr.annehunt.dev)
 
-Completed 2024
+Completed May 2024
 
 ## DESCRIPTION
 
