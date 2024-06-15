@@ -64,7 +64,7 @@ onMounted(()=>{
         </section>
       </div>
       <div class="row ">
-        <h3 class="mb-3">Keeps</h3>
+        <h3 class="mb-3">Keeps </h3>
         <div class="col-12 masonry-with-columns">
           <section v-for="keep in keeps" :key="keep?.id">
             <AccountKeep :keep="keep"></AccountKeep>
