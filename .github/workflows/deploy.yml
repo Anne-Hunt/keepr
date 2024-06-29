@@ -27,7 +27,7 @@ jobs:
         run: |
           mkdir -p ~/.ssh
           echo "$EC2_PEM_KEY" > ~/.ssh/id_rsa.pem
-          chmod 600 ~/.ssh/id_rsa.pem
+          chmod 400 ~/.ssh/id_rsa.pem
           
       - name: Send Docker Compose 🐋
         run: |
