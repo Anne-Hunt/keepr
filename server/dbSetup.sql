@@ -1,4 +1,4 @@
--- Active: 1715613930671@@35.87.147.206@3306
+-- Active: 1719356914340@@52.43.75.200@3306@keepr
 CREATE TABLE IF NOT EXISTS accounts(
   id VARCHAR(255) NOT NULL primary key COMMENT 'primary key',
   createdAt DATETIME DEFAULT CURRENT_TIMESTAMP COMMENT 'Time Created',
@@ -55,3 +55,69 @@ keeps
 LEFT JOIN vaultkeeps on vaultkeeps.keepId = keeps.id
 GROUP BY
 (keeps.id)
+
+
+
+            INSERT INTO accounts
+              (name, picture, email, id)
+            VALUES
+              (@Name, @Picture, @Email, @Id)
+
+INSERT INTO keeps(
+            name,
+            description,
+            img,
+            views,
+            creatorId)
+                VALUES(
+                    @Name,
+                    @Description,
+                    @Img,
+                    @Views,
+                    @CreatorId
+                );
+        SELECT
+        keeps.*,
+        accounts.*
+        FROM keeps
+        JOIN accounts ON accounts.Id = keeps.CreatorId
+        WHERE keeps.Id = LAST_INSERT_ID();
+
+                INSERT INTO
+        vaults(
+            name,
+            description,
+            img,
+            isPrivate,
+            creatorId
+        )VALUES(
+            @Name,
+            @Description,
+            @Img,
+            @IsPrivate,
+            @CreatorId
+        );
+
+        SELECT
+        vaults.*,
+        accounts.*
+        FROM vaults
+        JOIN accounts ON accounts.Id = vaults.CreatorId
+        WHERE 
+        vaults.Id = LAST_INSERT_ID()
+        ;
+
+INSERT INTO
+        vaultkeeps(
+            keepId,
+            vaultId,
+            creatorId
+            )VALUES(
+                @KeepId,
+                @VaultId,
+                @CreatorId
+        );
+        SELECT
+        *
+        FROM vaultkeeps
+        WHERE vaultkeeps.Id = LAST_INSERT_ID();
