@@ -1,5 +1,5 @@
 <script setup>
-import { computed, onBeforeMount, onMounted } from 'vue';
+import { computed, onMounted } from 'vue';
 import { AppState } from '../AppState.js';
 import Pop from '../utils/Pop.js';
 import { logger } from '../utils/Logger.js';
@@ -7,7 +7,6 @@ import { keepService } from '../services/KeepService.js';
 import { useRoute, useRouter } from 'vue-router';
 import { vaultService } from '../services/VaultService.js';
 import VaultKeep from '../components/VaultKeep.vue';
-import { accountService } from '../services/AccountService.js';
 
 const vault = computed(()=>AppState.activeVault)
 const keeps = computed(()=>AppState.keepsInVault)
@@ -15,7 +14,7 @@ const route = useRoute()
 const router = useRouter()
 const vaultImg = computed(()=>`url(${AppState.activeVault?.img})`)
 const keepsTotal = computed(()=> AppState.keepsInVault.length)
-
+const owner = computed(()=> ((AppState.activeVault?.creatorId == AppState.account?.id) ? 'yes' : 'no'))
 
 async function getVaultById(){
   try {
@@ -61,7 +60,12 @@ onMounted(()=>{
       <div class="text-center">
         <p v-if="keeps.length > 0">{{ keepsTotal }} Keeps</p>
       </div>
-      <div class="col-12 masonry-with-columns">
+      <div v-if="owner == 'yes'" class="col-12 masonry-with-columns">
+        <section v-for="keep in keeps" :key="keep.id">
+          <AccountVaultKeep :keep="keep"></AccountVaultKeep>
+        </section>
+      </div>
+      <div v-else class="col-12 masonry-with-columns">
         <section v-for="keep in keeps" :key="keep.id">
           <VaultKeep :keep="keep"></VaultKeep>
         </section>

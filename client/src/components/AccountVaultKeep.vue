@@ -41,6 +41,7 @@ async function trashKeep(vaultkeepId){
 
 <template>
           <div class="mb-3 rounded keepbox" data-bs-toggle="modal" data-bs-target="#keepModal" @click="setActiveKeep(keep.id)">
+            <i class="mdi mdi-close-circle text-end text-danger fs-3 top-right index" @click="trashKeep(keep.vaultKeepId)"></i> 
             <img class="imgView rounded" :src="keep.img" :alt="keep.name">
           <p class="text-light bottom-left fs-5 m-0 keepName">{{ keep.name }}</p>
       </div>

@@ -13,6 +13,8 @@ import { Modal } from 'bootstrap';
 const keep = computed(()=> AppState.activeKeep)
 const account = computed(()=> AppState.account)
 const userVaults = computed (()=>AppState.userVaults)
+const owner = computed(()=> ((AppState.activeVault?.creatorId == AppState.account?.id) ? 'yes' : 'no'))
+
 const vaultKeepForm = ref({
     vaultId: '',
     keepId: ''
@@ -90,7 +92,7 @@ onMounted(()=>{
             </div>
             <div class="row justify-content-between align-items-center">
                 <div class="col-8">
-                    <form @submit.prevent="createVaultKeep(keep?.id)">
+                    <form v-if="account" @submit.prevent="createVaultKeep(keep?.id)">
                         <div class="input-group">
                             <select class="form-select" id="vaultSelect" aria-label="Example select with button addon" v-model="vaultKeepForm.vaultId">
                                 <option v-for="userVault in userVaults" :key="userVault?.id" :value="userVault?.id">
@@ -101,18 +103,20 @@ onMounted(()=>{
                             </div>
                         </form>
                 </div>
-                <div class="col-3">
+                <div class="col-3 d-flex justify-content-center">
                     <RouterLink v-if="!AppState.account || AppState.account.id != AppState.activeKeep?.creatorId" :to="{name: 'Profile', params: {profileId: `${keep?.creatorId}`}}"
                     @click="setActiveProfile(keep?.creatorId)">
-                    <div class="profileImg rounded-circle" data-bs-dismiss="modal" :style="{backgroundImage: `url(${keep?.creator.picture})`}">
+                    <div class="profileImg rounded-circle d-flex justify-self-center" data-bs-dismiss="modal" :style="{backgroundImage: `url(${keep?.creator.picture})`}">
                     </div>
                 </RouterLink>
                 <RouterLink v-else :to="{name: 'Account'}">
                     <div class="profileImg rounded-circle" data-bs-dismiss="modal" :style="{backgroundImage: `url(${keep?.creator.picture})`}">
                     </div>
                 </RouterLink>
+            </div>
+            <div class="text-end">
                 {{ keep?.creator.name }}
-                </div>
+            </div>
         </div>
     </div>
 </div>

@@ -68,10 +68,10 @@ function clearActive(){
         
         <div class="row justify-content-end">
           <div class="col text-end">
-            <button class="btn text-tertiary" @click="toggleTheme"
+            <!-- <button class="btn text-tertiary" @click="toggleTheme"
             :title="`Enable ${theme == 'light' ? 'dark' : 'light'} theme.`">
             <i class="mdi" :class="theme == 'light' ? 'mdi-toggle-switch-variant' : 'mdi-toggle-switch-variant-off'"></i>
-          </button>
+          </button> -->
           </div>
           <div class="col">
 
