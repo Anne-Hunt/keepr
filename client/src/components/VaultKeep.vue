@@ -16,6 +16,7 @@ function setActiveKeep(keepId){
     try {
       keepService.setActiveKeep(keepId)
       logger.log(AppState.activeKeep)
+      Pop.success("Added to your vault!")
     }
     catch (error){
       Pop.error("Unable to set active keep", 'error');

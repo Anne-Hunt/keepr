@@ -17,7 +17,8 @@ const vaultData = ref({
 async function createVault(){
     try {
       await vaultService.createVault(vaultData.value)
-      Modal.getOrCreateInstance('#vaultForm').hide
+      Pop.success("Vault created!")
+      Modal.getOrCreateInstance('#vaultForm').hide()
       resetForm()
     }
     catch (error){
@@ -29,7 +30,7 @@ async function createVault(){
 async function updateVault(){
     try {
       await vaultService.updateVault(vaultData.value)
-      Modal.getOrCreateInstance('#vaultForm').hide
+      Modal.getOrCreateInstance('#vaultForm').hide()
       resetForm()
       Pop.success("Created!")
     }

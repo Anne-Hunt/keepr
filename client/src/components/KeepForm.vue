@@ -18,7 +18,8 @@ const keepData = ref({
 async function createKeep(){
     try {
       await keepService.createKeep(keepData.value)
-      Modal.getOrCreateInstance('#keepForm').hide
+      Modal.getOrCreateInstance('#keepForm').hide()
+      Pop.success("Created your keep!")
       resetForm()
     }
     catch (error){
@@ -30,10 +31,10 @@ async function createKeep(){
 async function updateKeep(){
     try {
       await keepService.updateKeep(keepData.value)
-      Modal.getOrCreateInstance('#keepForm').hide
-      resetForm()
+      Modal.getOrCreateInstance('#keepForm').hide()
       Pop.success("Created!")
-      Modal.getOrCreateInstance('#keepModal').show
+      resetForm()
+      Modal.getOrCreateInstance('#keepModal').show()
     }
     catch (error){
       Pop.error("Unable to update Keep at this time", 'error');

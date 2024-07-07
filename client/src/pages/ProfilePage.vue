@@ -48,11 +48,10 @@ onMounted(()=>{
 
 <template>
   <div class="container">
-    <div class="row mb-3 coverImg justify-content-center align-items-end shadow"
+    <div class="row mb-5 coverImg justify-content-center align-items-end shadow"
       :style="{backgroundImage: `url(${profile?.coverImg})`}">
       <img class="profileImg rounded-circle shadow p-0 border border-dark mb-3" :src="profile?.picture" />
     </div>
-    <div class="text-end"><a href="/home"><i class="mdi mdi-home"></i></a></div>
     <div class="row text-center mb-3">
       <h2>{{ profile?.name }}</h2>
       <div class="text-center">
