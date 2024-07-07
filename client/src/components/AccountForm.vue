@@ -4,14 +4,15 @@ import Pop from '../utils/Pop.js';
 import { logger } from '../utils/Logger.js';
 import { AppState } from '../AppState.js';
 import { accountService } from '../services/AccountService.js';
+import { Modal } from 'bootstrap';
 
 const account = computed(()=>AppState.account)
 
 const accountData = ref({
-    name: '',
-    picture: '',
-    coverImg: '',
-    email: ''
+    name: account.value.name,
+    picture: account.value.picture,
+    coverImg: account.value.coverImg,
+    email: account.value.email
 })
 
 async function updateAccount(){
@@ -22,19 +23,12 @@ async function updateAccount(){
         updateAccount.picture = accountData.value.picture
         updateAccount.email = accountData.value.email
       await accountService.editAccount(updateAccount)
-      resetForm()
+      Modal.getOrCreateInstance('#accountForm').hide()
     }
     catch (error){
       Pop.error("Unable to update account at this time", 'error');
       logger.log("failed to update account", error)
     }
-}
-
-function resetForm(){
-    accountData.value.name = ''
-    accountData.value.picture = ''
-    accountData.value.email = ''
-    accountData.value.coverImg = ''
 }
 
 function values(){

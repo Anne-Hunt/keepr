@@ -27,6 +27,7 @@ class VaultService{
     const response = await api.post("api/vaults", vaultData)
     const vault = new Vault(response.data)
     AppState.vaults.push(vault)
+    AppState.userVaults.push(vault)
   }
 
   async updateVault(vaultData, vaultId){
