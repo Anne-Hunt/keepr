@@ -36,10 +36,13 @@ async function trashVault(vaultId){
 
 <template>
   <RouterLink :to="{name: 'Vault', params:{vaultId: vault.id}}">
-    <div class="mb-3 rounded keepbox" @click="setActiveVault(vault.id)">
-      <i class="mdi mdi-close-circle text-end text-danger fs-3 top-right index" @click="trashVault(vault.id)"></i> 
-      <img class="imgView rounded" :src="vault.img" :alt="vault.name">
-    <p class="text-light bottom-left text-uppercase m-0">{{ vault.name }} <i v-if="vault.isPrivate == true" class="mdi mdi-lock fs-2 text-light"></i></p>
+    <div class="mb-3 rounded" @click="setActiveVault(vault.id)">
+      <div class="keepbox p-0 m-0 d-inline-box">
+
+        <i class="mdi mdi-close-circle text-end text-danger fs-3 top-right index" @click="trashVault(vault.id)"></i> 
+        <img class="imgView rounded" :src="vault.img" :alt="vault.name">
+        <p class="text-light bottom-left text-uppercase m-0">{{ vault.name }} <i v-if="vault.isPrivate == true" class="mdi mdi-lock fs-2 text-light"></i></p>
+      </div>
     
 </div>
   </RouterLink>
@@ -58,6 +61,7 @@ async function trashVault(vaultId){
 .keepbox {
   position: relative;
   font-family: Marko, Quando, Verdana, serif;
+  width: 200px;
 }
 
 .bottom-left{
@@ -71,7 +75,8 @@ async function trashVault(vaultId){
 }
 
 .top-right{
-    position: absolute;
-  right: 15%;
+  position: absolute;
+  top: -10px;
+  right: -5px;
 }
 </style>

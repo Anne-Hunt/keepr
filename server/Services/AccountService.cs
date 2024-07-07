@@ -27,10 +27,10 @@ public class AccountService
   internal Account Edit(Account editData, string userEmail)
   {
     Account original = GetProfileByEmail(userEmail);
-    original.Name = editData.Name?.Length > 0 ? editData.Name : original.Name;
+    original.Name = editData.Name.Length > 0 ? editData.Name : original.Name;
     original.Picture = editData.Picture?.Length > 0 ? editData.Picture : original.Picture;
-    original.CoverImg = editData.CoverImg?.Length > 0 ? editData.CoverImg : editData.CoverImg;
-    original.Email = editData.Email?.Length > 0 ? editData.Email : editData.Email;
-    return _repo.Edit(original);
+    original.CoverImg = editData.CoverImg?.Length > 0 ? editData.CoverImg : original.CoverImg;
+    original.Email = editData.Email?.Length > 0 ? editData.Email : original.Email;
+    return _repo.Edit(editData);
   }
 }

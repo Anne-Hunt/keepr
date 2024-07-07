@@ -9,10 +9,10 @@ import { Modal } from 'bootstrap';
 const account = computed(()=>AppState.account)
 
 const accountData = ref({
-    name: account.value.name,
-    picture: account.value.picture,
-    coverImg: account.value.coverImg,
-    email: account.value.email
+    name: '',
+    picture: '',
+    coverImg: '',
+    email: ''
 })
 
 async function updateAccount(){
