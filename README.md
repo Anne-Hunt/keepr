@@ -48,3 +48,6 @@ Application may:
 ## FIGMA/UML
 
 [FIGMA prototype](https://www.figma.com/proto/5ImMGVfWaUJwSYLU4xscBk/Keepr?scaling=scale-down&page-id=0:1&starting-point-node-id=7786:144&node-id=7786:144) and [document](https://www.figma.com/file/5ImMGVfWaUJwSYLU4xscBk/Keepr)
+
+## FUTURE PLANS
+Alter mobile view to better accomodate screens of different sizes
